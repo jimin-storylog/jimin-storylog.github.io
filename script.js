@@ -549,7 +549,20 @@
         });
         els.thumbs.appendChild(btn);
       });
+
+      window.requestAnimationFrame(syncThumbsScrollable);
     }
+
+    /* 썸네일 영역이 스크롤되는지에 따라 아래쪽 흐림 표시를 켜고 끈다 */
+    function syncThumbsScrollable() {
+      if (!els.thumbs) return;
+      var overflowing = els.thumbs.scrollHeight - els.thumbs.clientHeight > 2;
+      els.thumbs.classList.toggle("is-scrollable", overflowing);
+    }
+
+    window.addEventListener("resize", function () {
+      window.requestAnimationFrame(syncThumbsScrollable);
+    });
 
     openViewer = function (work, index) {
       if (!work || !work.photos.length) return;

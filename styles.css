@@ -1014,13 +1014,19 @@ body.is-locked {
   .viewer__thumbs {
     flex: 1 1 100%;
     flex-wrap: wrap;
-    max-height: min(32vh, 300px);
+    max-height: min(272px, 32vh);
     overflow-x: hidden;
     overflow-y: auto;
     overscroll-behavior: contain;
     padding-right: 4px;
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.24) transparent;
+  }
+
+  /* 더 보여 줄 썸네일이 있을 때만 아래쪽을 은은하게 흐리게 */
+  .viewer__thumbs.is-scrollable {
+    -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 calc(100% - 22px), transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0, #000 calc(100% - 22px), transparent 100%);
   }
 
   .viewer__thumbs::-webkit-scrollbar {
