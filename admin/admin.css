@@ -267,7 +267,8 @@ button {
 .login__row .btn {
   flex: 0 0 auto;
   white-space: nowrap;
-  padding-inline: 22px;
+  padding-inline: 24px;
+  border-radius: 8px;
 }
 
 .login__hint {
