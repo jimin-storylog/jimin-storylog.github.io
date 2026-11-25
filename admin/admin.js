@@ -1381,6 +1381,7 @@
     state.editingJourney = index == null ? blankJourney() : cloneJourney(state.travel[index]);
 
     dom.worksView.hidden = true;
+    dom.travelView.hidden = true;
     dom.filmographyView.hidden = true;
     dom.editorView.hidden = true;
     dom.travelEditorView.hidden = false;
