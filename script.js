@@ -450,6 +450,42 @@
     var isOpen = false;
     var pointerStart = null;
 
+    /* 활성 썸네일이 스크롤 영역 안으로 따라오게 한다.
+       좁은 화면은 한 줄 가로 스크롤 → scrollIntoView(inline: center),
+       넓은 화면은 레일 안 세로 목록 → 세로 위치를 직접 계산해 스크롤한다. */
+    function followThumb(btn) {
+      if (!btn) return;
+
+      var box = els.thumbs;
+      var behavior = reduceMotion ? "auto" : "smooth";
+      var horizontal = box.scrollWidth > box.clientWidth + 1;
+      var vertical = box.scrollHeight > box.clientHeight + 1;
+
+      if (horizontal && !vertical) {
+        try {
+          btn.scrollIntoView({ behavior: behavior, block: "nearest", inline: "center" });
+          return;
+        } catch (error) {
+          /* 아주 오래된 브라우저는 옵션 객체를 받지 않는다 */
+        }
+        box.scrollTo({
+          left: btn.offsetLeft - box.clientWidth / 2 + btn.offsetWidth / 2,
+          behavior: behavior
+        });
+        return;
+      }
+
+      if (vertical) {
+        var boxRect = box.getBoundingClientRect();
+        var btnRect = btn.getBoundingClientRect();
+        var top =
+          box.scrollTop +
+          (btnRect.top + btnRect.height / 2) -
+          (boxRect.top + boxRect.height / 2);
+        box.scrollTo({ left: box.scrollLeft, top: Math.max(0, top), behavior: behavior });
+      }
+    }
+
     function renderPhoto(i) {
       if (!current) return;
 
@@ -471,10 +507,7 @@
         var on = k === current.index;
         btn.classList.toggle("is-current", on);
         btn.setAttribute("aria-current", on ? "true" : "false");
-        if (on) {
-          var left = btn.offsetLeft - els.thumbs.clientWidth / 2 + btn.offsetWidth / 2;
-          els.thumbs.scrollTo({ left: left, behavior: reduceMotion ? "auto" : "smooth" });
-        }
+        if (on) followThumb(btn);
       });
 
       var done = function () {

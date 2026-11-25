@@ -714,9 +714,11 @@ button {
   position: fixed;
   inset: 0;
   z-index: 120;
+  height: 100%;
   background: var(--dark);
   color: #e9e5dd;
   opacity: 0;
+  overflow: hidden;
   transition: opacity 0.35s var(--ease);
 }
 
@@ -733,10 +735,20 @@ body.is-locked {
   flex-direction: column;
   height: 100%;
   min-height: 0;
+  overflow: hidden;
+}
+
+/* 폰 브라우저의 주소창이 접히고 펴질 때도 사진·썸네일이 화면 안에 남도록 */
+@supports (height: 100dvh) {
+  .viewer__inner {
+    height: 100dvh;
+  }
 }
 
 .viewer__rail {
-  padding: calc(56px + env(safe-area-inset-top)) var(--pad) 0;
+  flex: 0 0 auto;
+  min-height: 0;
+  padding: calc(52px + env(safe-area-inset-top)) calc(var(--pad) + 52px) 0 var(--pad);
 }
 
 .viewer__year {
@@ -762,21 +774,35 @@ body.is-locked {
   color: #a49e93;
 }
 
+/* 사진이 놓이는 스테이지: 남은 공간을 정확히 차지하고, 넘치는 부분은 감춘다 */
 .viewer__stage {
   position: relative;
-  flex: 1 1 auto;
+  flex: 1 1 0%;
   min-height: 0;
+  min-width: 0;
   display: flex;
   flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px var(--pad) 6px;
+  overflow: hidden;
+}
+
+/* 사진 한 장이 들어가는 캔버스 — 세로 남는 공간을 모두 차지한다 */
+.viewer__canvas {
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  padding: 14px var(--pad) 6px;
+  overflow: hidden;
 }
 
 .viewer__img {
   max-width: 100%;
-  max-height: calc(100% - 34px);
+  max-height: 100%;
   width: auto;
   height: auto;
   object-fit: contain;
@@ -791,12 +817,19 @@ body.is-locked {
 }
 
 .viewer__cap {
+  flex: 0 0 auto;
+  align-self: center;
   font-size: 11.5px;
+  line-height: 1.5;
   letter-spacing: 0.01em;
   color: #8e887d;
   text-align: center;
   max-width: 52ch;
   min-height: 1.2em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .viewer__nav {
@@ -829,19 +862,27 @@ body.is-locked {
 }
 
 .viewer__foot {
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 10px var(--pad) calc(14px + env(safe-area-inset-bottom));
+  min-height: 0;
+  padding: 8px var(--pad) calc(10px + env(safe-area-inset-bottom));
   border-top: 1px solid rgba(255, 255, 255, 0.07);
 }
 
+/* 썸네일은 사진이 몇십 장이든 한 줄 가로 스크롤로 고정한다 (세로 공간을 차지하지 않게) */
 .viewer__thumbs {
   display: flex;
-  flex: 1 1 auto;
+  flex: 1 1 0%;
+  flex-wrap: nowrap;
   gap: 8px;
   min-width: 0;
+  min-height: 0;
   overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
   scrollbar-width: none;
   padding: 2px 0;
 }
@@ -948,6 +989,7 @@ body.is-locked {
     grid-column: 2;
     grid-row: 1 / span 2;
     padding: 56px 76px 40px;
+    height: 100%;
   }
 
   .viewer__nav--prev {
@@ -962,13 +1004,33 @@ body.is-locked {
     grid-column: 1;
     grid-row: 2;
     flex-wrap: wrap;
-    padding: 16px 30px calc(22px + env(safe-area-inset-bottom));
+    align-content: flex-start;
+    max-height: 46vh;
+    padding: 14px 30px calc(18px + env(safe-area-inset-bottom));
+    overflow: hidden;
   }
 
+  /* 좌측 레일 안에서 썸네일은 내부 세로 스크롤 — 레일 밖으로 넘치지 않는다 */
   .viewer__thumbs {
     flex: 1 1 100%;
     flex-wrap: wrap;
-    overflow: visible;
+    max-height: min(32vh, 300px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-right: 4px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.24) transparent;
+  }
+
+  .viewer__thumbs::-webkit-scrollbar {
+    display: block;
+    width: 4px;
+  }
+
+  .viewer__thumbs::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.24);
+    border-radius: 4px;
   }
 
   .viewer__count {
@@ -1102,7 +1164,7 @@ body.is-locked {
 
   .viewer__nav {
     top: auto;
-    bottom: 8px;
+    bottom: 2px;
     transform: none;
     width: 42px;
     height: 42px;
@@ -1120,9 +1182,10 @@ body.is-locked {
     display: none;
   }
 
+  /* 사진 설명은 줄 수를 제한하고, 좌우 화살표 밑으로 글자가 들어가지 않게 */
   .viewer__cap {
     font-size: 11px;
-    padding: 0 4px;
+    padding: 0 46px;
   }
 }
 
