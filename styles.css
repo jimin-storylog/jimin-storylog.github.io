@@ -528,6 +528,40 @@ button {
   color: var(--muted);
 }
 
+/* ---------- Travel ---------- */
+.travel {
+  --gal-gap: clamp(14px, 1.2vw, 18px);
+}
+
+/* 긴 여정 이름(예: 산티아고 순례길-스페인•포르투갈•네덜란드•그리스)이
+   칩 밖으로 넘치지 않고 칩 안에서 두어 줄로 접히게 한다 */
+.filter__label {
+  min-width: 0;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.filters--travel {
+  align-items: flex-start;
+}
+
+.filters--travel .filter {
+  align-items: flex-start;
+  max-width: 100%;
+  line-height: 1.45;
+  text-align: left;
+}
+
+.filters--travel .filter__label {
+  min-width: 0;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.filters--travel .filter__n {
+  padding-top: 1px;
+}
+
 /* ---------- Filmography tabs ---------- */
 .tabs {
   display: flex;
@@ -1138,6 +1172,12 @@ body.is-locked {
   .filter {
     padding: 7px 12px;
     font-size: 12px;
+  }
+
+  /* 6개 여정 칩은 이름이 길어, 폭을 조금 줄여 두 줄로 자연스럽게 접히게 */
+  .filters--travel .filter {
+    padding: 7px 11px;
+    font-size: 11.5px;
   }
 
   .work__title {

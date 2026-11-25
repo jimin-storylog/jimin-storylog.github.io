@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex, nofollow">
   <meta name="googlebot" content="noindex, nofollow">
   <meta name="theme-color" content="#f5f3ee">
-  <title>JIMIN IM — 작품 관리</title>
+  <title>JIMIN IM — 작품 · 여행 관리</title>
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 
-  <link rel="stylesheet" href="admin.css?v=2">
+  <link rel="stylesheet" href="admin.css?v=10">
 </head>
 <body>
   <header class="topbar">
@@ -31,8 +31,8 @@
   <main class="page">
     <!-- ── 로그인 ───────────────────────────────────────── -->
     <section class="login" id="loginView">
-      <p class="kicker">Works · Admin</p>
-      <h1 class="login__title">작품 관리</h1>
+      <p class="kicker">Works · Travel · Admin</p>
+      <h1 class="login__title">작품 · 여행 관리</h1>
       <p class="login__lead">
         사진과 작품 정보를 고치면 이 브라우저에서 GitHub에 바로 올라가고,
         잠시 뒤 사이트에 반영됩니다.
@@ -84,8 +84,8 @@
     <section class="app" id="appView" hidden>
       <div class="app__head">
         <div>
-          <p class="kicker">Works · Admin</p>
-          <h1 class="app__title">작품 관리</h1>
+          <p class="kicker">Works · Travel · Admin</p>
+          <h1 class="app__title">작품 · 여행 관리</h1>
         </div>
         <p class="conn" id="connState"></p>
       </div>
@@ -102,6 +102,9 @@
       <div class="viewtabs" role="tablist" aria-label="관리 항목">
         <button class="viewtab is-active" id="tabWorks" type="button" role="tab" aria-selected="true" data-view="works">
           작품 <span class="viewtab__n" id="workCount">0</span>
+        </button>
+        <button class="viewtab" id="tabTravel" type="button" role="tab" aria-selected="false" data-view="travel">
+          여행 <span class="viewtab__n" id="travelCount">0</span>
         </button>
         <button class="viewtab" id="tabFilmo" type="button" role="tab" aria-selected="false" data-view="filmography">
           필모그래피
@@ -133,6 +136,24 @@
         <ul class="worklist" id="workList"></ul>
         <p class="empty" id="worksEmpty" hidden>
           <span id="worksEmptyText">아직 작품이 없습니다. <b>+ 새 작품</b>으로 첫 작품을 만들어 보세요.</span>
+        </p>
+      </div>
+
+      <!-- 여행 -->
+      <div class="view" id="travelView" hidden>
+        <div class="toolbar">
+          <button class="btn btn--primary" id="addJourneyBtn" type="button">+ 새 여정</button>
+          <span class="hint" id="travelHint"></span>
+        </div>
+
+        <p class="hint filmo__hint">
+          여정을 눌러 대표 사진과 사진 여러 장을 올리고, 연도·설명을 적을 수 있습니다.
+          사진을 올려 저장한 여정부터 사이트 Travel에 나타납니다.
+        </p>
+
+        <ul class="worklist" id="journeyList"></ul>
+        <p class="empty" id="travelEmpty" hidden>
+          <span>아직 여정이 없습니다. <b>+ 새 여정</b>으로 첫 여정을 만들어 보세요.</span>
         </p>
       </div>
 
@@ -243,6 +264,74 @@
         </div>
         <p class="msg" id="editorMsg" role="status"></p>
       </section>
+      <!-- 여행 편집 -->
+      <section class="editor" id="travelEditorView" hidden aria-labelledby="travelEditorTitle">
+        <div class="editor__head">
+          <button class="linkbtn" id="travelEditorBack" type="button">← 목록</button>
+          <h2 class="editor__title" id="travelEditorTitle">여정 편집</h2>
+          <button class="linkbtn linkbtn--danger" id="deleteJourneyBtn" type="button">이 여정 삭제</button>
+        </div>
+
+        <div class="field">
+          <span class="field__label">대표 사진</span>
+          <div class="cover">
+            <div class="cover__preview" id="coverPreviewT"><span>아직 없음</span></div>
+            <div class="cover__side">
+              <label class="btn btn--soft">
+                대표 사진 올리기
+                <input type="file" id="coverInputT" accept="image/*" hidden>
+              </label>
+              <p class="hint">폰 사진도 괜찮습니다. 긴 변 1600px · JPEG로 자동 변환됩니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div class="field">
+            <label class="field__label" for="fTTitle">여정 이름</label>
+            <input class="input" id="fTTitle" type="text" placeholder="도쿄">
+          </div>
+          <div class="field">
+            <label class="field__label" for="fTRegion">국가 · 지역</label>
+            <input class="input" id="fTRegion" type="text" placeholder="일본">
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div class="field">
+            <label class="field__label" for="fTYear">연도</label>
+            <input class="input" id="fTYear" type="text" inputmode="numeric" maxlength="4" placeholder="2024">
+          </div>
+          <div class="field">
+            <span class="field__label">사이트에 보이는 이름</span>
+            <p class="hint" id="fTLabelPreview">도쿄-일본</p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="fTDesc">한 줄 설명 (선택)</label>
+          <input class="input" id="fTDesc" type="text" maxlength="80" placeholder="첫 눈을 만난 거리">
+        </div>
+
+        <div class="field">
+          <div class="field__head">
+            <span class="field__label">사진 <span class="field__count" id="photoCountT"></span></span>
+            <label class="btn btn--soft">
+              사진 추가
+              <input type="file" id="photosInputT" accept="image/*" multiple hidden>
+            </label>
+          </div>
+          <p class="hint">순서를 바꾸거나, 대표로 쓸 사진을 고를 수 있습니다.</p>
+          <ul class="photos" id="photoListT"></ul>
+          <p class="empty empty--small" id="photosEmptyT">아직 사진이 없습니다. <b>사진 추가</b>를 눌러 주세요.</p>
+        </div>
+
+        <div class="editor__foot">
+          <button class="btn btn--primary" id="travelEditorDone" type="button">이 여정 반영하기</button>
+          <button class="btn btn--soft" id="travelEditorCancel" type="button">취소</button>
+        </div>
+        <p class="msg" id="travelEditorMsg" role="status"></p>
+      </section>
     </section>
   </main>
 
@@ -256,6 +345,6 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="admin.js?v=7"></script>
+  <script src="admin.js?v=10"></script>
 </body>
 </html>

@@ -1,0 +1,65 @@
+{
+  "updated": "2026-11-25T15:53:14.000Z",
+  "journeys": [
+    {
+      "id": "tokyo-japan",
+      "label": "도쿄-일본",
+      "title": "도쿄",
+      "region": "일본",
+      "year": "",
+      "desc": "",
+      "cover": "",
+      "photos": []
+    },
+    {
+      "id": "new-york-usa",
+      "label": "뉴욕-미국",
+      "title": "뉴욕",
+      "region": "미국",
+      "year": "",
+      "desc": "",
+      "cover": "",
+      "photos": []
+    },
+    {
+      "id": "buenos-aires-argentina",
+      "label": "부에노스아이레스-아르헨티나",
+      "title": "부에노스아이레스",
+      "region": "아르헨티나",
+      "year": "",
+      "desc": "",
+      "cover": "",
+      "photos": []
+    },
+    {
+      "id": "fjallraven-classic-sweden-turkiye",
+      "label": "피엘라벤 클래식-스웨덴•튀르키예",
+      "title": "피엘라벤 클래식",
+      "region": "스웨덴•튀르키예",
+      "year": "",
+      "desc": "",
+      "cover": "",
+      "photos": []
+    },
+    {
+      "id": "camino-de-santiago-spain-portugal-netherlands-greece",
+      "label": "산티아고 순례길-스페인•포르투갈•네덜란드•그리스",
+      "title": "산티아고 순례길",
+      "region": "스페인•포르투갈•네덜란드•그리스",
+      "year": "",
+      "desc": "",
+      "cover": "",
+      "photos": []
+    },
+    {
+      "id": "annapurna-trek-nepal-india-sri-lanka-indonesia",
+      "label": "안나푸르나 트레킹-네팔•인도•스리랑카•인도네시아",
+      "title": "안나푸르나 트레킹",
+      "region": "네팔•인도•스리랑카•인도네시아",
+      "year": "",
+      "desc": "",
+      "cover": "",
+      "photos": []
+    }
+  ]
+}

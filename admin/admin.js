@@ -22,6 +22,24 @@
     product: "제품"
   };
 
+  /* 여행 중본류 — data/travel.json 이 비었을 때 이 6개로 자리를 지킨다 */
+  var TRAVEL_JOURNEYS = [
+    { id: "tokyo-japan", title: "도쿄", region: "일본" },
+    { id: "new-york-usa", title: "뉴욕", region: "미국" },
+    { id: "buenos-aires-argentina", title: "부에노스아이레스", region: "아르헨티나" },
+    { id: "fjallraven-classic-sweden-turkiye", title: "피엘라벤 클래식", region: "스웨덴•튀르키예" },
+    {
+      id: "camino-de-santiago-spain-portugal-netherlands-greece",
+      title: "산티아고 순례길",
+      region: "스페인•포르투갈•네덜란드•그리스"
+    },
+    {
+      id: "annapurna-trek-nepal-india-sri-lanka-indonesia",
+      title: "안나푸르나 트레킹",
+      region: "네팔•인도•스리랑카•인도네시아"
+    }
+  ];
+
   /* 방송사·플랫폼 — 자주 쓰는 것만 목록에 두고, 나머지는 직접 입력 */
   var NETWORKS = [
     "SBS", "KBS", "MBC", "tvN", "JTBC", "ENA", "OCN",
@@ -43,12 +61,17 @@
     login: "",
     works: [],
     worksSha: null,
+    travel: [],
+    travelSha: null,
     filmography: null,
     filmographySha: null,
     dirtyWorks: false,
+    dirtyTravel: false,
     dirtyFilmo: false,
     editing: null,
     editingIndex: null,
+    editingJourney: null,
+    editingJourneyIndex: null,
     busy: false,
     view: "works",
     listFilter: "all",   /* all | ready | empty — 사진 등록 상태로 거르기 */
@@ -60,7 +83,12 @@
     "connState", "workCount", "workList", "worksEmpty", "worksEmptyText", "addWorkBtn", "worksHint",
     "filterAll", "filterReady", "filterEmpty", "countAll", "countReady", "countEmpty", "workSearch",
     "photoWait",
-    "tabWorks", "tabFilmo", "worksView", "filmographyView", "filmoCats",
+    "tabWorks", "tabTravel", "tabFilmo", "worksView", "travelView", "filmographyView", "filmoCats",
+    "journeyList", "travelEmpty", "travelHint", "addJourneyBtn", "travelCount",
+    "travelEditorView", "travelEditorTitle", "travelEditorBack", "deleteJourneyBtn",
+    "coverPreviewT", "coverInputT", "fTTitle", "fTRegion", "fTYear", "fTDesc", "fTLabelPreview",
+    "photoCountT", "photosInputT", "photoListT", "photosEmptyT",
+    "travelEditorDone", "travelEditorCancel", "travelEditorMsg",
     "editorView", "editorTitle", "editorBack", "deleteWorkBtn", "coverPreview", "coverInput",
     "fYear", "fCategory", "fTitle", "fContribution", "fNetwork", "fNetworkCustom", "photoCount", "photosInput", "photoList",
     "photosEmpty", "editorDone", "editorCancel", "editorMsg",
@@ -82,6 +110,18 @@
 
   function uid() {
     return Math.random().toString(36).slice(2, 10);
+  }
+
+  function clonePhoto(photo) {
+    return {
+      key: photo.key,
+      src: photo.src,
+      caption: photo.caption,
+      w: photo.w,
+      h: photo.h,
+      blob: photo.blob,
+      preview: photo.preview
+    };
   }
 
   function slugId(value) {
@@ -137,6 +177,11 @@
     dom.editorMsg.className = "msg" + (isError ? " is-error" : "");
   }
 
+  function setTravelEditorMsg(message, isError) {
+    dom.travelEditorMsg.textContent = message || "";
+    dom.travelEditorMsg.className = "msg" + (isError ? " is-error" : "");
+  }
+
   function setConn(text, kind) {
     dom.connState.textContent = text;
     dom.connState.className = "conn" + (kind ? " is-" + kind : "");
@@ -156,8 +201,8 @@
 
     dom.saveBar.classList.remove("is-busy");
 
-    var dirty = state.dirtyWorks || state.dirtyFilmo;
-    var inEditor = !dom.editorView.hidden;
+    var dirty = state.dirtyWorks || state.dirtyTravel || state.dirtyFilmo;
+    var inEditor = !dom.editorView.hidden || !dom.travelEditorView.hidden;
 
     if (!dirty || inEditor) {
       dom.saveBar.hidden = true;
@@ -172,13 +217,17 @@
       return;
     }
 
-    if (state.dirtyWorks && state.dirtyFilmo) setSaveState("작품 · 필모그래피 변경 사항이 있습니다");
-    else if (state.dirtyWorks) setSaveState("작품 변경 사항이 있습니다");
-    else setSaveState("필모그래피 변경 사항이 있습니다");
+    var parts = [];
+    if (state.dirtyWorks) parts.push("작품");
+    if (state.dirtyTravel) parts.push("여행");
+    if (state.dirtyFilmo) parts.push("필모그래피");
+
+    setSaveState(parts.join(" · ") + " 변경 사항이 있습니다");
   }
 
   function markDirty(kind) {
     if (kind === "works") state.dirtyWorks = true;
+    if (kind === "travel") state.dirtyTravel = true;
     if (kind === "filmo") state.dirtyFilmo = true;
     updateSaveBar();
   }
@@ -202,6 +251,9 @@
     dom.logoutBtn.hidden = state.mode !== "github";
     if (state.mode === "github") {
       dom.worksHint.textContent = "사진이 없는 작품은 공개 사이트에 나오지 않습니다.";
+      dom.travelHint.textContent = "사진을 올린 여정만 사이트 Travel에 나타납니다.";
+    } else {
+      dom.travelHint.textContent = "";
     }
   }
 
@@ -209,15 +261,20 @@
     state.view = view;
 
     var isWorks = view === "works";
+    var isTravel = view === "travel";
+    var isFilmo = view === "filmography";
 
     dom.tabWorks.classList.toggle("is-active", isWorks);
-    dom.tabFilmo.classList.toggle("is-active", !isWorks);
+    dom.tabTravel.classList.toggle("is-active", isTravel);
+    dom.tabFilmo.classList.toggle("is-active", isFilmo);
     dom.tabWorks.setAttribute("aria-selected", isWorks ? "true" : "false");
-    dom.tabFilmo.setAttribute("aria-selected", isWorks ? "false" : "true");
+    dom.tabTravel.setAttribute("aria-selected", isTravel ? "true" : "false");
+    dom.tabFilmo.setAttribute("aria-selected", isFilmo ? "true" : "false");
 
-    if (dom.editorView.hidden) {
+    if (dom.editorView.hidden && dom.travelEditorView.hidden) {
       dom.worksView.hidden = !isWorks;
-      dom.filmographyView.hidden = isWorks;
+      dom.travelView.hidden = !isTravel;
+      dom.filmographyView.hidden = !isFilmo;
     }
 
     updateSaveBar();
@@ -404,10 +461,13 @@
     state.login = "";
     state.mode = "preview";
     state.works = [];
+    state.travel = [];
     state.filmography = null;
     state.worksSha = null;
+    state.travelSha = null;
     state.filmographySha = null;
     state.dirtyWorks = false;
+    state.dirtyTravel = false;
     state.dirtyFilmo = false;
 
     try {
@@ -420,7 +480,7 @@
 
   /* ---------- 데이터 불러오기 ---------- */
   function loadAll() {
-    return Promise.all([loadWorksFile(), loadFilmographyFile()]);
+    return Promise.all([loadWorksFile(), loadTravelFile(), loadFilmographyFile()]);
   }
 
   function loadWorksFile() {
@@ -449,6 +509,20 @@
     });
   }
 
+  function loadTravelFile() {
+    return apiGetFile("data/travel.json").then(function (file) {
+      var data = JSON.parse(file.text);
+      applyTravel(data && data.journeys ? data.journeys : [], file.sha);
+    }).catch(function (error) {
+      if (error.status === 404) {
+        applyTravel(TRAVEL_JOURNEYS, null);
+        return;
+      }
+      toast("여행 목록을 불러오지 못했습니다. " + describeError(error), "error");
+      applyTravel(TRAVEL_JOURNEYS, null);
+    });
+  }
+
   function loadPreviewData() {
     fetch("../data/works.json?v=" + Date.now(), { cache: "no-store" })
       .then(function (response) {
@@ -474,6 +548,18 @@
       .catch(function () {
         applyFilmography(null, null);
       });
+
+    fetch("../data/travel.json?v=" + Date.now(), { cache: "no-store" })
+      .then(function (response) {
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        return response.json();
+      })
+      .then(function (data) {
+        applyTravel(data && data.journeys ? data.journeys : [], null);
+      })
+      .catch(function () {
+        applyTravel(TRAVEL_JOURNEYS, null);
+      });
   }
 
   function startPreview() {
@@ -482,6 +568,7 @@
     showApp();
     setConn("미리보기 모드 · 저장 불가", "preview");
     dom.worksHint.textContent = "미리보기입니다. 저장하려면 토큰으로 로그인하세요.";
+    dom.travelHint.textContent = "미리보기입니다. 저장하려면 토큰으로 로그인하세요.";
     loadPreviewData();
   }
 
@@ -787,16 +874,16 @@
     });
   }
 
-  function addFiles(files, asCover) {
+  function addFiles(holder, files, asCover, rerender, setMsg) {
     var list = Array.prototype.slice.call(files || []);
-    if (!list.length || !state.editing) return;
+    if (!list.length || !holder) return;
 
-    var work = state.editing;
+    var work = holder;
     var chain = Promise.resolve();
 
     list.forEach(function (file, i) {
       chain = chain.then(function () {
-        setEditorMsg("사진 준비 중… " + (i + 1) + " / " + list.length);
+        setMsg("사진 준비 중… " + (i + 1) + " / " + list.length);
         return processImage(file).then(function (result) {
           var photo = {
             key: uid(),
@@ -822,10 +909,12 @@
     });
 
     chain.then(function () {
-      setEditorMsg("");
+      setMsg("");
       dom.coverInput.value = "";
       dom.photosInput.value = "";
-      renderEditor();
+      dom.coverInputT.value = "";
+      dom.photosInputT.value = "";
+      rerender();
     });
   }
 
@@ -835,7 +924,9 @@
     state.editing = index == null ? blankWork() : cloneWork(state.works[index]);
 
     dom.worksView.hidden = true;
+    dom.travelView.hidden = true;
     dom.filmographyView.hidden = true;
+    dom.travelEditorView.hidden = true;
     dom.editorView.hidden = false;
     dom.editorTitle.textContent = index == null ? "새 작품" : "작품 편집";
     dom.deleteWorkBtn.hidden = index == null;
@@ -926,11 +1017,11 @@
     dom.photoList.innerHTML = "";
 
     work.photos.forEach(function (photo, index) {
-      dom.photoList.appendChild(photoRow(work, photo, index));
+      dom.photoList.appendChild(photoRow(work, photo, index, renderEditor));
     });
   }
 
-  function photoRow(work, photo, index) {
+  function photoRow(work, photo, index, rerender) {
     var row = el("li", "photo" + (photo.key === work.coverKey ? " is-cover" : ""));
 
     var thumb = el("div", "photo__thumb");
@@ -966,7 +1057,7 @@
       var at = work.photos.indexOf(photo);
       if (at > 0) work.photos.splice(0, 0, work.photos.splice(at, 1)[0]);
       work.coverKey = photo.key;
-      renderEditor();
+      rerender();
     });
 
     var up = el("button", "chip", "↑");
@@ -976,7 +1067,7 @@
     up.addEventListener("click", function () {
       if (index === 0) return;
       work.photos.splice(index - 1, 0, work.photos.splice(index, 1)[0]);
-      renderEditor();
+      rerender();
     });
 
     var down = el("button", "chip", "↓");
@@ -986,7 +1077,7 @@
     down.addEventListener("click", function () {
       if (index === work.photos.length - 1) return;
       work.photos.splice(index + 1, 0, work.photos.splice(index, 1)[0]);
-      renderEditor();
+      rerender();
     });
 
     var remove = el("button", "chip chip--danger", "삭제");
@@ -996,7 +1087,7 @@
       if (work.coverKey === photo.key) {
         work.coverKey = work.photos.length ? work.photos[0].key : "";
       }
-      renderEditor();
+      rerender();
     });
 
     acts.appendChild(coverBtn);
@@ -1069,6 +1160,346 @@
     closeEditor();
     markDirty("works");
     renderWorks();
+    toast("목록에서 지웠습니다. 저장을 눌러 사이트에 반영하세요.");
+  }
+
+  /* ---------- 여행 ---------- */
+  function journeyLabel(journey) {
+    if (!journey) return "";
+    if (journey.label) return journey.label;
+    return [journey.title, journey.region].filter(Boolean).join("-");
+  }
+
+  function normalizeJourney(raw) {
+    raw = raw || {};
+
+    var photos = (Array.isArray(raw.photos) ? raw.photos : []).map(function (photo) {
+      return {
+        key: uid(),
+        src: photo && photo.src ? String(photo.src) : "",
+        caption: photo && photo.caption ? String(photo.caption) : "",
+        w: (photo && Number(photo.w)) || 0,
+        h: (photo && Number(photo.h)) || 0,
+        blob: null,
+        preview: ""
+      };
+    }).filter(function (photo) {
+      return photo.src;
+    });
+
+    var cover = raw.cover ? String(raw.cover) : "";
+    var coverPhoto = photos.filter(function (photo) {
+      return photo.src === cover;
+    })[0];
+
+    if (cover && !coverPhoto) {
+      coverPhoto = { key: uid(), src: cover, caption: "", w: 0, h: 0, blob: null, preview: "" };
+      photos.unshift(coverPhoto);
+    }
+
+    if (!coverPhoto && photos.length) coverPhoto = photos[0];
+
+    return {
+      id: raw.id ? String(raw.id) : "travel-" + uid(),
+      label: raw.label ? String(raw.label) : "",
+      title: raw.title ? String(raw.title).trim() : "",
+      region: raw.region ? String(raw.region).trim() : "",
+      year: raw.year ? String(raw.year).trim() : "",
+      desc: raw.desc ? String(raw.desc) : "",
+      photos: photos,
+      coverKey: coverPhoto ? coverPhoto.key : ""
+    };
+  }
+
+  function blankJourney() {
+    return {
+      id: "travel-" + uid(),
+      label: "",
+      title: "",
+      region: "",
+      year: "",
+      desc: "",
+      photos: [],
+      coverKey: ""
+    };
+  }
+
+  function cloneJourney(journey) {
+    return {
+      id: journey.id,
+      label: journey.label,
+      title: journey.title,
+      region: journey.region,
+      year: journey.year,
+      desc: journey.desc,
+      coverKey: journey.coverKey,
+      photos: journey.photos.map(function (photo) {
+        return clonePhoto(photo);
+      })
+    };
+  }
+
+  function serializeJourney(journey) {
+    var cover = coverOf(journey);
+
+    return {
+      id: journey.id,
+      label: journeyLabel(journey),
+      title: journey.title,
+      region: journey.region,
+      year: journey.year || "",
+      desc: journey.desc || "",
+      cover: cover ? cover.src : "",
+      photos: journey.photos.map(function (photo) {
+        return {
+          src: photo.src,
+          caption: photo.caption || "",
+          w: photo.w || 0,
+          h: photo.h || 0
+        };
+      })
+    };
+  }
+
+  function applyTravel(list, sha) {
+    state.travelSha = sha || null;
+
+    var journeys = (Array.isArray(list) ? list : []).map(normalizeJourney);
+
+    /* 파일이 비었거든 6개 여정이 사라졌을 때는 기본 여정으로 되살린다 */
+    if (!journeys.length) journeys = TRAVEL_JOURNEYS.map(normalizeJourney);
+
+    state.travel = journeys;
+    state.dirtyTravel = false;
+    renderTravel();
+    updateSaveBar();
+  }
+
+  function renderTravel() {
+    dom.travelCount.textContent = String(state.travel.length);
+    dom.journeyList.innerHTML = "";
+
+    state.travel.forEach(function (journey, index) {
+      dom.journeyList.appendChild(journeyRow(journey, index));
+    });
+
+    dom.travelEmpty.hidden = state.travel.length > 0;
+  }
+
+  function journeyRow(journey, index) {
+    var row = el("li", "workrow" + (hasPhotos(journey) ? "" : " is-waiting"));
+
+    var thumb = el("div", "workrow__thumb");
+    var cover = coverOf(journey);
+
+    if (cover && photoUrl(cover)) {
+      var img = document.createElement("img");
+      img.src = photoUrl(cover);
+      img.alt = "";
+      img.loading = "lazy";
+      thumb.appendChild(img);
+    } else {
+      thumb.appendChild(el("span", "workrow__ph", "사진 대기"));
+    }
+
+    var body = el("div", "workrow__body");
+    var meta = [journey.year, journey.region].filter(Boolean).join(" · ");
+
+    var metaEl = el("p", "workrow__meta", meta);
+    if (!hasPhotos(journey)) metaEl.appendChild(el("span", "badge", "사진 미등록"));
+    body.appendChild(metaEl);
+
+    body.appendChild(el("p", "workrow__title", journeyLabel(journey) || "(이름 없음)"));
+
+    var sub = journey.desc || "설명 없음";
+    sub += hasPhotos(journey) ? " · 사진 " + journey.photos.length + "장" : " · 사진 없음";
+    body.appendChild(el("p", "workrow__sub", sub));
+
+    var acts = el("div", "workrow__acts");
+
+    var up = el("button", "iconbtn");
+    up.innerHTML = ICONS.up;
+    up.type = "button";
+    up.title = "위로";
+    up.setAttribute("aria-label", journeyLabel(journey) + " 위로 이동");
+    up.disabled = index === 0;
+    up.addEventListener("click", function () {
+      moveJourney(index, -1);
+    });
+
+    var down = el("button", "iconbtn");
+    down.innerHTML = ICONS.down;
+    down.type = "button";
+    down.title = "아래로";
+    down.setAttribute("aria-label", journeyLabel(journey) + " 아래로 이동");
+    down.disabled = index === state.travel.length - 1;
+    down.addEventListener("click", function () {
+      moveJourney(index, 1);
+    });
+
+    var edit = el("button", "iconbtn");
+    edit.innerHTML = ICONS.edit;
+    edit.type = "button";
+    edit.title = hasPhotos(journey) ? "수정" : "사진 올리기 · 수정";
+    edit.setAttribute("aria-label", journeyLabel(journey) + " 수정");
+    edit.addEventListener("click", function () {
+      openTravelEditor(index);
+    });
+
+    acts.appendChild(up);
+    acts.appendChild(down);
+    acts.appendChild(edit);
+
+    [thumb, body].forEach(function (cell) {
+      cell.classList.add("workrow__cell");
+      cell.addEventListener("click", function () {
+        openTravelEditor(index);
+      });
+    });
+
+    row.appendChild(thumb);
+    row.appendChild(body);
+    row.appendChild(acts);
+
+    return row;
+  }
+
+  function moveJourney(index, direction) {
+    var target = index + direction;
+    if (target < 0 || target >= state.travel.length) return;
+
+    var moved = state.travel.splice(index, 1)[0];
+    state.travel.splice(target, 0, moved);
+
+    markDirty("travel");
+    renderTravel();
+  }
+
+  /* ---------- 여행 편집 ---------- */
+  function openTravelEditor(index) {
+    state.editingJourneyIndex = index == null ? null : index;
+    state.editingJourney = index == null ? blankJourney() : cloneJourney(state.travel[index]);
+
+    dom.worksView.hidden = true;
+    dom.filmographyView.hidden = true;
+    dom.editorView.hidden = true;
+    dom.travelEditorView.hidden = false;
+    dom.travelEditorTitle.textContent = index == null ? "새 여정" : "여정 편집";
+    dom.deleteJourneyBtn.hidden = index == null;
+
+    var journey = state.editingJourney;
+
+    dom.fTTitle.value = journey.title;
+    dom.fTRegion.value = journey.region;
+    dom.fTYear.value = journey.year;
+    dom.fTDesc.value = journey.desc;
+
+    setTravelEditorMsg("");
+    renderTravelEditor();
+    updateSaveBar();
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function closeTravelEditor() {
+    state.editingJourney = null;
+    state.editingJourneyIndex = null;
+    dom.travelEditorView.hidden = true;
+    setView(state.view);
+  }
+
+  function renderTravelEditor() {
+    var journey = state.editingJourney;
+    if (!journey) return;
+
+    var cover = coverOf(journey);
+
+    dom.coverPreviewT.innerHTML = "";
+
+    if (cover && photoUrl(cover)) {
+      var img = document.createElement("img");
+      img.src = photoUrl(cover);
+      img.alt = "";
+      dom.coverPreviewT.appendChild(img);
+    } else {
+      dom.coverPreviewT.appendChild(el("span", null, "사진 대기"));
+    }
+
+    dom.photoCountT.textContent = "· " + journey.photos.length + "장";
+    dom.photosEmptyT.hidden = journey.photos.length > 0;
+    dom.photoListT.innerHTML = "";
+
+    journey.photos.forEach(function (photo, index) {
+      dom.photoListT.appendChild(photoRow(journey, photo, index, renderTravelEditor));
+    });
+
+    updateLabelPreview();
+  }
+
+  function updateLabelPreview() {
+    if (!dom.fTLabelPreview || !state.editingJourney) return;
+
+    var label = [dom.fTTitle.value.trim(), dom.fTRegion.value.trim()]
+      .filter(Boolean)
+      .join("-");
+
+    dom.fTLabelPreview.textContent = label || "—";
+  }
+
+  function commitJourney() {
+    var journey = state.editingJourney;
+    if (!journey) return;
+
+    var title = dom.fTTitle.value.trim();
+    var region = dom.fTRegion.value.trim();
+
+    if (!title && !region) {
+      setTravelEditorMsg("여정 이름을 입력해 주세요.", true);
+      dom.fTTitle.focus();
+      return;
+    }
+
+    journey.title = title || region;
+    journey.region = region;
+    journey.label = [journey.title, journey.region].filter(Boolean).join("-");
+    journey.year = dom.fTYear.value.trim();
+    journey.desc = dom.fTDesc.value.trim();
+
+    if (!journey.photos.length) {
+      journey.coverKey = "";
+    } else if (!coverOf(journey)) {
+      journey.coverKey = journey.photos[0].key;
+    }
+
+    if (state.editingJourneyIndex == null) {
+      state.travel.push(journey);
+    } else {
+      state.travel[state.editingJourneyIndex] = journey;
+    }
+
+    closeTravelEditor();
+    markDirty("travel");
+    renderTravel();
+
+    if (!journey.photos.length) {
+      toast("사진이 없어 사이트 Travel에는 나오지 않습니다. 사진을 올려 저장하면 그때 나타납니다.");
+    }
+  }
+
+  function deleteJourney() {
+    if (state.editingJourneyIndex == null) return;
+
+    var journey = state.travel[state.editingJourneyIndex];
+    var label = journeyLabel(journey) || "이 여정";
+
+    if (!window.confirm("‘" + label + "’을(를) 목록에서 지울까요?\n(사진 파일은 GitHub에 그대로 남습니다. 저장을 눌러야 사이트에 반영됩니다.)")) {
+      return;
+    }
+
+    state.travel.splice(state.editingJourneyIndex, 1);
+    closeTravelEditor();
+    markDirty("travel");
+    renderTravel();
     toast("목록에서 지웠습니다. 저장을 눌러 사이트에 반영하세요.");
   }
 
@@ -1218,6 +1649,46 @@
     });
   }
 
+  function saveTravel() {
+    var uploads = [];
+
+    state.travel.forEach(function (journey) {
+      journey.photos.forEach(function (photo) {
+        if (photo.blob) uploads.push({ journey: journey, photo: photo });
+      });
+    });
+
+    var stamp = Date.now();
+    var chain = Promise.resolve();
+
+    uploads.forEach(function (item, index) {
+      chain = chain.then(function () {
+        var path = "assets/uploads/travel-" + slugId(item.journey.id) + "-" + stamp + "-" + (index + 1) + ".jpg";
+        setSaveState("여행 사진 " + (index + 1) + " / " + uploads.length + " 올리는 중…");
+
+        return blobToBase64(item.photo.blob).then(function (base64) {
+          return putFile(path, base64, "admin: add photo " + path, null);
+        }).then(function () {
+          item.photo.src = path;
+          item.photo.blob = null;
+        });
+      });
+    });
+
+    return chain.then(function () {
+      setSaveState("여행 목록 저장 중…");
+
+      var payload = {
+        updated: new Date().toISOString(),
+        journeys: state.travel.map(serializeJourney)
+      };
+
+      return putJson("data/travel.json", payload, state.travelSha, "admin: update travel").then(function (response) {
+        state.travelSha = response && response.content ? response.content.sha : state.travelSha;
+      });
+    });
+  }
+
   function save() {
     if (state.busy) return;
 
@@ -1226,7 +1697,7 @@
       return;
     }
 
-    if (!state.dirtyWorks && !state.dirtyFilmo) {
+    if (!state.dirtyWorks && !state.dirtyTravel && !state.dirtyFilmo) {
       toast("저장할 변경 사항이 없습니다.");
       return;
     }
@@ -1238,14 +1709,17 @@
 
     var job = Promise.resolve();
     if (state.dirtyWorks) job = job.then(saveWorks);
+    if (state.dirtyTravel) job = job.then(saveTravel);
     if (state.dirtyFilmo) job = job.then(saveFilmography);
 
     job.then(function () {
       state.dirtyWorks = false;
+      state.dirtyTravel = false;
       state.dirtyFilmo = false;
       dom.doneBox.hidden = false;
       toast("사이트에 반영했습니다. 1~2분 뒤 사이트에서 확인해 보세요.", "ok");
       renderWorks();
+      renderTravel();
       window.scrollTo({ top: 0, behavior: "smooth" });
     }).catch(function (error) {
       toast("저장하지 못했습니다. " + describeError(error), "error");
@@ -1277,12 +1751,44 @@
       setView("works");
     });
 
+    dom.tabTravel.addEventListener("click", function () {
+      setView("travel");
+    });
+
     dom.tabFilmo.addEventListener("click", function () {
       setView("filmography");
     });
 
     dom.addWorkBtn.addEventListener("click", function () {
       openEditor(null);
+    });
+
+    dom.addJourneyBtn.addEventListener("click", function () {
+      openTravelEditor(null);
+    });
+
+    dom.travelEditorDone.addEventListener("click", commitJourney);
+    dom.deleteJourneyBtn.addEventListener("click", deleteJourney);
+
+    dom.fTTitle.addEventListener("input", updateLabelPreview);
+    dom.fTRegion.addEventListener("input", updateLabelPreview);
+
+    dom.coverInputT.addEventListener("change", function () {
+      addFiles(state.editingJourney, dom.coverInputT.files, true, renderTravelEditor, setTravelEditorMsg);
+    });
+
+    dom.photosInputT.addEventListener("change", function () {
+      addFiles(state.editingJourney, dom.photosInputT.files, false, renderTravelEditor, setTravelEditorMsg);
+    });
+
+    [dom.travelEditorBack, dom.travelEditorCancel].forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var journey = state.editingJourney;
+        if (journey && (journey.photos.length || journey.title || journey.region)) {
+          if (!window.confirm("이 여정의 수정 내용을 버릴까요?")) return;
+        }
+        closeTravelEditor();
+      });
     });
 
     [dom.filterAll, dom.filterReady, dom.filterEmpty].forEach(function (btn) {
@@ -1323,11 +1829,11 @@
     });
 
     dom.coverInput.addEventListener("change", function () {
-      addFiles(dom.coverInput.files, true);
+      addFiles(state.editing, dom.coverInput.files, true, renderEditor, setEditorMsg);
     });
 
     dom.photosInput.addEventListener("change", function () {
-      addFiles(dom.photosInput.files, false);
+      addFiles(state.editing, dom.photosInput.files, false, renderEditor, setEditorMsg);
     });
 
     dom.saveBtn.addEventListener("click", save);
@@ -1337,7 +1843,7 @@
     });
 
     window.addEventListener("beforeunload", function (event) {
-      if (state.dirtyWorks || state.dirtyFilmo) {
+      if (state.dirtyWorks || state.dirtyTravel || state.dirtyFilmo) {
         event.preventDefault();
         event.returnValue = "";
       }

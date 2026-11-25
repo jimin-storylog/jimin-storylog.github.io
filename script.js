@@ -11,7 +11,8 @@
     behind: { ko: "비하인드", en: "BEHIND" },
     documentary: { ko: "다큐멘터리", en: "DOCUMENTARY" },
     event: { ko: "행사", en: "EVENT" },
-    product: { ko: "제품", en: "PRODUCT" }
+    product: { ko: "제품", en: "PRODUCT" },
+    travel: { ko: "여행", en: "TRAVEL" }
   };
   var CATEGORY_ORDER = [
     "still",
@@ -244,7 +245,13 @@
       btn.className = "filter" + (key === activeFilter ? " is-active" : "");
       btn.dataset.filter = key;
       btn.setAttribute("aria-pressed", key === activeFilter ? "true" : "false");
-      btn.textContent = label + " ";
+
+      /* 이름과 개수를 각각 span 으로 두어, 긴 이름(예: 산티아고 순례길-스페인•포르투갈…)도
+         좁은 화면에서 칩 안에서 자연스럽게 줄바꿈된다 */
+      var name = document.createElement("span");
+      name.className = "filter__label";
+      name.textContent = label;
+      btn.appendChild(name);
 
       var n = document.createElement("span");
       n.className = "filter__n";
@@ -361,34 +368,23 @@
     return card;
   }
 
-  function renderGallery() {
-    if (!gallery) return;
+  /* 4열/3열/2열 메이슨리: 카드 높이를 열 폭에서 재고 가장 낮은 열부터 쌓는다.
+     Selected Works 와 Travel 이 같은 방식을 함께 쓴다. */
+  function layoutMasonry(container, cards) {
+    if (!container) return;
 
-    var shown = works.filter(function (work) {
-      return activeFilter === "all" || work.category === activeFilter;
-    });
+    container.innerHTML = "";
 
-    gallery.innerHTML = "";
-    galleryCols = galleryColumns();
-
-    if (!shown.length) {
-      setStatus("이 분류에는 아직 사진이 등록된 작품이 없습니다.");
-      return;
-    }
-
-    setStatus("");
-
+    var cols = galleryColumns();
     var columns = [];
-    for (var i = 0; i < galleryCols; i += 1) {
+
+    for (var i = 0; i < cols; i += 1) {
       var col = document.createElement("div");
       col.className = "gallery__col";
-      gallery.appendChild(col);
+      container.appendChild(col);
       columns.push(col);
     }
 
-    var cards = shown.map(createCard);
-
-    /* 열 폭에서의 실제 카드 높이를 재고, 가장 낮은 열부터 차례로 쌓는다 */
     cards.forEach(function (card) {
       columns[0].appendChild(card);
     });
@@ -397,7 +393,7 @@
       return card.getBoundingClientRect().height;
     });
 
-    var gap = parseFloat(window.getComputedStyle(gallery).rowGap) || 16;
+    var gap = parseFloat(window.getComputedStyle(container).rowGap) || 16;
     var loads = columns.map(function () { return 0; });
 
     cards.forEach(function (card, k) {
@@ -410,6 +406,25 @@
     });
   }
 
+  function renderGallery() {
+    if (!gallery) return;
+
+    var shown = works.filter(function (work) {
+      return activeFilter === "all" || work.category === activeFilter;
+    });
+
+    galleryCols = galleryColumns();
+
+    if (!shown.length) {
+      gallery.innerHTML = "";
+      setStatus("이 분류에는 아직 사진이 등록된 작품이 없습니다.");
+      return;
+    }
+
+    setStatus("");
+    layoutMasonry(gallery, shown.map(createCard));
+  }
+
   function galleryColumns() {
     if (window.matchMedia("(min-width: 1200px)").matches) return 4;
     if (window.matchMedia("(min-width: 720px)").matches) return 3;
@@ -419,10 +434,10 @@
   var galleryResizeTimer = null;
 
   window.addEventListener("resize", function () {
-    if (!gallery) return;
     window.clearTimeout(galleryResizeTimer);
     galleryResizeTimer = window.setTimeout(function () {
-      if (galleryColumns() !== galleryCols) renderGallery();
+      if (gallery && galleryColumns() !== galleryCols) renderGallery();
+      if (travelGallery && galleryColumns() !== travelCols) renderTravelGallery();
     }, 160);
   });
 
@@ -706,6 +721,291 @@
     });
   }
 
+  /* ---------- Travel: data ---------- */
+  /* 여행 중분류 — 사진이 아직 없어도 칩은 항상 보인다.
+     data/travel.json 을 못 불러오면 이 목록으로 자리를 지킨다. */
+  var TRAVEL_JOURNEYS = [
+    { id: "tokyo-japan", title: "도쿄", region: "일본" },
+    { id: "new-york-usa", title: "뉴욕", region: "미국" },
+    { id: "buenos-aires-argentina", title: "부에노스아이레스", region: "아르헨티나" },
+    { id: "fjallraven-classic-sweden-turkiye", title: "피엘라벤 클래식", region: "스웨덴•튀르키예" },
+    {
+      id: "camino-de-santiago-spain-portugal-netherlands-greece",
+      title: "산티아고 순례길",
+      region: "스페인•포르투갈•네덜란드•그리스"
+    },
+    {
+      id: "annapurna-trek-nepal-india-sri-lanka-indonesia",
+      title: "안나푸르나 트레킹",
+      region: "네팔•인도•스리랑카•인도네시아"
+    }
+  ];
+
+  var travelGallery = document.getElementById("travelGallery");
+  var travelFilterBar = document.getElementById("travelFilters");
+  var travelStatusEl = document.getElementById("travelStatus");
+
+  var journeys = [];
+  var activeJourney = "all";
+  var travelCols = 0;
+
+  function setTravelStatus(message) {
+    if (!travelStatusEl) return;
+    travelStatusEl.textContent = message || "";
+    travelStatusEl.hidden = !message;
+  }
+
+  function journeyOf(raw) {
+    return normalizeJourney(raw, 0);
+  }
+
+  function journeyLabel(journey) {
+    if (journey.label) return journey.label;
+    return [journey.title, journey.region].filter(Boolean).join("-");
+  }
+
+  function normalizeJourney(raw, index) {
+    if (!raw || typeof raw !== "object") return null;
+
+    var photos = (Array.isArray(raw.photos) ? raw.photos : [])
+      .map(normalizePhoto)
+      .filter(Boolean);
+
+    var cover = raw.cover ? String(raw.cover) : photos[0] ? photos[0].src : "";
+
+    if (cover && !photos.some(function (p) { return p.src === cover; })) {
+      photos.unshift({ src: cover, caption: "", w: 0, h: 0 });
+    }
+
+    var title = raw.title ? String(raw.title).trim() : "";
+    var region = raw.region ? String(raw.region).trim() : "";
+
+    if (!title && !region) return null;
+
+    return {
+      id: String(raw.id || "journey-" + (index + 1)),
+      kind: "travel",
+      label: raw.label ? String(raw.label).trim() : [title, region].filter(Boolean).join("-"),
+      title: title || region,
+      region: region,
+      year: raw.year ? String(raw.year).trim() : "",
+      desc: raw.desc ? String(raw.desc).trim() : "",
+      contribution: raw.desc ? String(raw.desc).trim() : "",
+      network: region,
+      category: "travel",
+      cover: cover || (photos[0] ? photos[0].src : ""),
+      photos: photos
+    };
+  }
+
+  /* ---------- Travel: filters ---------- */
+  function renderTravelFilters() {
+    if (!travelFilterBar) return;
+
+    travelFilterBar.innerHTML = "";
+    travelFilterBar.hidden = false;
+
+    var total = 0;
+    journeys.forEach(function (journey) {
+      total += journey.photos.length;
+    });
+
+    addChip("all", "전체", total);
+
+    /* 사진이 아직 없는 여정도(0장) 모두 보여 준다 — 여정 목록이 한눈에 보이게 */
+    journeys.forEach(function (journey) {
+      addChip(journey.id, journeyLabel(journey), journey.photos.length);
+    });
+
+    function addChip(key, label, count) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "filter" + (key === activeJourney ? " is-active" : "");
+      btn.dataset.filter = key;
+      btn.setAttribute("aria-pressed", key === activeJourney ? "true" : "false");
+
+      var name = document.createElement("span");
+      name.className = "filter__label";
+      name.textContent = label;
+      btn.appendChild(name);
+
+      var n = document.createElement("span");
+      n.className = "filter__n";
+      n.textContent = String(count);
+      btn.appendChild(n);
+
+      btn.addEventListener("click", function () {
+        activeJourney = key;
+        Array.prototype.forEach.call(travelFilterBar.children, function (other) {
+          var on = other === btn;
+          other.classList.toggle("is-active", on);
+          other.setAttribute("aria-pressed", on ? "true" : "false");
+        });
+        renderTravelGallery();
+      });
+
+      travelFilterBar.appendChild(btn);
+    }
+  }
+
+  /* ---------- Travel: cards ---------- */
+  function createJourneyCard(journey) {
+    var card = document.createElement("article");
+    card.className = "work";
+    card.dataset.journeyId = journey.id;
+
+    var open = document.createElement("button");
+    open.type = "button";
+    open.className = "work__open";
+    open.setAttribute(
+      "aria-label",
+      journey.title + " 사진 " + journey.photos.length + "장 보기"
+    );
+
+    var frame = document.createElement("span");
+    frame.className = "work__frame";
+
+    var img = document.createElement("img");
+    img.src = journey.cover;
+    img.alt = journey.title + (journey.region ? ", " + journey.region : "");
+    img.loading = "lazy";
+    img.decoding = "async";
+
+    var coverPhoto = journey.photos.filter(function (p) {
+      return p.src === journey.cover;
+    })[0] || journey.photos[0];
+
+    if (coverPhoto && coverPhoto.w && coverPhoto.h) {
+      img.width = coverPhoto.w;
+      img.height = coverPhoto.h;
+    }
+
+    frame.appendChild(img);
+    open.appendChild(frame);
+
+    var cap = document.createElement("div");
+    cap.className = "work__cap";
+
+    var kicker = document.createElement("p");
+    kicker.className = "work__kicker";
+
+    var parts = [];
+    if (journey.year) parts.push({ text: journey.year, className: "work__year" });
+    if (journey.region) parts.push({ text: journey.region, className: "work__network" });
+
+    parts.forEach(function (part, i) {
+      if (i) {
+        var dot = document.createElement("span");
+        dot.className = "work__dot";
+        dot.setAttribute("aria-hidden", "true");
+        dot.textContent = "·";
+        kicker.appendChild(dot);
+      }
+
+      var span = document.createElement("span");
+      span.className = part.className;
+      span.textContent = part.text;
+      kicker.appendChild(span);
+    });
+
+    var title = document.createElement("h3");
+    title.className = "work__title";
+    title.textContent = journey.title;
+
+    cap.appendChild(kicker);
+    cap.appendChild(title);
+
+    if (journey.desc || journey.photos.length > 1) {
+      var foot = document.createElement("p");
+      foot.className = "work__foot";
+
+      if (journey.desc) {
+        var desc = document.createElement("span");
+        desc.className = "work__contrib";
+        desc.textContent = journey.desc;
+        foot.appendChild(desc);
+      }
+
+      if (journey.photos.length > 1) {
+        var count = document.createElement("span");
+        count.className = "work__count";
+        count.textContent = pad2(journey.photos.length) + " PHOTOS";
+        foot.appendChild(count);
+      }
+
+      cap.appendChild(foot);
+    }
+
+    open.addEventListener("click", function () {
+      var coverIndex = 0;
+      journey.photos.forEach(function (photo, k) {
+        if (photo.src === journey.cover) coverIndex = k;
+      });
+      openViewer(journey, coverIndex);
+    });
+
+    card.appendChild(open);
+    card.appendChild(cap);
+
+    return card;
+  }
+
+  /* ---------- Travel: gallery ---------- */
+  function renderTravelGallery() {
+    if (!travelGallery) return;
+
+    var shown = journeys.filter(function (journey) {
+      var picked = activeJourney === "all" || journey.id === activeJourney;
+      return picked && journey.photos.length > 0;
+    });
+
+    travelCols = galleryColumns();
+
+    if (!shown.length) {
+      travelGallery.innerHTML = "";
+      setTravelStatus(
+        activeJourney === "all"
+          ? "아직 등록된 여행 사진이 없습니다."
+          : "이 여정에는 아직 등록된 사진이 없습니다."
+      );
+      return;
+    }
+
+    setTravelStatus("");
+    layoutMasonry(travelGallery, shown.map(createJourneyCard));
+  }
+
+  function applyTravel(list) {
+    journeys = (Array.isArray(list) ? list : [])
+      .map(normalizeJourney)
+      .filter(Boolean);
+
+    /* 파일이 비었거나 못 읽었을 때도 6개 여정 칩은 그대로 보이게 */
+    if (!journeys.length) {
+      journeys = TRAVEL_JOURNEYS.map(journeyOf).filter(Boolean);
+    }
+
+    renderTravelFilters();
+    renderTravelGallery();
+  }
+
+  function loadTravel() {
+    if (!travelGallery) return;
+
+    fetch("data/travel.json?v=" + Date.now(), { cache: "no-store" })
+      .then(function (response) {
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        return response.json();
+      })
+      .then(function (data) {
+        applyTravel(data && Array.isArray(data.journeys) ? data.journeys : []);
+      })
+      .catch(function () {
+        applyTravel(TRAVEL_JOURNEYS);
+        setTravelStatus("여행 목록을 불러오지 못했습니다. 잠시 후 다시 열어 주세요.");
+      });
+  }
+
   /* ---------- Filmography: data ---------- */
   var filmoBody = document.getElementById("filmographyBody");
 
@@ -866,5 +1166,6 @@
 
   /* ---------- Start ---------- */
   loadWorks();
+  loadTravel();
   loadFilmography();
 })();
