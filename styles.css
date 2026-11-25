@@ -789,23 +789,32 @@ body.is-locked {
   overflow: hidden;
 }
 
-/* 사진 한 장이 들어가는 캔버스 — 세로 남는 공간을 모두 차지한다 */
+/* 사진 한 장이 들어가는 캔버스 — 남는 공간을 모두 차지하고,
+   사진은 이 캔버스를 상자로 삼아 그 안에서 가장 크게 그려진다.
+   (상자 크기가 사진 파일의 픽셀 수에 따라 달라지지 않게 한다) */
 .viewer__canvas {
-  flex: 1 1 auto;
+  position: relative;
+  flex: 1 1 0%;
   min-height: 0;
   min-width: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+  display: block;
   overflow: hidden;
 }
 
+/* 사진은 항상 캔버스 전체를 상자로 쓰고, object-fit: contain 이
+   비율을 지키며 캔버스가 허락하는 가장 큰 크기로 그린다.
+   → 저해상도 사진도 화면에 맞게 확대되고, 앞 사진의 비율·크기에 흔들리지 않는다. */
 .viewer__img {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
   object-fit: contain;
+  object-position: center;
   opacity: 0;
   transform: scale(0.992);
   transition: opacity 0.4s var(--ease), transform 0.5s var(--ease);
@@ -1188,10 +1197,50 @@ body.is-locked {
     display: none;
   }
 
+  /* 폰에서는 사진이 좌우 여백 없이 기기 폭을 그대로 쓴다 */
+  .viewer__stage {
+    padding: 8px 0 4px;
+  }
+
   /* 사진 설명은 줄 수를 제한하고, 좌우 화살표 밑으로 글자가 들어가지 않게 */
   .viewer__cap {
     font-size: 11px;
     padding: 0 46px;
+  }
+}
+
+/* 가로로 눕힌 폰처럼 세로가 아주 짧은 화면에서는 제목·썸네일을 줄여
+   사진 자리를 최대한 남긴다 */
+@media (max-width: 900px) and (max-height: 560px) {
+  .viewer__rail {
+    padding: calc(30px + env(safe-area-inset-top)) calc(var(--pad) + 52px) 0 var(--pad);
+  }
+
+  .viewer__title {
+    margin-top: 4px;
+    font-size: 17px;
+  }
+
+  .viewer__contrib {
+    display: none;
+  }
+
+  .viewer__stage {
+    padding: 4px 0;
+  }
+
+  .viewer__cap {
+    display: none;
+  }
+
+  .viewer__foot {
+    padding-top: 4px;
+    padding-bottom: calc(6px + env(safe-area-inset-bottom));
+  }
+
+  .viewer__thumb {
+    width: 38px;
+    height: 44px;
   }
 }
 
