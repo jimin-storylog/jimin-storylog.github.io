@@ -1,4 +1,4 @@
-# JIMIN IM — Still Photographer Portfolio (4차 · Travel 섹션 + 작품별 갤러리 + 직접 관리자)
+# JIMIN IM — Still Photographer Portfolio (5차 · Personal 섹션 + 작품별 갤러리 + 직접 관리자)
 
 임지민 님의 스틸 포토그래퍼 포트폴리오입니다.
 기존 크리에이터링크 사이트의 공개 사진과 전체 필모그래피를 담았고,
@@ -20,7 +20,7 @@ portfolio-site/
 │   └── admin.js            # GitHub Contents API 로 사진·데이터 커밋
 ├── data/
 │   ├── works.json          # 작품 데이터 (제목·연도·기여도·분류·사진들)
-│   ├── travel.json         # 여행 6개 여정 (지역·연도·설명·사진들)
+│   ├── travel.json         # Personal 항목 (지역·연도·설명·사진들 — 파일 이름은 기존 호환용)
 │   ├── filmography.json    # 필모그래피 (카테고리별 연도·내용)
 │   └── image-sources.json  # 기존 사진 출처 기록
 ├── assets/
@@ -33,7 +33,7 @@ portfolio-site/
 │   ├── sync-fallback.py         # works.json → index.html 내장 목록 동기화
 │   ├── build-works-from-filmography.py  # filmography.json → works.json 작품 미리 생성
 │   └── build-filmography.py     # 필모그래피 내장 목록 재생성
-└── live-v4-*.png           # 배포 후 실제 화면 확인용 스크린샷(데스크톱·모바일·전체)
+└── live-v*.png             # 배포 후 실제 화면 확인용 스크린샷(데스크톱·모바일·전체)
 ```
 
 ## 작품 데이터 (`data/works.json`)
@@ -84,9 +84,10 @@ python3 tools/build-works-from-filmography.py
 이미 작품으로 있는 것(제목+연도)은 건너뛰고, 사진이 있는 작품을 먼저 · 그 뒤 사진 미등록 작품을
 연도 최신순으로 정리합니다. 여러 번 실행해도 중복이 생기지 않습니다.
 
-## Travel
+## Personal
 
-사이트의 두 번째 섹션(`02 Travel`)입니다. 작품(`works.json`)과 섞이지 않도록 `data/travel.json`에 따로 둡니다.
+사이트의 세 번째 섹션(`03 Personal`)입니다. 작품(`works.json`)과 섞이지 않도록 `data/travel.json`에 따로 둡니다.
+(파일 이름 `travel.json`은 기존 데이터·관리자 호환을 위해 그대로 씁니다.)
 
 ```json
 {
@@ -105,12 +106,12 @@ python3 tools/build-works-from-filmography.py
 }
 ```
 
-- 여정 6개가 미리 들어 있습니다: `도쿄-일본` · `뉴욕-미국` · `부에노스아이레스-아르헨티나` ·
-  `피엘라벤 클래식-스웨덴•튀르키예` · `산티아고 순례길-스페인•포르투갈•네덜란드•그리스` ·
-  `안나푸르나 트레킹-네팔•인도•스리랑카•인도네시아`.
+- 항목이 미리 들어 있습니다: `도쿄-일본` · `뉴욕-미국` · `부에노스아이레스-아르헨티나` ·
+  `피엘라벤 클래식-스웨덴•튀르키예` · `유럽•산티아고 순례길 2010-스페인•포르투갈•네덜란드•그리스` ·
+  `안나푸르나 트레킹-네팔•인도•스리랑카•인도네시아` · `산티아고 순례길 2026-스페인`.
 - `label`은 사이트 필터 칩에 그대로, `title`·`region`은 카드와 뷰어에 쓰입니다. 비워 두면 `제목-지역`으로 자동으로 만듭니다.
-- 사진이 없는 여정은 필터 칩에 개수 `0`으로 남고, 누르면 `이 여정에는 아직 등록된 사진이 없습니다.` 안내가 나옵니다.
-  사진을 올려 저장하면 그 여정부터 4/3/2열 메이슨리 카드로 나타나고, 카드를 누르면 작품과 같은 뷰어로 크게 볼 수 있습니다.
+- 사진이 없는 항목은 필터 칩에 개수 `0`으로 남고, 누르면 `이 카테고리에는 아직 등록된 사진이 없습니다.` 안내가 나옵니다.
+  사진을 올려 저장하면 그 항목부터 4/3/2열 메이슨리 카드로 나타나고, 카드를 누르면 작품과 같은 뷰어로 크게 볼 수 있습니다.
 
 
 ## `/admin/` 으로 직접 고치기
@@ -124,7 +125,7 @@ python3 tools/build-works-from-filmography.py
 - 작품 순서 바꾸기(↑↓), 새 작품 추가, 수정, 삭제
 - 연도 · 제목 · 참여 기여도 · 분류 입력
 - 대표 사진 1장 + 세부 사진 여러 장 업로드, 순서 변경, 대표 지정, 삭제
-- **여행 탭**에서 여정 6개의 대표 사진·사진 여러 장 업로드, 연도·국가·한 줄 설명 입력, 순서 바꾸기, 새 여정 추가·삭제
+- **Personal 탭**에서 항목의 대표 사진·사진 여러 장 업로드, 연도·국가·한 줄 설명 입력, 순서 바꾸기, 새 항목 추가·삭제
 - 필모그래피 탭에서 연도·내용 고치기, 행 추가/삭제
 - **저장하고 사이트에 반영** → 사진은 `assets/uploads/`에, 데이터는 `data/works.json`·`data/travel.json`·`data/filmography.json`에 커밋되고 GitHub Pages가 1~2분 뒤 다시 배포
 
@@ -185,7 +186,7 @@ git add -A && git commit -m "..." && git push
 ## 참고
 
 - 폰트: Pretendard(한글) + Inter / IBM Plex Mono(영문) CDN. 오프라인에서는 시스템 폰트로 대체됩니다.
-- 섹션 순서: `01 Selected Works` → `02 Travel` → `03 Filmography` → `Contact`. 상단 메뉴도 Work · Travel · Filmography · Contact 순서입니다.
-- 작품 뷰어: 좌우 버튼 · ←/→ 키 · 모바일 스와이프 · 썸네일로 사진 이동, ESC로 닫기. 작품과 여행 사진이 같은 뷰어를 씁니다.
+- 섹션 순서: `01 Selected Works` → `02 Filmography` → `03 Personal` → `04 Contact`. 상단 메뉴도 Work · Filmography · Personal · Contact 순서입니다.
+- 작품 뷰어: 좌우 버튼 · ←/→ 키 · 모바일 스와이프 · 썸네일로 사진 이동, ESC로 닫기. 작품과 Personal 사진이 같은 뷰어를 씁니다.
 - 사진 크기 규칙(v9): 사진은 언제나 스테이지(캔버스) 전체를 상자로 쓰고 `object-fit: contain`으로 비율을 지킨 채 최대 크기로 그려집니다. 파일 해상도(픽셀 수)가 작아도 화면에 맞게 확대되며, 폰에서는 좌우 여백 없이 기기 폭을 그대로 씁니다. 가로로 눕힌 폰처럼 세로가 560px 이하인 화면에서는 제목·썸네일을 줄여 사진 자리를 넓힙니다.
 - 사진은 기존 사이트에 공개된 이미지이며, 원본 URL은 `data/image-sources.json`에 있습니다.
