@@ -1,11 +1,29 @@
 /* =========================================================
    JIMIN IM — Still Photographer
-   Header state · reveal · filters · filmography tabs · lightbox
+   data/works.json → 작품 갤러리 · 작품 뷰어 · 필모그래피 탭
    ========================================================= */
 (function () {
   "use strict";
 
+  var CATEGORIES = {
+    still: { ko: "스틸", en: "STILL" },
+    performance: { ko: "공연", en: "STAGE" },
+    behind: { ko: "비하인드", en: "BEHIND" },
+    documentary: { ko: "다큐멘터리", en: "DOCUMENTARY" }
+  };
+  var CATEGORY_ORDER = ["still", "performance", "behind", "documentary"];
+  /* 작품이 이보다 적으면 분류 필터를 감춥니다 (한 칸짜리 필터는 의미가 없어서) */
+  var FILTER_MIN_WORKS = 6;
+
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function pad2(n) {
+    return String(n).padStart(2, "0");
+  }
+
+  function catOf(key) {
+    return CATEGORIES[key] || CATEGORIES.still;
+  }
 
   /* ---------- Header: add background after scrolling ---------- */
   var header = document.getElementById("siteHeader");
@@ -22,7 +40,9 @@
   var reveals = document.querySelectorAll(".reveal");
 
   if (reduceMotion || !("IntersectionObserver" in window)) {
-    reveals.forEach(function (el) { el.classList.add("is-in"); });
+    reveals.forEach(function (el) {
+      el.classList.add("is-in");
+    });
   } else {
     var revealObserver = new IntersectionObserver(
       function (entries) {
@@ -36,13 +56,17 @@
       { rootMargin: "0px 0px -8% 0px", threshold: 0.06 }
     );
 
-    reveals.forEach(function (el) { revealObserver.observe(el); });
+    reveals.forEach(function (el) {
+      revealObserver.observe(el);
+    });
   }
 
   /* ---------- Nav: highlight current section ---------- */
   var navLinks = Array.prototype.slice.call(document.querySelectorAll(".nav__link"));
   var sections = navLinks
-    .map(function (link) { return document.querySelector(link.getAttribute("href")); })
+    .map(function (link) {
+      return document.querySelector(link.getAttribute("href"));
+    })
     .filter(Boolean);
 
   function setActive(id) {
@@ -59,13 +83,13 @@
 
     var updateActive = function () {
       var line = window.scrollY + window.innerHeight * 0.35;
-      var current = null;
+      var active = null;
 
       sections.forEach(function (section) {
-        if (section.offsetTop <= line) current = section;
+        if (section.offsetTop <= line) active = section;
       });
 
-      setActive(current ? current.id : "");
+      setActive(active ? active.id : "");
       navTicking = false;
     };
 
@@ -82,268 +106,667 @@
     updateActive();
   }
 
-  /* ---------- Work: category filter ---------- */
-  var filterButtons = Array.prototype.slice.call(document.querySelectorAll(".filter"));
-  var figures = Array.prototype.slice.call(document.querySelectorAll("[data-still]"));
+  /* ---------- Works: data ---------- */
+  var gallery = document.getElementById("gallery");
+  var filterBar = document.getElementById("workFilters");
+  var statusEl = document.getElementById("workStatus");
 
-  function applyFilter(cat) {
-    filterButtons.forEach(function (btn) {
-      var on = btn.getAttribute("data-filter") === cat;
-      btn.classList.toggle("is-active", on);
-      btn.setAttribute("aria-pressed", on ? "true" : "false");
-    });
+  var works = [];
+  var activeFilter = "all";
+  var openViewer = function () {};  // 아래 뷰어 블록에서 채운다
 
-    figures.forEach(function (fig) {
-      var match = cat === "all" || fig.getAttribute("data-cat") === cat;
-      fig.classList.toggle("is-hidden", !match);
-    });
-
-    refreshSet();
+  function setStatus(message) {
+    if (!statusEl) return;
+    statusEl.textContent = message || "";
+    statusEl.hidden = !message;
   }
 
-  filterButtons.forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      applyFilter(btn.getAttribute("data-filter"));
+  function normalizePhoto(photo) {
+    if (typeof photo === "string") return { src: photo, caption: "" };
+    if (!photo || !photo.src) return null;
+    return {
+      src: String(photo.src),
+      caption: photo.caption ? String(photo.caption) : "",
+      w: Number(photo.w) || 0,
+      h: Number(photo.h) || 0
+    };
+  }
+
+  function normalize(data) {
+    var list = data && Array.isArray(data.works) ? data.works : [];
+
+    return list
+      .map(function (raw, index) {
+        if (!raw || typeof raw !== "object") return null;
+
+        var photos = (Array.isArray(raw.photos) ? raw.photos : [])
+          .map(normalizePhoto)
+          .filter(Boolean);
+
+        var cover = raw.cover ? String(raw.cover) : photos[0] ? photos[0].src : "";
+
+        if (cover && !photos.some(function (p) { return p.src === cover; })) {
+          photos.unshift({ src: cover, caption: "", w: 0, h: 0 });
+        }
+
+        if (!photos.length) return null;
+
+        return {
+          id: String(raw.id || "work-" + (index + 1)),
+          year: raw.year ? String(raw.year).trim() : "",
+          title: raw.title ? String(raw.title).trim() : "제목 없음",
+          contribution: raw.contribution ? String(raw.contribution).trim() : "",
+          category: CATEGORIES[raw.category] ? raw.category : "still",
+          cover: cover || photos[0].src,
+          photos: photos
+        };
+      })
+      .filter(Boolean);
+  }
+
+  function readFallback() {
+    var tag = document.getElementById("worksFallback");
+    if (!tag) return null;
+    try {
+      return JSON.parse(tag.textContent);
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function loadWorks() {
+    var fallback = readFallback();
+    var url = "data/works.json?v=" + Date.now();
+
+    fetch(url, { cache: "no-store" })
+      .then(function (response) {
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        return response.json();
+      })
+      .then(function (data) {
+        applyWorks(data);
+      })
+      .catch(function () {
+        if (fallback) {
+          applyWorks(fallback);
+          return;
+        }
+        setStatus("작품 목록을 불러오지 못했습니다. 잠시 후 다시 열어 주세요.");
+      });
+  }
+
+  function applyWorks(data) {
+    works = normalize(data);
+
+    if (!works.length) {
+      setStatus("아직 등록된 작품이 없습니다.");
+      return;
+    }
+
+    setStatus("");
+    renderFilters();
+    renderGallery();
+  }
+
+  /* ---------- Works: filters ---------- */
+  function renderFilters() {
+    if (!filterBar) return;
+    filterBar.innerHTML = "";
+
+    if (works.length < FILTER_MIN_WORKS) {
+      filterBar.hidden = true;
+      return;
+    }
+
+    filterBar.hidden = false;
+
+    var counts = {};
+    works.forEach(function (work) {
+      counts[work.category] = (counts[work.category] || 0) + 1;
     });
-  });
+
+    addFilter("all", "전체", works.length);
+
+    CATEGORY_ORDER.forEach(function (key) {
+      if (counts[key]) addFilter(key, catOf(key).ko, counts[key]);
+    });
+
+    function addFilter(key, label, count) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "filter" + (key === activeFilter ? " is-active" : "");
+      btn.dataset.filter = key;
+      btn.setAttribute("aria-pressed", key === activeFilter ? "true" : "false");
+      btn.textContent = label + " ";
+
+      var n = document.createElement("span");
+      n.className = "filter__n";
+      n.textContent = String(count);
+      btn.appendChild(n);
+
+      btn.addEventListener("click", function () {
+        activeFilter = key;
+        Array.prototype.forEach.call(filterBar.children, function (other) {
+          var on = other === btn;
+          other.classList.toggle("is-active", on);
+          other.setAttribute("aria-pressed", on ? "true" : "false");
+        });
+        renderGallery();
+      });
+
+      filterBar.appendChild(btn);
+    }
+  }
+
+  /* ---------- Works: gallery ---------- */
+  function setFrameRatio(card, frame, w, h) {
+    if (!w || !h || card.classList.contains("work--land") || card.classList.contains("work--port")) return;
+    card.classList.add(w / h >= 1.1 ? "work--land" : "work--port");
+  }
+
+  function createCard(work) {
+    var card = document.createElement("article");
+    card.className = "work";
+    card.dataset.workId = work.id;
+
+    var open = document.createElement("button");
+    open.type = "button";
+    open.className = "work__open";
+    open.setAttribute(
+      "aria-label",
+      work.title + (work.photos.length > 1 ? " 사진 " + work.photos.length + "장 보기" : " 사진 보기")
+    );
+
+    var frame = document.createElement("span");
+    frame.className = "work__frame";
+
+    var img = document.createElement("img");
+    img.src = work.cover;
+    img.alt = work.title + (work.photos[0].caption ? " — " + work.photos[0].caption : "");
+    img.loading = "lazy";
+    img.decoding = "async";
+
+    var coverPhoto = work.photos.filter(function (p) { return p.src === work.cover; })[0] || work.photos[0];
+
+    if (coverPhoto.w && coverPhoto.h) {
+      img.width = coverPhoto.w;
+      img.height = coverPhoto.h;
+      setFrameRatio(card, frame, coverPhoto.w, coverPhoto.h);
+    } else {
+      img.addEventListener("load", function () {
+        setFrameRatio(card, frame, img.naturalWidth, img.naturalHeight);
+      });
+    }
+
+    frame.appendChild(img);
+    open.appendChild(frame);
+
+    var cap = document.createElement("div");
+    cap.className = "work__cap";
+
+    var kicker = document.createElement("p");
+    kicker.className = "work__kicker";
+
+    if (work.year) {
+      var year = document.createElement("span");
+      year.className = "work__year";
+      year.textContent = work.year;
+      kicker.appendChild(year);
+
+      var dot = document.createElement("span");
+      dot.className = "work__dot";
+      dot.setAttribute("aria-hidden", "true");
+      dot.textContent = "·";
+      kicker.appendChild(dot);
+    }
+
+    var category = document.createElement("span");
+    category.className = "work__cat";
+    category.textContent = catOf(work.category).en;
+    kicker.appendChild(category);
+
+    var title = document.createElement("h3");
+    title.className = "work__title";
+    title.textContent = work.title;
+
+    var foot = document.createElement("p");
+    foot.className = "work__foot";
+
+    var contribution = document.createElement("span");
+    contribution.className = "work__contrib";
+    contribution.textContent = work.contribution;
+    foot.appendChild(contribution);
+
+    if (work.photos.length > 1) {
+      var count = document.createElement("span");
+      count.className = "work__count";
+      count.textContent = pad2(work.photos.length) + " PHOTOS";
+      foot.appendChild(count);
+    }
+
+    cap.appendChild(kicker);
+    cap.appendChild(title);
+    cap.appendChild(foot);
+
+    open.addEventListener("click", function () {
+      var coverIndex = 0;
+      work.photos.forEach(function (photo, k) {
+        if (photo.src === work.cover) coverIndex = k;
+      });
+      openViewer(work, coverIndex);
+    });
+
+    card.appendChild(open);
+    card.appendChild(cap);
+
+    return card;
+  }
+
+  function renderGallery() {
+    if (!gallery) return;
+    gallery.innerHTML = "";
+
+    var cards = [];
+    var shown = 0;
+
+    works.forEach(function (work) {
+      if (activeFilter !== "all" && work.category !== activeFilter) return;
+
+      var card = createCard(work);
+
+      /* 두 칸 그리드에서 홀수 번째 카드를 살짝 내려 에디토리얼 리듬을 준다 */
+      if (shown % 2 === 1) card.classList.add("is-offset");
+
+      gallery.appendChild(card);
+      cards.push(card);
+      shown += 1;
+    });
+
+    if (!shown) {
+      setStatus("이 분류에는 아직 작품이 없습니다.");
+    } else {
+      setStatus("");
+    }
+  }
+
+  /* ---------- Viewer (작품 상세) ---------- */
+  var viewer = document.getElementById("viewer");
+
+  if (viewer && gallery) {
+    var els = {
+      year: document.getElementById("viewerYear"),
+      title: document.getElementById("viewerTitle"),
+      contrib: document.getElementById("viewerContrib"),
+      img: document.getElementById("viewerImg"),
+      cap: document.getElementById("viewerCap"),
+      thumbs: document.getElementById("viewerThumbs"),
+      cur: document.getElementById("viewerCur"),
+      total: document.getElementById("viewerTotal"),
+      prev: document.getElementById("viewerPrev"),
+      next: document.getElementById("viewerNext"),
+      close: document.getElementById("viewerClose")
+    };
+
+    var current = null;
+    var lastFocus = null;
+    var closeTimer = null;
+    var isOpen = false;
+    var pointerStart = null;
+
+    function renderPhoto(i) {
+      if (!current) return;
+
+      var photos = current.work.photos;
+      if (!photos.length) return;
+
+      current.index = (i + photos.length) % photos.length;
+      var photo = photos[current.index];
+
+      viewer.classList.remove("is-ready");
+      els.img.src = photo.src;
+      els.img.alt = photo.caption || current.work.title;
+      els.cap.textContent = photo.caption || "";
+      els.cap.hidden = !photo.caption;
+      els.cur.textContent = pad2(current.index + 1);
+      els.total.textContent = pad2(photos.length);
+
+      Array.prototype.forEach.call(els.thumbs.children, function (btn, k) {
+        var on = k === current.index;
+        btn.classList.toggle("is-current", on);
+        btn.setAttribute("aria-current", on ? "true" : "false");
+        if (on) {
+          var left = btn.offsetLeft - els.thumbs.clientWidth / 2 + btn.offsetWidth / 2;
+          els.thumbs.scrollTo({ left: left, behavior: reduceMotion ? "auto" : "smooth" });
+        }
+      });
+
+      var done = function () {
+        if (isOpen) viewer.classList.add("is-ready");
+      };
+
+      if (els.img.decode) {
+        els.img.decode().then(done).catch(done);
+      } else {
+        els.img.onload = done;
+      }
+
+      [current.index + 1, current.index - 1].forEach(function (k) {
+        var next = photos[(k + photos.length) % photos.length];
+        if (next) {
+          var preload = new Image();
+          preload.src = next.src;
+        }
+      });
+    }
+
+    function buildThumbs(work) {
+      els.thumbs.innerHTML = "";
+
+      work.photos.forEach(function (photo, k) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "viewer__thumb";
+        btn.setAttribute("aria-label", (k + 1) + "번째 사진" + (photo.caption ? " — " + photo.caption : ""));
+
+        var img = document.createElement("img");
+        img.src = photo.src;
+        img.alt = "";
+        img.loading = "lazy";
+
+        btn.appendChild(img);
+        btn.addEventListener("click", function () {
+          renderPhoto(k);
+        });
+        els.thumbs.appendChild(btn);
+      });
+    }
+
+    openViewer = function (work, index) {
+      if (!work || !work.photos.length) return;
+
+      current = { work: work, index: index || 0 };
+      lastFocus = document.activeElement;
+      clearTimeout(closeTimer);
+      isOpen = true;
+
+      els.year.textContent = work.year;
+      els.year.hidden = !work.year;
+      els.title.textContent = work.title;
+      els.contrib.textContent = work.contribution;
+      els.contrib.hidden = !work.contribution;
+
+      buildThumbs(work);
+
+      var multi = work.photos.length > 1;
+      els.prev.hidden = !multi;
+      els.next.hidden = !multi;
+      els.thumbs.hidden = !multi;
+
+      viewer.hidden = false;
+      document.body.classList.add("is-locked");
+
+      document.querySelectorAll("header, main, footer").forEach(function (el) {
+        if ("inert" in el) el.inert = true;
+      });
+
+      renderPhoto(current.index);
+
+      requestAnimationFrame(function () {
+        viewer.classList.add("is-open");
+      });
+
+      window.setTimeout(function () {
+        els.close.focus({ preventScroll: true });
+      }, 40);
+    };
+
+    function closeViewer() {
+      if (!isOpen) return;
+      isOpen = false;
+
+      viewer.classList.remove("is-open", "is-ready");
+      document.body.classList.remove("is-locked");
+
+      document.querySelectorAll("header, main, footer").forEach(function (el) {
+        if ("inert" in el) el.inert = false;
+      });
+
+      closeTimer = window.setTimeout(function () {
+        viewer.hidden = true;
+        els.img.removeAttribute("src");
+      }, reduceMotion ? 0 : 340);
+
+      if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+    }
+
+    function step(delta) {
+      if (!current) return;
+      renderPhoto(current.index + delta);
+    }
+
+    function focusables() {
+      return [els.close, els.prev, els.next]
+        .concat(Array.prototype.slice.call(els.thumbs.children))
+        .filter(function (el) {
+          return el && !el.hidden;
+        });
+    }
+
+    els.close.addEventListener("click", closeViewer);
+    els.prev.addEventListener("click", function () { step(-1); });
+    els.next.addEventListener("click", function () { step(1); });
+
+    document.addEventListener("keydown", function (event) {
+      if (!isOpen) return;
+
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeViewer();
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        step(1);
+      } else if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        step(-1);
+      } else if (event.key === "Tab") {
+        var list = focusables();
+        if (!list.length) return;
+
+        var first = list[0];
+        var last = list[list.length - 1];
+
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+    });
+
+    /* 좌우 스와이프 */
+    els.img.parentNode.addEventListener("pointerdown", function (event) {
+      if (event.pointerType === "mouse") return;
+      pointerStart = { x: event.clientX, y: event.clientY };
+    });
+
+    els.img.parentNode.addEventListener("pointerup", function (event) {
+      if (!pointerStart) return;
+
+      var dx = event.clientX - pointerStart.x;
+      var dy = event.clientY - pointerStart.y;
+      pointerStart = null;
+
+      if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy)) {
+        step(dx < 0 ? 1 : -1);
+      }
+    });
+
+    els.img.parentNode.addEventListener("pointercancel", function () {
+      pointerStart = null;
+    });
+  }
+
+  /* ---------- Filmography: data ---------- */
+  var filmoBody = document.getElementById("filmographyBody");
+
+  function fillFilmographyBody(el, text) {
+    /* 첫 번째 따옴표로 묶인 작품명을 살짝 눌러 준다 */
+    var match = /(['‘])([^'’]{1,60})(['’])/.exec(text);
+    if (!match) {
+      el.textContent = text;
+      return;
+    }
+
+    el.appendChild(document.createTextNode(text.slice(0, match.index) + match[1]));
+
+    var name = document.createElement("span");
+    name.className = "fo-name";
+    name.textContent = match[2];
+    el.appendChild(name);
+
+    el.appendChild(document.createTextNode(match[3] + text.slice(match.index + match[0].length)));
+  }
+
+  function renderFilmography(data) {
+    if (!filmoBody) return;
+
+    var cats = data && Array.isArray(data.categories)
+      ? data.categories.filter(function (cat) {
+          return cat && cat.label && Array.isArray(cat.items);
+        })
+      : [];
+
+    if (!cats.length) return;
+
+    filmoBody.innerHTML = "";
+
+    var tabs = document.createElement("div");
+    tabs.className = "tabs";
+    tabs.setAttribute("role", "tablist");
+    tabs.setAttribute("aria-label", "필모그래피 카테고리");
+
+    cats.forEach(function (cat, i) {
+      var slug = String(cat.id || "cat-" + i).replace(/[^a-z0-9-]/gi, "") || "cat-" + i;
+      var on = i === 0;
+
+      var tab = document.createElement("button");
+      tab.type = "button";
+      tab.className = "tab" + (on ? " is-active" : "");
+      tab.setAttribute("role", "tab");
+      tab.id = "tab-" + slug;
+      tab.setAttribute("aria-controls", "panel-" + slug);
+      tab.setAttribute("aria-selected", on ? "true" : "false");
+      tab.setAttribute("tabindex", on ? "0" : "-1");
+      tab.dataset.tab = slug;
+      tab.textContent = cat.label + " ";
+
+      var n = document.createElement("span");
+      n.className = "tab__n";
+      n.textContent = String(cat.items.length);
+      tab.appendChild(n);
+      tabs.appendChild(tab);
+
+      var panel = document.createElement("div");
+      panel.className = "fo-panel";
+      panel.setAttribute("role", "tabpanel");
+      panel.id = "panel-" + slug;
+      panel.setAttribute("aria-labelledby", "tab-" + slug);
+      panel.dataset.panel = slug;
+      panel.hidden = !on;
+
+      var list = document.createElement("ol");
+      list.className = "fo-list";
+
+      cat.items.forEach(function (item) {
+        var year = item && item.year ? String(item.year) : "";
+        var text = item && item.text ? String(item.text) : "";
+
+        var row = document.createElement("li");
+        row.className = "fo-row";
+
+        var y = document.createElement("span");
+        y.className = "fo-year";
+        y.textContent = year;
+
+        var body = document.createElement("span");
+        body.className = "fo-body";
+        fillFilmographyBody(body, text);
+
+        row.appendChild(y);
+        row.appendChild(body);
+        list.appendChild(row);
+      });
+
+      panel.appendChild(list);
+
+      if (i === 0) filmoBody.appendChild(tabs);
+      filmoBody.appendChild(panel);
+    });
+  }
+
+  function loadFilmography() {
+    if (!filmoBody) return;
+
+    fetch("data/filmography.json?v=" + Date.now(), { cache: "no-store" })
+      .then(function (response) {
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        return response.json();
+      })
+      .then(renderFilmography)
+      .catch(function () {
+        /* 실패하면 index.html 에 들어 있는 목록을 그대로 보여 준다 */
+      });
+  }
 
   /* ---------- Filmography: tabs ---------- */
-  var tabs = Array.prototype.slice.call(document.querySelectorAll("[role='tab'][data-tab]"));
-  var panels = Array.prototype.slice.call(document.querySelectorAll("[data-panel]"));
-
   function activateTab(tab, focus) {
+    if (!filmoBody) return;
+
     var slug = tab.getAttribute("data-tab");
 
-    tabs.forEach(function (t) {
+    Array.prototype.forEach.call(filmoBody.querySelectorAll("[role='tab'][data-tab]"), function (t) {
       var on = t === tab;
       t.classList.toggle("is-active", on);
       t.setAttribute("aria-selected", on ? "true" : "false");
       t.setAttribute("tabindex", on ? "0" : "-1");
     });
 
-    panels.forEach(function (panel) {
+    Array.prototype.forEach.call(filmoBody.querySelectorAll("[data-panel]"), function (panel) {
       panel.hidden = panel.getAttribute("data-panel") !== slug;
     });
 
     if (focus) tab.focus();
   }
 
-  if (tabs.length) {
-    tabs.forEach(function (tab, i) {
-      tab.setAttribute("tabindex", tab.classList.contains("is-active") ? "0" : "-1");
-
-      tab.addEventListener("click", function () { activateTab(tab, false); });
-
-      tab.addEventListener("keydown", function (event) {
-        var next = null;
-
-        if (event.key === "ArrowRight") next = tabs[(i + 1) % tabs.length];
-        else if (event.key === "ArrowLeft") next = tabs[(i - 1 + tabs.length) % tabs.length];
-        else if (event.key === "Home") next = tabs[0];
-        else if (event.key === "End") next = tabs[tabs.length - 1];
-
-        if (next) {
-          event.preventDefault();
-          activateTab(next, true);
-        }
-      });
+  if (filmoBody) {
+    filmoBody.addEventListener("click", function (event) {
+      var tab = event.target.closest("[role='tab'][data-tab]");
+      if (tab) activateTab(tab, false);
     });
 
-    activateTab(tabs[0], false);
-  }
+    filmoBody.addEventListener("keydown", function (event) {
+      var tab = event.target.closest("[role='tab'][data-tab]");
+      if (!tab) return;
 
-  /* ---------- Lightbox ---------- */
-  var lightbox = document.getElementById("lightbox");
+      var tabs = Array.prototype.slice.call(filmoBody.querySelectorAll("[role='tab'][data-tab]"));
+      var i = tabs.indexOf(tab);
+      var next = null;
 
-  if (!lightbox || !figures.length) return;
+      if (event.key === "ArrowRight") next = tabs[(i + 1) % tabs.length];
+      else if (event.key === "ArrowLeft") next = tabs[(i - 1 + tabs.length) % tabs.length];
+      else if (event.key === "Home") next = tabs[0];
+      else if (event.key === "End") next = tabs[tabs.length - 1];
 
-  var lbImg = lightbox.querySelector(".lb-img");
-  var lbNo = lightbox.querySelector(".lb-no");
-  var lbTitle = lightbox.querySelector(".lb-title");
-  var lbMeta = lightbox.querySelector(".lb-meta");
-  var lbCur = lightbox.querySelector(".lb-cur");
-  var lbTotal = lightbox.querySelector(".lb-total");
-  var btnClose = lightbox.querySelector(".lb-close");
-  var btnPrev = lightbox.querySelector(".lb-prev");
-  var btnNext = lightbox.querySelector(".lb-next");
-
-  var items = figures.map(function (fig) {
-    var img = fig.querySelector("img");
-    return {
-      figure: fig,
-      src: img.getAttribute("src"),
-      alt: img.getAttribute("alt") || "",
-      no: (fig.querySelector(".still__no") || {}).textContent || "",
-      title: (fig.querySelector(".still__title") || {}).textContent || "",
-      meta: (fig.querySelector(".still__meta") || {}).textContent || "",
-      trigger: fig.querySelector(".still__open")
-    };
-  });
-
-  var set = items.slice();  // 현재 필터에서 보이는 이미지들
-  var index = 0;
-  var lastFocus = null;
-  var closeTimer = null;
-  var isOpen = false;
-
-  function refreshSet() {
-    set = items.filter(function (item) {
-      return !item.figure.classList.contains("is-hidden");
-    });
-  }
-
-  function pad(n) {
-    return String(n).padStart(2, "0");
-  }
-
-  function preload(i) {
-    if (!set.length) return;
-    var item = set[(i + set.length) % set.length];
-    if (!item) return;
-    var img = new Image();
-    img.src = item.src;
-  }
-
-  function render(i) {
-    if (!set.length) return;
-
-    index = (i + set.length) % set.length;
-    var item = set[index];
-
-    lightbox.classList.remove("is-ready");
-    lbImg.src = item.src;
-    lbImg.alt = item.alt;
-    lbNo.textContent = item.no.trim();
-    lbTitle.textContent = item.title.trim();
-    lbMeta.textContent = item.meta.trim();
-    lbCur.textContent = pad(index + 1);
-    lbTotal.textContent = pad(set.length);
-
-    if (lbImg.decode) {
-      lbImg.decode().then(ready).catch(ready);
-    } else {
-      lbImg.onload = ready;
-    }
-
-    preload(index + 1);
-    preload(index - 1);
-  }
-
-  function ready() {
-    if (isOpen) lightbox.classList.add("is-ready");
-  }
-
-  function open(i) {
-    lastFocus = document.activeElement;
-    isOpen = true;
-    clearTimeout(closeTimer);
-
-    lightbox.hidden = false;
-    document.body.classList.add("is-locked");
-    render(i);
-
-    requestAnimationFrame(function () {
-      lightbox.classList.add("is-open");
-    });
-
-    document.querySelectorAll("header, main, footer").forEach(function (el) {
-      if ("inert" in el) el.inert = true;
-    });
-
-    window.setTimeout(function () { btnClose.focus({ preventScroll: true }); }, 40);
-  }
-
-  function close() {
-    if (!isOpen) return;
-    isOpen = false;
-
-    lightbox.classList.remove("is-open", "is-ready");
-    document.body.classList.remove("is-locked");
-
-    document.querySelectorAll("header, main, footer").forEach(function (el) {
-      if ("inert" in el) el.inert = false;
-    });
-
-    closeTimer = window.setTimeout(function () {
-      lightbox.hidden = true;
-      lbImg.removeAttribute("src");
-    }, reduceMotion ? 0 : 360);
-
-    if (lastFocus && lastFocus.focus) {
-      lastFocus.focus({ preventScroll: true });
-    }
-  }
-
-  function next() { render(index + 1); }
-  function prev() { render(index - 1); }
-
-  items.forEach(function (item) {
-    if (!item.trigger) return;
-    item.trigger.addEventListener("click", function () {
-      var i = set.indexOf(item);
-      open(i < 0 ? 0 : i);
-    });
-  });
-
-  btnClose.addEventListener("click", close);
-  btnPrev.addEventListener("click", prev);
-  btnNext.addEventListener("click", next);
-
-  lightbox.addEventListener("click", function (event) {
-    if (event.target === lightbox) close();
-  });
-
-  document.addEventListener("keydown", function (event) {
-    if (!isOpen) return;
-
-    if (event.key === "Escape") {
-      event.preventDefault();
-      close();
-    } else if (event.key === "ArrowRight") {
-      event.preventDefault();
-      next();
-    } else if (event.key === "ArrowLeft") {
-      event.preventDefault();
-      prev();
-    } else if (event.key === "Tab") {
-      var focusables = [btnClose, btnPrev, btnNext];
-      var first = focusables[0];
-      var last = focusables[focusables.length - 1];
-
-      if (event.shiftKey && document.activeElement === first) {
+      if (next) {
         event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
+        activateTab(next, true);
       }
-    }
-  });
+    });
+  }
 
-  /* ---------- Swipe (touch / pen) ---------- */
-  var startX = 0;
-  var startY = 0;
-  var tracking = false;
-
-  lightbox.addEventListener("pointerdown", function (event) {
-    if (event.pointerType === "mouse") return;
-    tracking = true;
-    startX = event.clientX;
-    startY = event.clientY;
-  });
-
-  lightbox.addEventListener("pointerup", function (event) {
-    if (!tracking) return;
-    tracking = false;
-
-    var dx = event.clientX - startX;
-    var dy = event.clientY - startY;
-
-    if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy)) {
-      if (dx < 0) next();
-      else prev();
-    }
-  });
-
-  lightbox.addEventListener("pointercancel", function () { tracking = false; });
+  /* ---------- Start ---------- */
+  loadWorks();
+  loadFilmography();
 })();
