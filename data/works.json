@@ -1,71 +1,53 @@
 {
-  "updated": "2026-11-25T10:00:00+09:00",
+  "updated": "2026-11-25T01:14:59.827Z",
   "works": [
+    {
+      "id": "work-vhwk5z2l",
+      "year": "2026",
+      "title": "해오름달 열이레",
+      "contribution": "",
+      "category": "still",
+      "cover": "assets/uploads/work-vhwk5z2l-1795569293298-1.jpg",
+      "photos": [
+        {
+          "src": "assets/uploads/work-vhwk5z2l-1795569293298-1.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        }
+      ]
+    },
     {
       "id": "drama-still",
       "year": "",
-      "title": "드라마 · 영화 스틸",
+      "title": "멋진 신세계",
       "contribution": "스틸 참여",
       "category": "still",
-      "cover": "assets/work/still-01.jpg",
+      "cover": "assets/uploads/drama-still-1795569293298-2.jpg",
       "photos": [
         {
-          "src": "assets/work/still-01.jpg",
-          "caption": "따뜻한 빛 속에 앉은 배우",
-          "w": 1600,
-          "h": 1066
-        },
-        {
-          "src": "assets/work/still-02.jpg",
-          "caption": "빛 번짐 속 인물의 옆모습",
-          "w": 1067,
+          "src": "assets/uploads/drama-still-1795569293298-2.jpg",
+          "caption": "멋진 신세계",
+          "w": 1136,
           "h": 1600
         },
         {
-          "src": "assets/work/still-03.jpg",
-          "caption": "세면대 앞에 몸을 숙인 인물",
-          "w": 1600,
-          "h": 1066
-        },
-        {
-          "src": "assets/work/still-04.jpg",
-          "caption": "해 질 무렵 옥상에서 마주 선 두 사람",
+          "src": "assets/work/still-02.jpg",
+          "caption": "반시밀당반시상",
           "w": 1067,
           "h": 1600
         },
         {
           "src": "assets/work/still-05.jpg",
-          "caption": "가을 궁궐, 붉은 예복을 입은 인물들",
+          "caption": "슈룹",
           "w": 1600,
           "h": 1014
-        }
-      ]
-    },
-    {
-      "id": "stage-still",
-      "year": "",
-      "title": "공연 스틸",
-      "contribution": "스틸 참여",
-      "category": "performance",
-      "cover": "assets/work/performance-01.jpg",
-      "photos": [
-        {
-          "src": "assets/work/performance-01.jpg",
-          "caption": "붉은 조명 아래 마주 선 두 배우",
-          "w": 1067,
-          "h": 1600
         },
         {
-          "src": "assets/work/performance-02.jpg",
-          "caption": "무대 조명 아래 공연하는 배우",
-          "w": 1067,
-          "h": 1600
-        },
-        {
-          "src": "assets/work/performance-03.jpg",
-          "caption": "보랏빛 조명의 뮤지컬 무대",
-          "w": 1178,
-          "h": 1600
+          "src": "assets/uploads/drama-still-1795569293298-3.jpg",
+          "caption": "이 강에는 달이 흐른다",
+          "w": 1600,
+          "h": 1067
         }
       ]
     },
@@ -93,6 +75,34 @@
           "src": "assets/work/behind-03.jpg",
           "caption": "유리잔을 든 인물, 금빛 조명",
           "w": 1067,
+          "h": 1600
+        }
+      ]
+    },
+    {
+      "id": "stage-still",
+      "year": "",
+      "title": "공연 스틸",
+      "contribution": "스틸 참여",
+      "category": "performance",
+      "cover": "assets/work/performance-01.jpg",
+      "photos": [
+        {
+          "src": "assets/work/performance-01.jpg",
+          "caption": "붉은 조명 아래 마주 선 두 배우",
+          "w": 1067,
+          "h": 1600
+        },
+        {
+          "src": "assets/work/performance-02.jpg",
+          "caption": "무대 조명 아래 공연하는 배우",
+          "w": 1067,
+          "h": 1600
+        },
+        {
+          "src": "assets/work/performance-03.jpg",
+          "caption": "보랏빛 조명의 뮤지컬 무대",
+          "w": 1178,
           "h": 1600
         }
       ]
