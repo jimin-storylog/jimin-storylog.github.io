@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-25T02:34:08.276Z",
+  "updated": "2026-11-25T02:45:30.639Z",
   "works": [
     {
       "id": "work-vhwk5z2l",
@@ -147,35 +147,6 @@
       ]
     },
     {
-      "id": "stage-still",
-      "year": "",
-      "network": "",
-      "title": "공연 스틸",
-      "contribution": "스틸 참여",
-      "category": "performance",
-      "cover": "assets/work/performance-01.jpg",
-      "photos": [
-        {
-          "src": "assets/work/performance-01.jpg",
-          "caption": "붉은 조명 아래 마주 선 두 배우",
-          "w": 1067,
-          "h": 1600
-        },
-        {
-          "src": "assets/work/performance-02.jpg",
-          "caption": "무대 조명 아래 공연하는 배우",
-          "w": 1067,
-          "h": 1600
-        },
-        {
-          "src": "assets/work/performance-03.jpg",
-          "caption": "보랏빛 조명의 뮤지컬 무대",
-          "w": 1178,
-          "h": 1600
-        }
-      ]
-    },
-    {
       "id": "documentary-books",
       "year": "",
       "network": "",
@@ -201,12 +172,19 @@
     {
       "id": "film-stage-01",
       "year": "2026",
-      "network": "",
+      "network": "스튜디오 반",
       "title": "THE MATHER (더마더)",
-      "contribution": "",
+      "contribution": "포스터 및 공연 촬영",
       "category": "performance",
-      "cover": "",
-      "photos": []
+      "cover": "assets/uploads/film-stage-01-1795574706958-1.jpg",
+      "photos": [
+        {
+          "src": "assets/uploads/film-stage-01-1795574706958-1.jpg",
+          "caption": "",
+          "w": 1020,
+          "h": 1360
+        }
+      ]
     },
     {
       "id": "film-event-01",
@@ -215,8 +193,45 @@
       "title": "CGK 세미나 ZEISS Aatma Mood",
       "contribution": "",
       "category": "behind",
-      "cover": "",
-      "photos": []
+      "cover": "assets/uploads/film-event-01-1795574706958-2.jpg",
+      "photos": [
+        {
+          "src": "assets/uploads/film-event-01-1795574706958-2.jpg",
+          "caption": "",
+          "w": 966,
+          "h": 644
+        },
+        {
+          "src": "assets/uploads/film-event-01-1795574706958-3.jpg",
+          "caption": "",
+          "w": 1067,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/film-event-01-1795574706958-4.jpg",
+          "caption": "",
+          "w": 1067,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/film-event-01-1795574706958-5.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/film-event-01-1795574706958-6.jpg",
+          "caption": "",
+          "w": 966,
+          "h": 1449
+        },
+        {
+          "src": "assets/uploads/film-event-01-1795574706958-7.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        }
+      ]
     },
     {
       "id": "film-drama-05",
@@ -231,22 +246,60 @@
     {
       "id": "film-stage-02",
       "year": "2025",
-      "network": "",
+      "network": "FNC Ent",
       "title": "N.Flying LIVE &CON4 ENCORE : Let’s Roll &4EVER",
-      "contribution": "",
+      "contribution": "공연촬영",
       "category": "performance",
-      "cover": "",
-      "photos": []
+      "cover": "assets/uploads/film-stage-02-1795574706958-8.jpg",
+      "photos": [
+        {
+          "src": "assets/uploads/film-stage-02-1795574706958-8.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/film-stage-02-1795574706958-9.jpg",
+          "caption": "",
+          "w": 1067,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/film-stage-02-1795574706958-10.jpg",
+          "caption": "",
+          "w": 1067,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/film-stage-02-1795574706958-11.jpg",
+          "caption": "",
+          "w": 1067,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/film-stage-02-1795574706958-12.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        }
+      ]
     },
     {
       "id": "film-stage-03",
       "year": "2025",
-      "network": "",
+      "network": "스튜디오 반",
       "title": "문턱",
-      "contribution": "",
+      "contribution": "포스터 및 공연촬영",
       "category": "performance",
-      "cover": "",
-      "photos": []
+      "cover": "assets/uploads/film-stage-03-1795574706958-13.jpg",
+      "photos": [
+        {
+          "src": "assets/uploads/film-stage-03-1795574706958-13.jpg",
+          "caption": "",
+          "w": 1132,
+          "h": 1600
+        }
+      ]
     },
     {
       "id": "film-event-02",
