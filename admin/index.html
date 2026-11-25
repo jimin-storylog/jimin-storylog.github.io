@@ -173,6 +173,26 @@
         </div>
 
         <div class="field">
+          <label class="field__label" for="fNetwork">방송사 / 플랫폼</label>
+          <select class="input" id="fNetwork">
+            <option value="">선택 안 함</option>
+            <option value="SBS">SBS</option>
+            <option value="KBS">KBS</option>
+            <option value="MBC">MBC</option>
+            <option value="tvN">tvN</option>
+            <option value="JTBC">JTBC</option>
+            <option value="ENA">ENA</option>
+            <option value="OCN">OCN</option>
+            <option value="Netflix">Netflix</option>
+            <option value="Disney+">Disney+</option>
+            <option value="TVING">TVING</option>
+            <option value="Coupang Play">Coupang Play</option>
+            <option value="__custom">직접 입력</option>
+          </select>
+          <input class="input" id="fNetworkCustom" type="text" maxlength="40" placeholder="방송사·플랫폼 이름 (예: MBN, 웨이브)" hidden>
+        </div>
+
+        <div class="field">
           <label class="field__label" for="fContribution">참여 기여도</label>
           <input class="input" id="fContribution" type="text" list="contribList" placeholder="메인 스틸">
           <datalist id="contribList">

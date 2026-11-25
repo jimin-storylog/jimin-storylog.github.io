@@ -153,6 +153,7 @@
         return {
           id: String(raw.id || "work-" + (index + 1)),
           year: raw.year ? String(raw.year).trim() : "",
+          network: raw.network ? String(raw.network).trim() : "",
           title: raw.title ? String(raw.title).trim() : "제목 없음",
           contribution: raw.contribution ? String(raw.contribution).trim() : "",
           category: CATEGORIES[raw.category] ? raw.category : "still",
@@ -290,23 +291,25 @@
     var kicker = document.createElement("p");
     kicker.className = "work__kicker";
 
-    if (work.year) {
-      var year = document.createElement("span");
-      year.className = "work__year";
-      year.textContent = work.year;
-      kicker.appendChild(year);
+    /* 연도 · 방송사 · 분류 — 있는 것만 점(·)으로 이어 붙인다 */
+    function addKickerPart(className, text) {
+      if (kicker.childNodes.length) {
+        var dot = document.createElement("span");
+        dot.className = "work__dot";
+        dot.setAttribute("aria-hidden", "true");
+        dot.textContent = "·";
+        kicker.appendChild(dot);
+      }
 
-      var dot = document.createElement("span");
-      dot.className = "work__dot";
-      dot.setAttribute("aria-hidden", "true");
-      dot.textContent = "·";
-      kicker.appendChild(dot);
+      var part = document.createElement("span");
+      part.className = className;
+      part.textContent = text;
+      kicker.appendChild(part);
     }
 
-    var category = document.createElement("span");
-    category.className = "work__cat";
-    category.textContent = catOf(work.category).en;
-    kicker.appendChild(category);
+    if (work.year) addKickerPart("work__year", work.year);
+    if (work.network) addKickerPart("work__network", work.network);
+    addKickerPart("work__cat", catOf(work.category).en);
 
     var title = document.createElement("h3");
     title.className = "work__title";
@@ -510,8 +513,12 @@
       clearTimeout(closeTimer);
       isOpen = true;
 
-      els.year.textContent = work.year;
-      els.year.hidden = !work.year;
+      var viewerKicker = [work.year, work.network, catOf(work.category).en]
+        .filter(Boolean)
+        .join(" · ");
+
+      els.year.textContent = viewerKicker;
+      els.year.hidden = !viewerKicker;
       els.title.textContent = work.title;
       els.contrib.textContent = work.contribution;
       els.contrib.hidden = !work.contribution;

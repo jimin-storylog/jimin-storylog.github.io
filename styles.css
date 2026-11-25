@@ -479,6 +479,11 @@ button {
   letter-spacing: 0.14em;
 }
 
+.work__network {
+  color: var(--ink);
+  letter-spacing: 0.14em;
+}
+
 .work__dot {
   color: var(--muted);
 }

@@ -15,6 +15,13 @@
 
   var CATS = { still: "스틸", performance: "공연", behind: "비하인드", documentary: "다큐" };
 
+  /* 방송사·플랫폼 — 자주 쓰는 것만 목록에 두고, 나머지는 직접 입력 */
+  var NETWORKS = [
+    "SBS", "KBS", "MBC", "tvN", "JTBC", "ENA", "OCN",
+    "Netflix", "Disney+", "TVING", "Coupang Play"
+  ];
+  var NETWORK_CUSTOM = "__custom";
+
   var ICONS = {
     up: '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M6 14l6-6 6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     down: '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M6 10l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
@@ -44,7 +51,7 @@
     "connState", "workCount", "workList", "worksEmpty", "addWorkBtn", "worksHint",
     "tabWorks", "tabFilmo", "worksView", "filmographyView", "filmoCats",
     "editorView", "editorTitle", "editorBack", "deleteWorkBtn", "coverPreview", "coverInput",
-    "fYear", "fCategory", "fTitle", "fContribution", "photoCount", "photosInput", "photoList",
+    "fYear", "fCategory", "fTitle", "fContribution", "fNetwork", "fNetworkCustom", "photoCount", "photosInput", "photoList",
     "photosEmpty", "editorDone", "editorCancel", "editorMsg",
     "saveBar", "saveBtn", "saveState", "toast", "doneBox", "doneClose"
   ];
@@ -505,6 +512,7 @@
     return {
       id: raw.id ? String(raw.id) : "work-" + uid(),
       year: raw.year ? String(raw.year) : "",
+      network: raw.network ? String(raw.network).trim() : "",
       title: raw.title ? String(raw.title) : "",
       contribution: raw.contribution ? String(raw.contribution) : "",
       category: CATS[raw.category] ? raw.category : "still",
@@ -517,6 +525,7 @@
     return {
       id: "work-" + uid(),
       year: nowYear(),
+      network: "",
       title: "",
       contribution: "",
       category: "still",
@@ -531,6 +540,7 @@
     return {
       id: work.id,
       year: work.year,
+      network: work.network || "",
       title: work.title,
       contribution: work.contribution,
       category: work.category,
@@ -574,7 +584,7 @@
     }
 
     var body = el("div", "workrow__body");
-    var meta = [work.year, CATS[work.category]].filter(Boolean).join(" · ");
+    var meta = [work.year, work.network, CATS[work.category]].filter(Boolean).join(" · ");
     body.appendChild(el("p", "workrow__meta", meta));
     body.appendChild(el("p", "workrow__title", work.title || "(제목 없음)"));
     body.appendChild(el("p", "workrow__sub", (work.contribution || "기여도 없음") + " · 사진 " + work.photos.length + "장"));
@@ -745,6 +755,7 @@
     dom.fCategory.value = state.editing.category;
     dom.fTitle.value = state.editing.title;
     dom.fContribution.value = state.editing.contribution;
+    setNetworkField(state.editing.network);
 
     setEditorMsg("");
     renderEditor();
@@ -757,6 +768,7 @@
     return {
       id: work.id,
       year: work.year,
+      network: work.network || "",
       title: work.title,
       contribution: work.contribution,
       category: work.category,
@@ -780,6 +792,26 @@
     state.editingIndex = null;
     dom.editorView.hidden = true;
     setView(state.view);
+  }
+
+  /* ---------- 방송사 / 플랫폼 ---------- */
+  function updateNetworkCustom() {
+    var custom = dom.fNetwork.value === NETWORK_CUSTOM;
+    dom.fNetworkCustom.hidden = !custom;
+  }
+
+  function setNetworkField(value) {
+    var network = String(value || "").trim();
+    var preset = NETWORKS.indexOf(network) !== -1;
+
+    dom.fNetwork.value = !network ? "" : preset ? network : NETWORK_CUSTOM;
+    dom.fNetworkCustom.value = preset || !network ? "" : network;
+    updateNetworkCustom();
+  }
+
+  function readNetworkField() {
+    if (dom.fNetwork.value === NETWORK_CUSTOM) return dom.fNetworkCustom.value.trim();
+    return dom.fNetwork.value || "";
   }
 
   function renderEditor() {
@@ -912,6 +944,7 @@
     work.year = dom.fYear.value.trim();
     work.contribution = dom.fContribution.value.trim();
     work.category = dom.fCategory.value;
+    work.network = readNetworkField();
 
     if (!coverOf(work)) work.coverKey = work.photos[0].key;
 
@@ -1172,6 +1205,14 @@
 
     dom.editorDone.addEventListener("click", commitEditor);
     dom.deleteWorkBtn.addEventListener("click", deleteWork);
+
+    dom.fNetwork.addEventListener("change", function () {
+      updateNetworkCustom();
+
+      if (dom.fNetwork.value === NETWORK_CUSTOM) {
+        dom.fNetworkCustom.focus();
+      }
+    });
 
     dom.coverInput.addEventListener("change", function () {
       addFiles(dom.coverInput.files, true);
