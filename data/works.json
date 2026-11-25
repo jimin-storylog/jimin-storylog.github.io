@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-25T05:54:50.920Z",
+  "updated": "2026-11-25T06:10:09.746Z",
   "works": [
     {
       "id": "work-vhwk5z2l",
@@ -23,7 +23,7 @@
       "year": "2026",
       "network": "SBS",
       "title": "멋진 신세계",
-      "contribution": "스틸 참여",
+      "contribution": "메인 스틸",
       "category": "still",
       "cover": "assets/uploads/drama-still-1795569293298-2.jpg",
       "photos": [
@@ -55,7 +55,7 @@
     },
     {
       "id": "work-zhbqpt15",
-      "year": "2026",
+      "year": "2025",
       "network": "MBC",
       "title": "이강에는 달이 흐른다",
       "contribution": "메인 스틸",
@@ -475,7 +475,7 @@
       "year": "",
       "network": "",
       "title": "다큐멘터리 · 백 투 더 북스",
-      "contribution": "스틸 참여",
+      "contribution": "메인 스틸",
       "category": "documentary",
       "cover": "assets/uploads/documentary-books-1795576533683-1.jpg",
       "photos": [
