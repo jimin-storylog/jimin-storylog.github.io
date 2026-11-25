@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JIMIN IM — Still Photographer</title>
+  <meta name="description" content="임지민(JIMIN IM) — 서울 기반 스틸 포토그래퍼. 드라마·영화·공연 스틸 작업 포트폴리오와 전체 필모그래피.">
+  <meta name="theme-color" content="#f5f3ee">
+
+  <link rel="canonical" href="https://jimin-storylog.github.io/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="JIMIN IM">
+  <meta property="og:url" content="https://jimin-storylog.github.io/">
+  <meta property="og:title" content="JIMIN IM — Still Photographer">
+  <meta property="og:description" content="Still Photographer based in Seoul. 드라마·영화·공연 스틸 포트폴리오.">
+  <meta property="og:image" content="https://jimin-storylog.github.io/assets/work/hero-bw.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <!-- JS 사용 가능 시에만 스크롤 등장 효과 적용 -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <!-- 웹폰트: Pretendard(한글) + Inter/IBM Plex Mono(영문) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body id="top">
+  <a class="skip-link" href="#work">본문으로 건너뛰기</a>
+
+  <header class="site-header" id="siteHeader">
+    <a class="brand" href="#top" aria-label="JIMIN IM, 맨 위로">
+      <span class="brand__en">JIMIN IM</span>
+      <span class="brand__ko">임지민</span>
+    </a>
+    <nav class="nav" aria-label="주요 메뉴">
+      <a href="#work" class="nav__link">Work</a>
+      <a href="#filmography" class="nav__link">Filmography</a>
+      <a href="#contact" class="nav__link">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ── Hero ─────────────────────────────────────────── -->
+    <section class="hero" aria-labelledby="heroTitle">
+      <p class="eyebrow reveal">
+        <span class="eyebrow__dot" aria-hidden="true"></span>
+        Still Photographer — Based in Seoul
+      </p>
+
+      <h1 class="hero-title reveal" id="heroTitle">
+        <span class="hero-title__en">JIMIN IM</span>
+        <span class="hero-title__ko">임지민</span>
+      </h1>
+
+      <div class="hero-foot">
+        <p class="hero-lede reveal">
+          드라마와 영화, 공연의 현장에서<br>
+          화면 너머의 순간을 사진으로 남깁니다.
+        </p>
+        <dl class="hero-meta reveal">
+          <div>
+            <dt>Base</dt>
+            <dd>Seoul, KR</dd>
+          </div>
+          <div>
+            <dt>Field</dt>
+            <dd>Drama · Film · Stage</dd>
+          </div>
+          <div>
+            <dt>Email</dt>
+            <dd><a href="mailto:twotwothree@kakao.com">twotwothree@kakao.com</a></dd>
+          </div>
+          <div>
+            <dt>Instagram</dt>
+            <dd><a href="https://www.instagram.com/hej.jjimin" target="_blank" rel="noopener">@hej.jjimin</a></dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ── Hero image ───────────────────────────────────── -->
+    <figure class="hero-figure">
+      <img src="assets/work/hero-bw.jpg" alt="창가의 빛이 드는 카페, 테이블에 앉은 사람 — 흑백 사진"
+           width="1600" height="767" loading="eager" fetchpriority="high">
+    </figure>
+
+    <!-- ── Work ─────────────────────────────────────────── -->
+    <section class="section work" id="work" aria-labelledby="workTitle">
+      <div class="section-head">
+        <p class="section-index">01</p>
+        <div class="section-head__text">
+          <h2 class="section-title" id="workTitle">Selected Works</h2>
+          <p class="section-desc">
+            드라마·영화 스틸, 공연 현장, 비하인드 컷. 카테고리를 골라 보거나 이미지를 눌러 크게 볼 수 있습니다.
+          </p>
+        </div>
+      </div>
+
+      <div class="filters" role="group" aria-label="작업 카테고리">
+        <button class="filter is-active" type="button" data-filter="all" aria-pressed="true">전체 <span class="filter__n">13</span></button>
+        <button class="filter" type="button" data-filter="still" aria-pressed="false">스틸 <span class="filter__n">5</span></button>
+        <button class="filter" type="button" data-filter="performance" aria-pressed="false">공연 <span class="filter__n">3</span></button>
+        <button class="filter" type="button" data-filter="behind" aria-pressed="false">비하인드 <span class="filter__n">3</span></button>
+        <button class="filter" type="button" data-filter="documentary" aria-pressed="false">다큐멘터리 <span class="filter__n">2</span></button>
+      </div>
+
+      <!--
+        이미지 교체 방법:
+        1) 새 사진을 assets/work/ 에 넣고 아래 src 경로만 바꾸면 됩니다.
+        2) 캡션(.still__title / .still__meta)과 alt를 함께 고쳐 주세요.
+        3) 슬롯을 늘리려면 <figure class="still" data-still data-cat="..."> 블록을 복사하면
+           필터와 라이트박스에 자동으로 연결됩니다. data-cat 값은 still / performance / behind / documentary 중 하나.
+      -->
+      <div class="gallery" id="gallery">
+        <figure class="still still--land" data-still data-cat="still">
+          <button class="still__open" type="button" aria-label="드라마·영화 스틸 01 크게 보기">
+            <span class="still__frame">
+              <img src="assets/work/still-01.jpg" alt="따뜻한 빛 속에 앉은 배우 — 드라마 스틸" width="1600" height="1066" loading="lazy">
+            </span>
+          </button>
+          <figcaption class="still__cap">
+            <span class="still__no">01</span>
+            <span class="still__title">드라마 · 영화 스틸</span>
+            <span class="still__meta">Still</span>
+          </figcaption>
+        </figure>
+
+        <figure class="still still--port still--offset" data-still data-cat="still">
+          <button class="still__open" type="button" aria-label="드라마·영화 스틸 02 크게 보기">
+            <span class="still__frame">
+              <img src="assets/work/still-02.jpg" alt="빛 번짐 속 인물의 옆모습 — 드라마 스틸" width="1067" height="1600" loading="lazy">
+            </span>
+          </button>
+          <figcaption class="still__cap">
+            <span class="still__no">02</span>
+            <span class="still__title">드라마 · 영화 스틸</span>
+            <span class="still__meta">Still</span>
+          </figcaption>
+        </figure>
+
+        <figure class="still still--land" data-still data-cat="still">
+          <button class="still__open" type="button" aria-label="드라마·영화 스틸 03 크게 보기">
+            <span class="still__frame">
+              <img src="assets/work/still-03.jpg" alt="세면대 앞에 몸을 숙인 인물 — 흑백 드라마 스틸" width="1600" height="1066" loading="lazy">
+            </span>
+          </button>
+          <figcaption class="still__cap">
+            <span class="still__no">03</span>
+            <span class="still__title">드라마 · 영화 스틸</span>
+            <span class="still__meta">Still</span>
+          </figcaption>
+        </figure>
+
+        <figure class="still still--port still--offset" data-still data-cat="still">
+          <button class="still__open" type="button" aria-label="드라마·영화 스틸 04 크게 보기">
+            <span class="still__frame">
+              <img src="assets/work/still-04.jpg" alt="해 질 무렵 옥상에서 마주 선 두 사람 — 드라마 스틸" width="1067" height="1600" loading="lazy">
+            </span>
+          </button>
+          <figcaption class="still__cap">
+            <span class="still__no">04</span>
+            <span class="still__title">드라마 · 영화 스틸</span>
+            <span class="still__meta">Still</span>
+          </figcaption>
+        </figure>
+
+        <figure class="still still--land" data-still data-cat="still">
+          <button class="still__open" type="button" aria-label="드라마·영화 스틸 05 크게 보기">
+            <span class="still__frame">
+              <img src="assets/work/still-05.jpg" alt="가을 궁궐, 붉은 예복을 입은 인물들 — 사극 스틸" width="1600" height="1014" loading="lazy">
+            </span>
+          </button>
+          <figcaption class="still__cap">
+            <span class="still__no">05</span>
+            <span class="still__title">드라마 · 영화 스틸</span>
+            <span class="still__meta">Still</span>
+          </figcaption>
+        </figure>
+
+        <figure class="still still--port" data-still data-cat="performance">
+          <button class="still__open" type="button" aria-label="공연 스틸 06 크게 보기">
+            <span class="still__frame">
+              <img src="assets/work/performance-01.jpg" alt="붉은 조명 아래 마주 선 두 배우 — 연극 스틸" width="1067" height="1600" loading="lazy">
+            </span>
+          </button>
+          <figcaption class="still__cap">
+            <span class="still__no">06</span>
+            <span class="still__title">공연 스틸</span>
+            <span class="still__meta">Stage</span>
+          </figcaption>
+        </figure>
+
+        <figure class="still still--port still--offset" data-still data-cat="performance">
+          <button class="still__open" type="button" aria-label="공연 스틸 07 크게 보기">
+            <span class="still__frame">
+              <img src="assets/work/performance-02.jpg" alt="무대 조명 아래 공연하는 배우 — 공연 스틸" width="1067" height="1600" loading="lazy">
+            </span>
+          </button>
+          <figcaption class="still__cap">
+            <span class="still__no">07</span>
+            <span class="still__title">공연 스틸</span>
+            <span class="still__meta">Stage</span>
+          </figcaption>
+        </figure>
+
+        <figure class="still still--port" data-still data-cat="performance">
+          <button class="still__open" type="button" aria-label="공연 스틸 08 크게 보기">
+            <span class="still__frame">
+              <img src="assets/work/performance-03.jpg" alt="보랏빛 조명의 뮤지컬 무대 — 공연 스틸" width="1178" height="1600" loading="lazy">
+            </span>
+          </button>
+          <figcaption class="still__cap">
+            <span class="still__no">08</span>
+            <span class="still__title">공연 스틸</span>
+            <span class="still__meta">Stage</span>
+          </figcaption>
+        </figure>
+
+        <figure class="still still--land" data-still data-cat="behind">
+          <button class="still__open" type="button" aria-label="비하인드 09 크게 보기">
+            <span class="still__frame">
+              <img src="assets/work/behind-01.jpg" alt="바람에 머리카락이 흩날리는 인물의 옆모습 — 흑백 비하인드 컷" width="1600" height="900" loading="lazy">
+            </span>
+          </button>
+          <figcaption class="still__cap">
+            <span class="still__no">09</span>
+            <span class="still__title">비하인드</span>
+            <span class="still__meta">Portrait</span>
+          </figcaption>
+        </figure>
+
+        <figure class="still still--port still--offset" data-still data-cat="behind">
+          <button class="still__open" type="button" aria-label="비하인드 10 크게 보기">
+            <span class="still__frame">
+              <img src="assets/work/behind-02.jpg" alt="물잔 너머를 바라보는 인물 — 비하인드 컷" width="1066" height="1600" loading="lazy">
+            </span>
+          </button>
+          <figcaption class="still__cap">
+            <span class="still__no">10</span>
+            <span class="still__title">비하인드</span>
+            <span class="still__meta">Portrait</span>
+          </figcaption>
+        </figure>
+
+        <figure class="still still--port" data-still data-cat="behind">
+          <button class="still__open" type="button" aria-label="비하인드 11 크게 보기">
+            <span class="still__frame">
+              <img src="assets/work/behind-03.jpg" alt="유리잔을 든 인물, 금빛 조명 — 비하인드 컷" width="1067" height="1600" loading="lazy">
+            </span>
+          </button>
+          <figcaption class="still__cap">
+            <span class="still__no">11</span>
+            <span class="still__title">비하인드</span>
+            <span class="still__meta">Portrait</span>
+          </figcaption>
+        </figure>
+
+        <figure class="still still--land" data-still data-cat="documentary">
+          <button class="still__open" type="button" aria-label="다큐멘터리 12 크게 보기">
+            <span class="still__frame">
+              <img src="assets/work/documentary-01.jpg" alt="기둥이 늘어선 회랑 — 다큐멘터리 촬영" width="1600" height="1067" loading="lazy">
+            </span>
+          </button>
+          <figcaption class="still__cap">
+            <span class="still__no">12</span>
+            <span class="still__title">다큐멘터리</span>
+            <span class="still__meta">Documentary</span>
+          </figcaption>
+        </figure>
+
+        <figure class="still still--port still--offset still--right" data-still data-cat="documentary">
+          <button class="still__open" type="button" aria-label="다큐멘터리 13 크게 보기">
+            <span class="still__frame">
+              <img src="assets/work/documentary-02.jpg" alt="도시가 내려다보이는 언덕 — 다큐멘터리 촬영" width="1067" height="1600" loading="lazy">
+            </span>
+          </button>
+          <figcaption class="still__cap">
+            <span class="still__no">13</span>
+            <span class="still__title">다큐멘터리</span>
+            <span class="still__meta">Documentary</span>
+          </figcaption>
+        </figure>
+      </div>
+
+      <p class="note">
+        * 사진은 JIMIN IM(jiminim.creatorlink.net)의 공개 작업에서 가져왔습니다.
+        작품명·연도는 사이트의 분류를 따랐고, 개별 컷의 작품명은 확인되는 대로 캡션에 추가할 수 있습니다.
+      </p>
+    </section>
+
+    <!-- ── Filmography ──────────────────────────────────── -->
+    <section class="section filmo" id="filmography" aria-labelledby="filmoTitle">
+      <div class="section-head">
+        <p class="section-index">02</p>
+        <div class="section-head__text">
+          <h2 class="section-title" id="filmoTitle">Filmography</h2>
+          <p class="section-desc">
+            스틸 포토그래퍼로 참여한 작업 전체 목록입니다. 카테고리를 눌러 보세요.
+          </p>
+        </div>
+      </div>
+
+      <!-- filmography:start (tools/build-filmography.py 로 생성) -->
+      <div class="tabs" role="tablist" aria-label="필모그래피 카테고리">
+          <button class="tab is-active" type="button" role="tab" id="tab-drama" aria-controls="panel-drama" aria-selected="true" data-tab="drama">드라마 <span class="tab__n">26</span></button>
+          <button class="tab" type="button" role="tab" id="tab-stage" aria-controls="panel-stage" aria-selected="false" data-tab="stage">공연 <span class="tab__n">18</span></button>
+          <button class="tab" type="button" role="tab" id="tab-mv" aria-controls="panel-mv" aria-selected="false" data-tab="mv">뮤직비디오 <span class="tab__n">6</span></button>
+          <button class="tab" type="button" role="tab" id="tab-ad" aria-controls="panel-ad" aria-selected="false" data-tab="ad">광고 <span class="tab__n">3</span></button>
+          <button class="tab" type="button" role="tab" id="tab-event" aria-controls="panel-event" aria-selected="false" data-tab="event">행사 <span class="tab__n">13</span></button>
+          <button class="tab" type="button" role="tab" id="tab-etc" aria-controls="panel-etc" aria-selected="false" data-tab="etc">기타 <span class="tab__n">10</span></button>
+      </div>
+
+        <div class="fo-panel" role="tabpanel" id="panel-drama" aria-labelledby="tab-drama" data-panel="drama">
+          <ol class="fo-list">
+              <li class="fo-row"><span class="fo-year">2026</span><span class="fo-body">tvN '<span class='fo-name'>해오름달 열이레</span>'</span></li>
+              <li class="fo-row"><span class="fo-year">2026</span><span class="fo-body">SBS '<span class='fo-name'>멋진 신세계</span>'</span></li>
+              <li class="fo-row"><span class="fo-year">2025</span><span class="fo-body">MBC '<span class='fo-name'>이강에는 달이 흐른다</span>' 참여</span></li>
+              <li class="fo-row"><span class="fo-year">2025</span><span class="fo-body">tvN '<span class='fo-name'>첫, 사랑을 위하여</span>' 참여</span></li>
+              <li class="fo-row"><span class="fo-year">2025</span><span class="fo-body">독립영화 '<span class='fo-name'>TO BE FED</span>'</span></li>
+              <li class="fo-row"><span class="fo-year">2024</span><span class="fo-body">넷플릭스 '<span class='fo-name'>당신이 죽였다</span>' 참여</span></li>
+              <li class="fo-row"><span class="fo-year">2024</span><span class="fo-body">숏드라마 '<span class='fo-name'>남주서치</span>'</span></li>
+              <li class="fo-row"><span class="fo-year">2024</span><span class="fo-body">영화 '<span class='fo-name'>반달</span>'</span></li>
+              <li class="fo-row"><span class="fo-year">2024</span><span class="fo-body">세로드라마 '<span class='fo-name'>너에게만 몹쓸 짓</span>'</span></li>
+              <li class="fo-row"><span class="fo-year">2024</span><span class="fo-body">영화 '<span class='fo-name'>Pale Waves</span>'</span></li>
+              <li class="fo-row"><span class="fo-year">2023</span><span class="fo-body">독립영화 '<span class='fo-name'>내 생애 최고의 날</span>'</span></li>
+              <li class="fo-row"><span class="fo-year">2023</span><span class="fo-body">독립영화 '<span class='fo-name'>그 가을 우리</span>'</span></li>
+              <li class="fo-row"><span class="fo-year">2023</span><span class="fo-body">영화 '<span class='fo-name'>증발</span>'</span></li>
+              <li class="fo-row"><span class="fo-year">2022</span><span class="fo-body">쿠팡 ‘<span class='fo-name'>복학생</span>’</span></li>
+              <li class="fo-row"><span class="fo-year">2022</span><span class="fo-body">tvN ‘<span class='fo-name'>이번생도 잘 부탁해</span>’</span></li>
+              <li class="fo-row"><span class="fo-year">2022</span><span class="fo-body">KBS '<span class='fo-name'>두뇌공조</span>'</span></li>
+              <li class="fo-row"><span class="fo-year">2022</span><span class="fo-body">KT 스튜디오지니 ‘<span class='fo-name'>사장님을 잠금해재</span>’</span></li>
+              <li class="fo-row"><span class="fo-year">2022</span><span class="fo-body">tvN ‘<span class='fo-name'>슈룹</span>’</span></li>
+              <li class="fo-row"><span class="fo-year">2022</span><span class="fo-body">SBS ‘어게인 마이 라이프‘</span></li>
+              <li class="fo-row"><span class="fo-year">2021</span><span class="fo-body">JTBC ‘<span class='fo-name'>그린마더스클럽</span>’</span></li>
+              <li class="fo-row"><span class="fo-year">2020</span><span class="fo-body">중국 Iqiy ‘<span class='fo-name'>반시밀당반시상</span>’</span></li>
+              <li class="fo-row"><span class="fo-year">2019</span><span class="fo-body">KBS ‘<span class='fo-name'>녹두전</span>’</span></li>
+              <li class="fo-row"><span class="fo-year">2019</span><span class="fo-body">tvN ‘악마가 너의 이름을 부를 때‘</span></li>
+              <li class="fo-row"><span class="fo-year">2019</span><span class="fo-body">tvN ‘자백‘</span></li>
+              <li class="fo-row"><span class="fo-year">2018</span><span class="fo-body">tvN ‘나인룸‘</span></li>
+              <li class="fo-row"><span class="fo-year">2018</span><span class="fo-body">JTBC ‘<span class='fo-name'>스케치</span>’</span></li>
+          </ol>
+        </div>
+        <div class="fo-panel" role="tabpanel" id="panel-stage" aria-labelledby="tab-stage" data-panel="stage">
+          <ol class="fo-list">
+              <li class="fo-row"><span class="fo-year">2026</span><span class="fo-body">연극 '<span class='fo-name'>THE MATHER (더마더)</span>'</span></li>
+              <li class="fo-row"><span class="fo-year">2025</span><span class="fo-body">N.Flying LIVE ‘<span class='fo-name'>&amp;CON4 ENCORE : Let</span>’s Roll &amp;4EVER’</span></li>
+              <li class="fo-row"><span class="fo-year">2025</span><span class="fo-body">연극 '<span class='fo-name'>문턱</span>'</span></li>
+              <li class="fo-row"><span class="fo-year">2024</span><span class="fo-body">뮤지컬 '<span class='fo-name'>어제의 시는 내일의 노래가 될 수 있을까</span>'</span></li>
+              <li class="fo-row"><span class="fo-year">2024</span><span class="fo-body">연극 '<span class='fo-name'>THE FATHER (더파더)</span>'</span></li>
+              <li class="fo-row"><span class="fo-year">2024</span><span class="fo-body">연극 '<span class='fo-name'>뱀프x헌터</span>' 1차 프로덕션 리허설 참여</span></li>
+              <li class="fo-row"><span class="fo-year">2024</span><span class="fo-body">연극 '<span class='fo-name'>쉬어매드니스</span>' 17차 프로덕션 리허설 참여</span></li>
+              <li class="fo-row"><span class="fo-year">2023</span><span class="fo-body">'<span class='fo-name'>루엘</span>' 내한공연(4TH WALL) 스틸 참여</span></li>
+              <li class="fo-row"><span class="fo-year">2023</span><span class="fo-body">'<span class='fo-name'>브라이언 아담스</span>' 내한공연 스틸 참여</span></li>
+              <li class="fo-row"><span class="fo-year">2023</span><span class="fo-body">'<span class='fo-name'>코난 그레이</span>' 내한공연 스틸 참여</span></li>
+              <li class="fo-row"><span class="fo-year">2022</span><span class="fo-body">뮤지컬 '<span class='fo-name'>물랑루즈!</span>' 스틸 참여</span></li>
+              <li class="fo-row"><span class="fo-year">2022</span><span class="fo-body">'<span class='fo-name'>Maroon 5 Live in Seoul</span>' 스틸 참여</span></li>
+              <li class="fo-row"><span class="fo-year">2022</span><span class="fo-body">슈퍼콘서트 ‘<span class='fo-name'>빌리아일리시</span>' 스틸 참여</span></li>
+              <li class="fo-row"><span class="fo-year">2021</span><span class="fo-body">KCON:TACT HI 스틸 참여</span></li>
+              <li class="fo-row"><span class="fo-year">2021</span><span class="fo-body">아스트로 AROHA Festival [Be Mine] 스틸</span></li>
+              <li class="fo-row"><span class="fo-year">2017</span><span class="fo-body">성훈 ASIA TOUR 포토그래퍼</span></li>
+              <li class="fo-row"><span class="fo-year">2017</span><span class="fo-body">B.A.P PARTY BABY 스틸 참여</span></li>
+              <li class="fo-row"><span class="fo-year">2016</span><span class="fo-body">B.A.P LIVE ON EARTH 스틸 참여</span></li>
+          </ol>
+        </div>
+        <div class="fo-panel" role="tabpanel" id="panel-mv" aria-labelledby="tab-mv" data-panel="mv">
+          <ol class="fo-list">
+              <li class="fo-row"><span class="fo-year">2024</span><span class="fo-body">시크릿쥬쥬 x woo!ah! 시크릿쥬쥬 OST MV 스틸</span></li>
+              <li class="fo-row"><span class="fo-year">2022</span><span class="fo-body">Lilboi(Rian &amp; Jayb) ‘<span class='fo-name'>JUICE</span>’ MV 스틸</span></li>
+              <li class="fo-row"><span class="fo-year">2018</span><span class="fo-body">E.DA ‘<span class='fo-name'>AGAIM</span>’ MV 스틸</span></li>
+              <li class="fo-row"><span class="fo-year">2017</span><span class="fo-body">더킹 ‘<span class='fo-name'>LOOK BACK</span>’ MV 스틸 및 앨범 촬영</span></li>
+              <li class="fo-row"><span class="fo-year">2017</span><span class="fo-body">더킹 ‘<span class='fo-name'>DAMN-OH-TAPE</span>’ 앨범 촬영</span></li>
+              <li class="fo-row"><span class="fo-year">2016</span><span class="fo-body">놉케이 ‘클라이막스‘ MV 스틸</span></li>
+          </ol>
+        </div>
+        <div class="fo-panel" role="tabpanel" id="panel-ad" aria-labelledby="tab-ad" data-panel="ad">
+          <ol class="fo-list">
+              <li class="fo-row"><span class="fo-year">2017</span><span class="fo-body">라쉬반 지면광고</span></li>
+              <li class="fo-row"><span class="fo-year">2017</span><span class="fo-body">고속선 JR큐슈 지면광고</span></li>
+              <li class="fo-row"><span class="fo-year">2017</span><span class="fo-body">오렌지팩토리 ‘<span class='fo-name'>한여름밤의 꿈</span>’ 바이럴 콘텐츠 제작 참여</span></li>
+          </ol>
+        </div>
+        <div class="fo-panel" role="tabpanel" id="panel-event" aria-labelledby="tab-event" data-panel="event">
+          <ol class="fo-list">
+              <li class="fo-row"><span class="fo-year">2026</span><span class="fo-body">CGK 세미나 '<span class='fo-name'>ZEISS Aatma Mood</span>'</span></li>
+              <li class="fo-row"><span class="fo-year">2025</span><span class="fo-body">CGK 세미나 '<span class='fo-name'>우리의 수저 세트</span>' 촬영</span></li>
+              <li class="fo-row"><span class="fo-year">2024</span><span class="fo-body">대한민국 예술올림픽위원회 창립총회 촬영</span></li>
+              <li class="fo-row"><span class="fo-year">2024</span><span class="fo-body">영화 '<span class='fo-name'>1923 간토대학살</span>' 르포컷 전시회 촬영</span></li>
+              <li class="fo-row"><span class="fo-year">2024</span><span class="fo-body">영화 '<span class='fo-name'>1923 간토대학살</span>' 시사회 촬영</span></li>
+              <li class="fo-row"><span class="fo-year">2023</span><span class="fo-body">충청남도 제58회 전국기능경기대회 제1경기장 스틸</span></li>
+              <li class="fo-row"><span class="fo-year">2022</span><span class="fo-body">현대에너지솔루션 정기 주주총회 촬영</span></li>
+              <li class="fo-row"><span class="fo-year">2020</span><span class="fo-body">현대에너지솔루션 정기 주주총회 촬영</span></li>
+              <li class="fo-row"><span class="fo-year">2018</span><span class="fo-body">A.CONIC 소속 모델 서울패션위크 비하인드 촬영 2018 S/S , 2017 F/W</span></li>
+              <li class="fo-row"><span class="fo-year">2017</span><span class="fo-body">MBN ‘<span class='fo-name'>꿈나무 골프대회</span>’ 2016/2017 콘텐츠 제작</span></li>
+              <li class="fo-row"><span class="fo-year">2016</span><span class="fo-body">헤이 스타트업 현장 촬영</span></li>
+              <li class="fo-row"><span class="fo-year">2016</span><span class="fo-body">스텔라 중국 온라인 플랫폼 팬미팅 진행</span></li>
+              <li class="fo-row"><span class="fo-year">2016</span><span class="fo-body">성훈 ‘<span class='fo-name'>EXCLUSIVE PARTY</span>’ 진행 및 현장 촬영</span></li>
+          </ol>
+        </div>
+        <div class="fo-panel" role="tabpanel" id="panel-etc" aria-labelledby="tab-etc" data-panel="etc">
+          <ol class="fo-list">
+              <li class="fo-row"><span class="fo-year">2024</span><span class="fo-body">국가유산청 국립해양유산연구소 홍보영상 '<span class='fo-name'>너를만나다</span>' 스틸</span></li>
+              <li class="fo-row"><span class="fo-year">2023</span><span class="fo-body">다큐멘터리 ‘장동건의 백 투 더 북스‘ 시즌3 스틸</span></li>
+              <li class="fo-row"><span class="fo-year">2021</span><span class="fo-body">다큐멘터리 ‘장동건의 백 투 더 북스‘ 시즌2 스틸</span></li>
+              <li class="fo-row"><span class="fo-year">2019</span><span class="fo-body">다큐멘터리 ‘장동건의 백 투 더 북스‘ 시즌1 스틸</span></li>
+              <li class="fo-row"><span class="fo-year">2018</span><span class="fo-body">한국방송통신 전파진흥원 다큐사례집 인터뷰 촬영</span></li>
+              <li class="fo-row"><span class="fo-year">2017</span><span class="fo-body">A. CONIC 소속 모델 프로필 촬영</span></li>
+              <li class="fo-row"><span class="fo-year">2017</span><span class="fo-body">오렌지팩토리 서울,경기 및 중국 지점 촬영</span></li>
+              <li class="fo-row"><span class="fo-year">2017</span><span class="fo-body">성훈 2017 굿즈(달력 + 메이킹 DVD) 촬영 및 제작</span></li>
+              <li class="fo-row"><span class="fo-year">2016</span><span class="fo-body">오렌지팩토리 자사 브랜드 시즌 촬영 2016/2017</span></li>
+              <li class="fo-row"><span class="fo-year">2016</span><span class="fo-body">OFUN PEOPLE 온라인 매거진 인터뷰 전담 촬영</span></li>
+          </ol>
+        </div>
+      <!-- filmography:end -->
+
+      <p class="note">
+        * JIMIN IM(jiminim.creatorlink.net) 소개 페이지의 목록을 그대로 옮겼습니다. (2026년 11월 기준)
+      </p>
+    </section>
+
+    <!-- ── Contact ──────────────────────────────────────── -->
+    <section class="section contact" id="contact" aria-labelledby="contactTitle">
+      <div class="section-head">
+        <p class="section-index">03</p>
+        <div class="section-head__text">
+          <h2 class="section-title" id="contactTitle">Contact</h2>
+          <p class="section-desc">촬영 문의와 협업 제안을 기다립니다.</p>
+        </div>
+      </div>
+
+      <p class="contact-lede">
+        Still Photographer<br>
+        based in Seoul.
+      </p>
+
+      <div class="contact-grid">
+        <div class="contact-item">
+          <span class="contact-label">Email</span>
+          <a class="contact-value contact-link" href="mailto:twotwothree@kakao.com">
+            twotwothree@kakao.com <span class="arrow" aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">Instagram</span>
+          <a class="contact-value contact-link" href="https://www.instagram.com/hej.jjimin" target="_blank" rel="noopener">
+            @hej.jjimin <span class="arrow" aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">Based in</span>
+          <span class="contact-value">Seoul, South Korea</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">Phone</span>
+          <a class="contact-value contact-link" href="tel:+821095972282">010. 9597. 2282</a>
+        </div>
+      </div>
+
+      <a class="contact-cta" href="https://www.instagram.com/hej.jjimin" target="_blank" rel="noopener">
+        <span>Instagram에서 작업 보기</span>
+        <span class="contact-cta__line" aria-hidden="true"></span>
+      </a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>© 2026 JIMIN IM. All rights reserved.</span>
+    <span class="site-footer__note">Still Photographer · Seoul</span>
+  </footer>
+
+  <!-- ── Lightbox ───────────────────────────────────────── -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="이미지 크게 보기" hidden>
+    <button class="lb-btn lb-close" type="button" aria-label="닫기 (ESC)">
+      <span aria-hidden="true">Close</span>
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+        <path d="M4 4L20 20M20 4L4 20" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      </svg>
+    </button>
+
+    <button class="lb-btn lb-prev" type="button" aria-label="이전 이미지 (←)">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+        <path d="M15 4L7 12l8 8" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      </svg>
+    </button>
+
+    <figure class="lb-figure">
+      <img class="lb-img" alt="">
+      <figcaption class="lb-cap">
+        <span class="lb-no"></span>
+        <span class="lb-title"></span>
+        <span class="lb-meta"></span>
+      </figcaption>
+    </figure>
+
+    <button class="lb-btn lb-next" type="button" aria-label="다음 이미지 (→)">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+        <path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      </svg>
+    </button>
+
+    <p class="lb-count" aria-live="polite">
+      <span class="lb-cur">01</span><span class="lb-sep">/</span><span class="lb-total">13</span>
+    </p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
