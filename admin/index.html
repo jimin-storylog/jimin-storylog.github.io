@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex, nofollow">
   <meta name="googlebot" content="noindex, nofollow">
   <meta name="theme-color" content="#f5f3ee">
-  <title>JIMIN IM — 작품 · 여행 관리</title>
+  <title>JIMIN IM — 작품 · Personal 관리</title>
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 
-  <link rel="stylesheet" href="admin.css?v=10">
+  <link rel="stylesheet" href="admin.css?v=11">
 </head>
 <body>
   <header class="topbar">
@@ -31,8 +31,8 @@
   <main class="page">
     <!-- ── 로그인 ───────────────────────────────────────── -->
     <section class="login" id="loginView">
-      <p class="kicker">Works · Travel · Admin</p>
-      <h1 class="login__title">작품 · 여행 관리</h1>
+      <p class="kicker">Works · Personal · Admin</p>
+      <h1 class="login__title">작품 · Personal 관리</h1>
       <p class="login__lead">
         사진과 작품 정보를 고치면 이 브라우저에서 GitHub에 바로 올라가고,
         잠시 뒤 사이트에 반영됩니다.
@@ -84,8 +84,8 @@
     <section class="app" id="appView" hidden>
       <div class="app__head">
         <div>
-          <p class="kicker">Works · Travel · Admin</p>
-          <h1 class="app__title">작품 · 여행 관리</h1>
+          <p class="kicker">Works · Personal · Admin</p>
+          <h1 class="app__title">작품 · Personal 관리</h1>
         </div>
         <p class="conn" id="connState"></p>
       </div>
@@ -104,7 +104,7 @@
           작품 <span class="viewtab__n" id="workCount">0</span>
         </button>
         <button class="viewtab" id="tabTravel" type="button" role="tab" aria-selected="false" data-view="travel">
-          여행 <span class="viewtab__n" id="travelCount">0</span>
+          Personal <span class="viewtab__n" id="travelCount">0</span>
         </button>
         <button class="viewtab" id="tabFilmo" type="button" role="tab" aria-selected="false" data-view="filmography">
           필모그래피
@@ -139,7 +139,7 @@
         </p>
       </div>
 
-      <!-- 여행 -->
+      <!-- Personal -->
       <div class="view" id="travelView" hidden>
         <div class="toolbar">
           <button class="btn btn--primary" id="addJourneyBtn" type="button">+ 새 여정</button>
@@ -147,8 +147,8 @@
         </div>
 
         <p class="hint filmo__hint">
-          여정을 눌러 대표 사진과 사진 여러 장을 올리고, 연도·설명을 적을 수 있습니다.
-          사진을 올려 저장한 여정부터 사이트 Travel에 나타납니다.
+          항목을 눌러 대표 사진과 사진 여러 장을 올리고, 연도·설명을 적을 수 있습니다.
+          사진을 올려 저장한 항목부터 사이트 Personal에 나타납니다.
         </p>
 
         <ul class="worklist" id="journeyList"></ul>
@@ -264,7 +264,7 @@
         </div>
         <p class="msg" id="editorMsg" role="status"></p>
       </section>
-      <!-- 여행 편집 -->
+      <!-- Personal 편집 -->
       <section class="editor" id="travelEditorView" hidden aria-labelledby="travelEditorTitle">
         <div class="editor__head">
           <button class="linkbtn" id="travelEditorBack" type="button">← 목록</button>
@@ -345,6 +345,6 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="admin.js?v=10"></script>
+  <script src="admin.js?v=11"></script>
 </body>
 </html>

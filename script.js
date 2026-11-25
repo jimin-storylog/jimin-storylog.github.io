@@ -12,7 +12,7 @@
     documentary: { ko: "다큐멘터리", en: "DOCUMENTARY" },
     event: { ko: "행사", en: "EVENT" },
     product: { ko: "제품", en: "PRODUCT" },
-    travel: { ko: "여행", en: "TRAVEL" }
+    travel: { ko: "개인", en: "PERSONAL" }
   };
   var CATEGORY_ORDER = [
     "still",
@@ -369,7 +369,7 @@
   }
 
   /* 4열/3열/2열 메이슨리: 카드 높이를 열 폭에서 재고 가장 낮은 열부터 쌓는다.
-     Selected Works 와 Travel 이 같은 방식을 함께 쓴다. */
+     Selected Works 와 Personal 이 같은 방식을 함께 쓴다. */
   function layoutMasonry(container, cards) {
     if (!container) return;
 
@@ -721,8 +721,8 @@
     });
   }
 
-  /* ---------- Travel: data ---------- */
-  /* 여행 중분류 — 사진이 아직 없어도 칩은 항상 보인다.
+  /* ---------- Personal: data (data/travel.json — 파일 이름은 기존 호환용) ---------- */
+  /* Personal 중분류 — 사진이 아직 없어도 칩은 항상 보인다.
      data/travel.json 을 못 불러오면 이 목록으로 자리를 지킨다. */
   var TRAVEL_JOURNEYS = [
     { id: "tokyo-japan", title: "도쿄", region: "일본" },
@@ -731,13 +731,20 @@
     { id: "fjallraven-classic-sweden-turkiye", title: "피엘라벤 클래식", region: "스웨덴•튀르키예" },
     {
       id: "camino-de-santiago-spain-portugal-netherlands-greece",
-      title: "산티아고 순례길",
-      region: "스페인•포르투갈•네덜란드•그리스"
+      title: "유럽•산티아고 순례길 2010",
+      region: "스페인•포르투갈•네덜란드•그리스",
+      year: "2010"
     },
     {
       id: "annapurna-trek-nepal-india-sri-lanka-indonesia",
       title: "안나푸르나 트레킹",
       region: "네팔•인도•스리랑카•인도네시아"
+    },
+    {
+      id: "travel-6cvp0qk8",
+      title: "산티아고 순례길 2026",
+      region: "스페인",
+      year: "2026"
     }
   ];
 
@@ -798,7 +805,7 @@
     };
   }
 
-  /* ---------- Travel: filters ---------- */
+  /* ---------- Personal: filters ---------- */
   function renderTravelFilters() {
     if (!travelFilterBar) return;
 
@@ -848,7 +855,7 @@
     }
   }
 
-  /* ---------- Travel: cards ---------- */
+  /* ---------- Personal: cards ---------- */
   function createJourneyCard(journey) {
     var card = document.createElement("article");
     card.className = "work";
@@ -950,7 +957,7 @@
     return card;
   }
 
-  /* ---------- Travel: gallery ---------- */
+  /* ---------- Personal: gallery ---------- */
   function renderTravelGallery() {
     if (!travelGallery) return;
 
@@ -965,8 +972,8 @@
       travelGallery.innerHTML = "";
       setTravelStatus(
         activeJourney === "all"
-          ? "아직 등록된 여행 사진이 없습니다."
-          : "이 여정에는 아직 등록된 사진이 없습니다."
+          ? "아직 등록된 Personal 사진이 없습니다."
+          : "이 카테고리에는 아직 등록된 사진이 없습니다."
       );
       return;
     }
@@ -980,7 +987,7 @@
       .map(normalizeJourney)
       .filter(Boolean);
 
-    /* 파일이 비었거나 못 읽었을 때도 6개 여정 칩은 그대로 보이게 */
+    /* 파일이 비었거나 못 읽었을 때도 기본 항목 칩은 그대로 보이게 */
     if (!journeys.length) {
       journeys = TRAVEL_JOURNEYS.map(journeyOf).filter(Boolean);
     }
@@ -1002,7 +1009,7 @@
       })
       .catch(function () {
         applyTravel(TRAVEL_JOURNEYS);
-        setTravelStatus("여행 목록을 불러오지 못했습니다. 잠시 후 다시 열어 주세요.");
+        setTravelStatus("Personal 사진 목록을 불러오지 못했습니다. 잠시 후 다시 열어 주세요.");
       });
   }
 

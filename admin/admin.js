@@ -22,7 +22,7 @@
     product: "제품"
   };
 
-  /* 여행 중본류 — data/travel.json 이 비었을 때 이 6개로 자리를 지킨다 */
+  /* Personal 중분류 — data/travel.json 이 비었을 때 이 기본 항목으로 자리를 지킨다 */
   var TRAVEL_JOURNEYS = [
     { id: "tokyo-japan", title: "도쿄", region: "일본" },
     { id: "new-york-usa", title: "뉴욕", region: "미국" },
@@ -30,13 +30,20 @@
     { id: "fjallraven-classic-sweden-turkiye", title: "피엘라벤 클래식", region: "스웨덴•튀르키예" },
     {
       id: "camino-de-santiago-spain-portugal-netherlands-greece",
-      title: "산티아고 순례길",
-      region: "스페인•포르투갈•네덜란드•그리스"
+      title: "유럽•산티아고 순례길 2010",
+      region: "스페인•포르투갈•네덜란드•그리스",
+      year: "2010"
     },
     {
       id: "annapurna-trek-nepal-india-sri-lanka-indonesia",
       title: "안나푸르나 트레킹",
       region: "네팔•인도•스리랑카•인도네시아"
+    },
+    {
+      id: "travel-6cvp0qk8",
+      title: "산티아고 순례길 2026",
+      region: "스페인",
+      year: "2026"
     }
   ];
 
@@ -219,7 +226,7 @@
 
     var parts = [];
     if (state.dirtyWorks) parts.push("작품");
-    if (state.dirtyTravel) parts.push("여행");
+    if (state.dirtyTravel) parts.push("Personal");
     if (state.dirtyFilmo) parts.push("필모그래피");
 
     setSaveState(parts.join(" · ") + " 변경 사항이 있습니다");
@@ -251,7 +258,7 @@
     dom.logoutBtn.hidden = state.mode !== "github";
     if (state.mode === "github") {
       dom.worksHint.textContent = "사진이 없는 작품은 공개 사이트에 나오지 않습니다.";
-      dom.travelHint.textContent = "사진을 올린 여정만 사이트 Travel에 나타납니다.";
+      dom.travelHint.textContent = "사진을 올린 항목만 사이트 Personal에 나타납니다.";
     } else {
       dom.travelHint.textContent = "";
     }
@@ -518,7 +525,7 @@
         applyTravel(TRAVEL_JOURNEYS, null);
         return;
       }
-      toast("여행 목록을 불러오지 못했습니다. " + describeError(error), "error");
+      toast("Personal 목록을 불러오지 못했습니다. " + describeError(error), "error");
       applyTravel(TRAVEL_JOURNEYS, null);
     });
   }
@@ -1163,7 +1170,7 @@
     toast("목록에서 지웠습니다. 저장을 눌러 사이트에 반영하세요.");
   }
 
-  /* ---------- 여행 ---------- */
+  /* ---------- Personal ---------- */
   function journeyLabel(journey) {
     if (!journey) return "";
     if (journey.label) return journey.label;
@@ -1375,7 +1382,7 @@
     renderTravel();
   }
 
-  /* ---------- 여행 편집 ---------- */
+  /* ---------- Personal 편집 ---------- */
   function openTravelEditor(index) {
     state.editingJourneyIndex = index == null ? null : index;
     state.editingJourney = index == null ? blankJourney() : cloneJourney(state.travel[index]);
@@ -1483,7 +1490,7 @@
     renderTravel();
 
     if (!journey.photos.length) {
-      toast("사진이 없어 사이트 Travel에는 나오지 않습니다. 사진을 올려 저장하면 그때 나타납니다.");
+      toast("사진이 없어 사이트 Personal에는 나오지 않습니다. 사진을 올려 저장하면 그때 나타납니다.");
     }
   }
 
@@ -1665,7 +1672,7 @@
     uploads.forEach(function (item, index) {
       chain = chain.then(function () {
         var path = "assets/uploads/travel-" + slugId(item.journey.id) + "-" + stamp + "-" + (index + 1) + ".jpg";
-        setSaveState("여행 사진 " + (index + 1) + " / " + uploads.length + " 올리는 중…");
+        setSaveState("Personal 사진 " + (index + 1) + " / " + uploads.length + " 올리는 중…");
 
         return blobToBase64(item.photo.blob).then(function (base64) {
           return putFile(path, base64, "admin: add photo " + path, null);
@@ -1677,7 +1684,7 @@
     });
 
     return chain.then(function () {
-      setSaveState("여행 목록 저장 중…");
+      setSaveState("Personal 목록 저장 중…");
 
       var payload = {
         updated: new Date().toISOString(),
