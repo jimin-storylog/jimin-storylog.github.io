@@ -254,17 +254,20 @@ button {
   display: flex;
   gap: 8px;
   margin-top: 8px;
+  align-items: stretch;
 }
 
 .login__row .input {
   flex: 1 1 0;
   width: auto;
   min-width: 0;
+  margin-top: 0;
 }
 
 .login__row .btn {
   flex: 0 0 auto;
   white-space: nowrap;
+  padding-inline: 22px;
 }
 
 .login__hint {
