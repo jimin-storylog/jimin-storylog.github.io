@@ -511,13 +511,24 @@
       });
 
       var done = function () {
+        if (!isOpen) return;
+
+        /* 새 사진이 아직 들어오지 않았는데 decode()가 먼저 끝나는 경우가 있다.
+           그때 페이드인해 버리면 이전 사진이 이전 크기 그대로 남아 작게 보이므로,
+           currentSrc가 이번 사진으로 바뀐 뒤에만 화면에 올린다. */
+        var shown = els.img.currentSrc || "";
+        if (photo.src && shown.indexOf(photo.src.replace(/^\.\//, "")) === -1) return;
+
+        viewer.classList.add("is-ready");
+      };
+
+      els.img.onload = done;
+      els.img.onerror = function () {
         if (isOpen) viewer.classList.add("is-ready");
       };
 
       if (els.img.decode) {
         els.img.decode().then(done).catch(done);
-      } else {
-        els.img.onload = done;
       }
 
       [current.index + 1, current.index - 1].forEach(function (k) {
