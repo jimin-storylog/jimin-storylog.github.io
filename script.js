@@ -9,9 +9,18 @@
     still: { ko: "스틸", en: "STILL" },
     performance: { ko: "공연", en: "STAGE" },
     behind: { ko: "비하인드", en: "BEHIND" },
-    documentary: { ko: "다큐멘터리", en: "DOCUMENTARY" }
+    documentary: { ko: "다큐멘터리", en: "DOCUMENTARY" },
+    event: { ko: "행사", en: "EVENT" },
+    product: { ko: "제품", en: "PRODUCT" }
   };
-  var CATEGORY_ORDER = ["still", "performance", "behind", "documentary"];
+  var CATEGORY_ORDER = [
+    "still",
+    "performance",
+    "behind",
+    "documentary",
+    "event",
+    "product"
+  ];
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -223,8 +232,10 @@
 
     addFilter("all", "전체", works.length);
 
+    /* 대표 카테고리 6개는 작품이 아직 없어도(개수 0) 모두 보여 준다.
+       카테고리 구성이 한눈에 보이고, 눌렀을 때 빈 상태 안내가 나온다. */
     CATEGORY_ORDER.forEach(function (key) {
-      if (counts[key]) addFilter(key, catOf(key).ko, counts[key]);
+      addFilter(key, catOf(key).ko, counts[key] || 0);
     });
 
     function addFilter(key, label, count) {
@@ -361,7 +372,7 @@
     galleryCols = galleryColumns();
 
     if (!shown.length) {
-      setStatus("이 분류에는 아직 작품이 없습니다.");
+      setStatus("이 분류에는 아직 사진이 등록된 작품이 없습니다.");
       return;
     }
 

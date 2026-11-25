@@ -13,7 +13,14 @@
   var MAX_SIDE = 1600;
   var QUALITY = 0.85;
 
-  var CATS = { still: "스틸", performance: "공연", behind: "비하인드", documentary: "다큐" };
+  var CATS = {
+    still: "스틸",
+    performance: "공연",
+    behind: "비하인드",
+    documentary: "다큐멘터리",
+    event: "행사",
+    product: "제품"
+  };
 
   /* 방송사·플랫폼 — 자주 쓰는 것만 목록에 두고, 나머지는 직접 입력 */
   var NETWORKS = [
