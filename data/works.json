@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-25T03:45:00.203Z",
+  "updated": "2026-11-25T04:53:12.336Z",
   "works": [
     {
       "id": "work-vhwk5z2l",
@@ -1052,8 +1052,15 @@
       "title": "CGK 세미나 우리의 수저 세트",
       "contribution": "촬영",
       "category": "event",
-      "cover": "",
-      "photos": []
+      "cover": "assets/uploads/film-event-02-1795582370946-1.jpg",
+      "photos": [
+        {
+          "src": "assets/uploads/film-event-02-1795582370946-1.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        }
+      ]
     },
     {
       "id": "film-drama-06",
@@ -2140,8 +2147,15 @@
       "title": "현대에너지솔루션 정기 주주총회",
       "contribution": "촬영",
       "category": "event",
-      "cover": "",
-      "photos": []
+      "cover": "assets/uploads/film-event-08-1795582370946-2.jpg",
+      "photos": [
+        {
+          "src": "assets/uploads/film-event-08-1795582370946-2.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        }
+      ]
     },
     {
       "id": "film-drama-22",
@@ -2173,8 +2187,27 @@
       "title": "악마가 너의 이름을 부를 때",
       "contribution": "",
       "category": "still",
-      "cover": "",
-      "photos": []
+      "cover": "assets/uploads/film-drama-23-1795582370946-3.jpg",
+      "photos": [
+        {
+          "src": "assets/uploads/film-drama-23-1795582370946-3.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/film-drama-23-1795582370946-4.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/film-drama-23-1795582370946-5.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        }
+      ]
     },
     {
       "id": "film-drama-24",
@@ -2183,8 +2216,27 @@
       "title": "자백",
       "contribution": "",
       "category": "still",
-      "cover": "",
-      "photos": []
+      "cover": "assets/uploads/film-drama-24-1795582370946-6.jpg",
+      "photos": [
+        {
+          "src": "assets/uploads/film-drama-24-1795582370946-6.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/film-drama-24-1795582370946-7.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/film-drama-24-1795582370946-8.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        }
+      ]
     },
     {
       "id": "film-drama-25",
@@ -2193,8 +2245,27 @@
       "title": "나인룸",
       "contribution": "",
       "category": "still",
-      "cover": "",
-      "photos": []
+      "cover": "assets/uploads/film-drama-25-1795582370946-9.jpg",
+      "photos": [
+        {
+          "src": "assets/uploads/film-drama-25-1795582370946-9.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1066
+        },
+        {
+          "src": "assets/uploads/film-drama-25-1795582370946-10.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/film-drama-25-1795582370946-11.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        }
+      ]
     },
     {
       "id": "film-drama-26",
