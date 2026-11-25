@@ -1,11 +1,12 @@
 {
-  "updated": "2026-11-25T02:17:43.657Z",
+  "updated": "2026-11-25T02:30:32.693Z",
   "works": [
     {
       "id": "work-vhwk5z2l",
       "year": "2026",
+      "network": "tvN",
       "title": "해오름달 열이레",
-      "contribution": "",
+      "contribution": "메인 스틸",
       "category": "still",
       "cover": "assets/uploads/work-vhwk5z2l-1795569293298-1.jpg",
       "photos": [
@@ -55,6 +56,7 @@
     {
       "id": "work-zhbqpt15",
       "year": "2026",
+      "network": "MBC",
       "title": "이강에는 달이 흐른다",
       "contribution": "메인 스틸",
       "category": "still",
@@ -81,8 +83,44 @@
       ]
     },
     {
+      "id": "work-2u67zd9s",
+      "year": "2025",
+      "network": "tvN",
+      "title": "첫, 사랑을 위하여",
+      "contribution": "스틸 참여",
+      "category": "still",
+      "cover": "assets/uploads/work-2u67zd9s-1795573825601-1.jpg",
+      "photos": [
+        {
+          "src": "assets/uploads/work-2u67zd9s-1795573825601-1.jpg",
+          "caption": "",
+          "w": 1076,
+          "h": 717
+        },
+        {
+          "src": "assets/uploads/work-2u67zd9s-1795573825601-2.jpg",
+          "caption": "",
+          "w": 1076,
+          "h": 717
+        },
+        {
+          "src": "assets/uploads/work-2u67zd9s-1795573825601-3.jpg",
+          "caption": "",
+          "w": 1067,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/work-2u67zd9s-1795573825601-4.jpg",
+          "caption": "",
+          "w": 1076,
+          "h": 717
+        }
+      ]
+    },
+    {
       "id": "behind-cuts",
       "year": "",
+      "network": "",
       "title": "비하인드",
       "contribution": "비하인드 촬영",
       "category": "behind",
@@ -111,6 +149,7 @@
     {
       "id": "stage-still",
       "year": "",
+      "network": "",
       "title": "공연 스틸",
       "contribution": "스틸 참여",
       "category": "performance",
@@ -139,6 +178,7 @@
     {
       "id": "documentary-books",
       "year": "",
+      "network": "",
       "title": "다큐멘터리 · 백 투 더 북스",
       "contribution": "스틸 참여",
       "category": "documentary",
