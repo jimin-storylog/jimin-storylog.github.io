@@ -31,7 +31,7 @@ portfolio-site/
 ├── tools/
 │   ├── sync-fallback.py         # works.json → index.html 내장 목록 동기화
 │   └── build-filmography.py     # 필모그래피 내장 목록 재생성
-└── live-v3-*.png           # 배포 후 실제 화면 확인용 스크린샷
+└── live-v4-*.png           # 배포 후 실제 화면 확인용 스크린샷(데스크톱·모바일·전체)
 ```
 
 ## 작품 데이터 (`data/works.json`)
