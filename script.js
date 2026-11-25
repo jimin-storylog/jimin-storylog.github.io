@@ -144,11 +144,13 @@
 
         var cover = raw.cover ? String(raw.cover) : photos[0] ? photos[0].src : "";
 
+        /* 사진이 아직 없는 작품은 공개 목록(Selected Works · 카테고리 개수)에 넣지 않는다.
+           /admin/ 목록에는 남아 있고, 사진을 올려 저장하면 그때부터 여기에 나타난다. */
+        if (!cover && !photos.length) return null;
+
         if (cover && !photos.some(function (p) { return p.src === cover; })) {
           photos.unshift({ src: cover, caption: "", w: 0, h: 0 });
         }
-
-        if (!photos.length) return null;
 
         return {
           id: String(raw.id || "work-" + (index + 1)),

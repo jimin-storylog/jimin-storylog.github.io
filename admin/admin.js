@@ -43,12 +43,16 @@
     editing: null,
     editingIndex: null,
     busy: false,
-    view: "works"
+    view: "works",
+    listFilter: "all",   /* all | ready | empty — 사진 등록 상태로 거르기 */
+    query: ""            /* 제목 검색어 */
   };
 
   var ids = [
     "loginView", "appView", "loginForm", "tokenInput", "loginBtn", "loginMsg", "previewBtn", "logoutBtn",
-    "connState", "workCount", "workList", "worksEmpty", "addWorkBtn", "worksHint",
+    "connState", "workCount", "workList", "worksEmpty", "worksEmptyText", "addWorkBtn", "worksHint",
+    "filterAll", "filterReady", "filterEmpty", "countAll", "countReady", "countEmpty", "workSearch",
+    "photoWait",
     "tabWorks", "tabFilmo", "worksView", "filmographyView", "filmoCats",
     "editorView", "editorTitle", "editorBack", "deleteWorkBtn", "coverPreview", "coverInput",
     "fYear", "fCategory", "fTitle", "fContribution", "fNetwork", "fNetworkCustom", "photoCount", "photosInput", "photoList",
@@ -189,6 +193,9 @@
     dom.loginView.hidden = true;
     dom.appView.hidden = false;
     dom.logoutBtn.hidden = state.mode !== "github";
+    if (state.mode === "github") {
+      dom.worksHint.textContent = "사진이 없는 작품은 공개 사이트에 나오지 않습니다.";
+    }
   }
 
   function setView(view) {
@@ -557,18 +564,77 @@
   }
 
   /* ---------- 작품 목록 ---------- */
-  function renderWorks() {
-    dom.workCount.textContent = String(state.works.length);
-    dom.workList.innerHTML = "";
-    dom.worksEmpty.hidden = state.works.length > 0;
+  function hasPhotos(work) {
+    return !!(work && work.photos && work.photos.length);
+  }
 
-    state.works.forEach(function (work, index) {
-      dom.workList.appendChild(workRow(work, index));
+  function listFiltering() {
+    return state.listFilter !== "all" || state.query.trim() !== "";
+  }
+
+  function matchesList(work) {
+    if (state.listFilter === "ready" && !hasPhotos(work)) return false;
+    if (state.listFilter === "empty" && hasPhotos(work)) return false;
+    return matchesQuery(work);
+  }
+
+  function matchesQuery(work) {
+    var q = state.query.trim().toLowerCase();
+    if (!q) return true;
+
+    var hay = [work.title, work.year, work.network, work.contribution]
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase();
+
+    /* 띄어쓰기를 달리 적어도 찾히도록 공백을 지운 문자열도 함께 본다 */
+    return hay.indexOf(q) !== -1 || hay.replace(/\s+/g, "").indexOf(q.replace(/\s+/g, "")) !== -1;
+  }
+
+  function renderWorkFilter() {
+    var ready = 0;
+
+    state.works.forEach(function (work) {
+      if (hasPhotos(work)) ready += 1;
+    });
+
+    dom.countAll.textContent = String(state.works.length);
+    dom.countReady.textContent = String(ready);
+    dom.countEmpty.textContent = String(state.works.length - ready);
+
+    [dom.filterAll, dom.filterReady, dom.filterEmpty].forEach(function (btn) {
+      var on = btn.getAttribute("data-filter") === state.listFilter;
+      btn.classList.toggle("is-active", on);
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
     });
   }
 
-  function workRow(work, index) {
-    var row = el("li", "workrow");
+  function renderWorks() {
+    dom.workCount.textContent = String(state.works.length);
+    renderWorkFilter();
+
+    dom.workList.innerHTML = "";
+
+    var locked = listFiltering();
+    var shown = 0;
+
+    state.works.forEach(function (work, index) {
+      if (!matchesList(work)) return;
+      dom.workList.appendChild(workRow(work, index, locked));
+      shown += 1;
+    });
+
+    dom.worksEmpty.hidden = shown > 0;
+
+    if (!shown) {
+      dom.worksEmptyText.innerHTML = state.works.length
+        ? "조건에 맞는 작품이 없습니다. 필터를 바꾸거나 검색어를 지워 보세요."
+        : "아직 작품이 없습니다. <b>+ 새 작품</b>으로 첫 작품을 만들어 보세요.";
+    }
+  }
+
+  function workRow(work, index, lockedOrder) {
+    var row = el("li", "workrow" + (hasPhotos(work) ? "" : " is-waiting"));
 
     var thumb = el("div", "workrow__thumb");
     var cover = coverOf(work);
@@ -580,23 +646,31 @@
       img.loading = "lazy";
       thumb.appendChild(img);
     } else {
-      thumb.appendChild(el("span", null, "NO PHOTO"));
+      /* 사진을 아직 올리지 않은 작품 — 빈 썸네일 대신 자리를 잡아 둔다 */
+      thumb.appendChild(el("span", "workrow__ph", "사진 대기"));
     }
 
     var body = el("div", "workrow__body");
     var meta = [work.year, work.network, CATS[work.category]].filter(Boolean).join(" · ");
-    body.appendChild(el("p", "workrow__meta", meta));
+
+    var metaEl = el("p", "workrow__meta", meta);
+    if (!hasPhotos(work)) metaEl.appendChild(el("span", "badge", "사진 미등록"));
+    body.appendChild(metaEl);
+
     body.appendChild(el("p", "workrow__title", work.title || "(제목 없음)"));
-    body.appendChild(el("p", "workrow__sub", (work.contribution || "기여도 없음") + " · 사진 " + work.photos.length + "장"));
+
+    var sub = work.contribution || "기여도 없음";
+    sub += hasPhotos(work) ? " · 사진 " + work.photos.length + "장" : " · 사진 없음";
+    body.appendChild(el("p", "workrow__sub", sub));
 
     var acts = el("div", "workrow__acts");
 
     var up = el("button", "iconbtn");
     up.innerHTML = ICONS.up;
     up.type = "button";
-    up.title = "위로";
+    up.title = lockedOrder ? "정렬은 전체 보기에서 바꿀 수 있습니다" : "위로";
     up.setAttribute("aria-label", work.title + " 위로 이동");
-    up.disabled = index === 0;
+    up.disabled = lockedOrder || index === 0;
     up.addEventListener("click", function () {
       moveWork(index, -1);
     });
@@ -604,9 +678,9 @@
     var down = el("button", "iconbtn");
     down.innerHTML = ICONS.down;
     down.type = "button";
-    down.title = "아래로";
+    down.title = lockedOrder ? "정렬은 전체 보기에서 바꿀 수 있습니다" : "아래로";
     down.setAttribute("aria-label", work.title + " 아래로 이동");
-    down.disabled = index === state.works.length - 1;
+    down.disabled = lockedOrder || index === state.works.length - 1;
     down.addEventListener("click", function () {
       moveWork(index, 1);
     });
@@ -614,7 +688,7 @@
     var edit = el("button", "iconbtn");
     edit.innerHTML = ICONS.edit;
     edit.type = "button";
-    edit.title = "수정";
+    edit.title = hasPhotos(work) ? "수정" : "사진 올리기 · 수정";
     edit.setAttribute("aria-label", work.title + " 수정");
     edit.addEventListener("click", function () {
       openEditor(index);
@@ -623,6 +697,14 @@
     acts.appendChild(up);
     acts.appendChild(down);
     acts.appendChild(edit);
+
+    /* 목록의 글자를 눌러도 편집 화면으로 — 70여 개 중 원하는 작품을 바로 연다 */
+    [thumb, body].forEach(function (cell) {
+      cell.classList.add("workrow__cell");
+      cell.addEventListener("click", function () {
+        openEditor(index);
+      });
+    });
 
     row.appendChild(thumb);
     row.appendChild(body);
@@ -828,11 +910,12 @@
       img.alt = "";
       dom.coverPreview.appendChild(img);
     } else {
-      dom.coverPreview.appendChild(el("span", null, "아직 없음"));
+      dom.coverPreview.appendChild(el("span", null, "사진 대기"));
     }
 
     dom.photoCount.textContent = "· " + work.photos.length + "장";
     dom.photosEmpty.hidden = work.photos.length > 0;
+    dom.photoWait.hidden = work.photos.length > 0;
     dom.photoList.innerHTML = "";
 
     work.photos.forEach(function (photo, index) {
@@ -935,10 +1018,8 @@
       return;
     }
 
-    if (!work.photos.length) {
-      setEditorMsg("사진을 한 장 이상 올려 주세요.", true);
-      return;
-    }
+    /* 사진 없이도 저장할 수 있다 — 그동안은 공개 사이트에 나오지 않고 이 목록에만 머문다 */
+    var noPhoto = !work.photos.length;
 
     work.title = title;
     work.year = dom.fYear.value.trim();
@@ -946,7 +1027,11 @@
     work.category = dom.fCategory.value;
     work.network = readNetworkField();
 
-    if (!coverOf(work)) work.coverKey = work.photos[0].key;
+    if (noPhoto) {
+      work.coverKey = "";
+    } else if (!coverOf(work)) {
+      work.coverKey = work.photos[0].key;
+    }
 
     if (state.editingIndex == null) {
       state.works.push(work);
@@ -957,6 +1042,10 @@
     closeEditor();
     markDirty("works");
     renderWorks();
+
+    if (noPhoto) {
+      toast("사진이 없어 공개 사이트에는 나오지 않습니다. 사진을 올려 저장하면 그때 나타납니다.");
+    }
   }
 
   function deleteWork() {
@@ -1187,6 +1276,18 @@
 
     dom.addWorkBtn.addEventListener("click", function () {
       openEditor(null);
+    });
+
+    [dom.filterAll, dom.filterReady, dom.filterEmpty].forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        state.listFilter = btn.getAttribute("data-filter") || "all";
+        renderWorks();
+      });
+    });
+
+    dom.workSearch.addEventListener("input", function () {
+      state.query = dom.workSearch.value;
+      renderWorks();
     });
 
     dom.editorBack.addEventListener("click", function () {
