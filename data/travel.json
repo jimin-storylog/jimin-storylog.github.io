@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-25T07:31:49.460Z",
+  "updated": "2026-11-25T07:38:00.951Z",
   "journeys": [
     {
       "id": "tokyo-japan",
@@ -1553,10 +1553,10 @@
     },
     {
       "id": "camino-de-santiago-spain-portugal-netherlands-greece",
-      "label": "유럽-스페인•포르투갈•네덜란드•그리스",
-      "title": "유럽",
+      "label": "유럽•산티아고 순례길 2010-스페인•포르투갈•네덜란드•그리스",
+      "title": "유럽•산티아고 순례길 2010",
       "region": "스페인•포르투갈•네덜란드•그리스",
-      "year": "",
+      "year": "2010",
       "desc": "",
       "cover": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-252.jpg",
       "photos": [
