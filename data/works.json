@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-25T01:14:59.827Z",
+  "updated": "2026-11-25T02:17:43.657Z",
   "works": [
     {
       "id": "work-vhwk5z2l",
@@ -48,6 +48,34 @@
           "caption": "이 강에는 달이 흐른다",
           "w": 1600,
           "h": 1067
+        }
+      ]
+    },
+    {
+      "id": "work-zhbqpt15",
+      "year": "2026",
+      "title": "이강에는 달이 흐른다",
+      "contribution": "메인 스틸",
+      "category": "still",
+      "cover": "assets/uploads/work-zhbqpt15-1795573055371-1.jpg",
+      "photos": [
+        {
+          "src": "assets/uploads/work-zhbqpt15-1795573055371-1.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/work-zhbqpt15-1795573055371-2.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/work-zhbqpt15-1795573055371-3.jpg",
+          "caption": "",
+          "w": 1067,
+          "h": 1600
         }
       ]
     },
