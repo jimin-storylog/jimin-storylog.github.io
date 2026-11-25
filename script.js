@@ -12,8 +12,6 @@
     documentary: { ko: "다큐멘터리", en: "DOCUMENTARY" }
   };
   var CATEGORY_ORDER = ["still", "performance", "behind", "documentary"];
-  /* 작품이 이보다 적으면 분류 필터를 감춥니다 (한 칸짜리 필터는 의미가 없어서) */
-  var FILTER_MIN_WORKS = 6;
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -113,6 +111,7 @@
 
   var works = [];
   var activeFilter = "all";
+  var galleryCols = 0;
   var openViewer = function () {};  // 아래 뷰어 블록에서 채운다
 
   function setStatus(message) {
@@ -212,12 +211,6 @@
   function renderFilters() {
     if (!filterBar) return;
     filterBar.innerHTML = "";
-
-    if (works.length < FILTER_MIN_WORKS) {
-      filterBar.hidden = true;
-      return;
-    }
-
     filterBar.hidden = false;
 
     var counts = {};
@@ -259,11 +252,6 @@
   }
 
   /* ---------- Works: gallery ---------- */
-  function setFrameRatio(card, frame, w, h) {
-    if (!w || !h || card.classList.contains("work--land") || card.classList.contains("work--port")) return;
-    card.classList.add(w / h >= 1.1 ? "work--land" : "work--port");
-  }
-
   function createCard(work) {
     var card = document.createElement("article");
     card.className = "work";
@@ -291,11 +279,6 @@
     if (coverPhoto.w && coverPhoto.h) {
       img.width = coverPhoto.w;
       img.height = coverPhoto.h;
-      setFrameRatio(card, frame, coverPhoto.w, coverPhoto.h);
-    } else {
-      img.addEventListener("load", function () {
-        setFrameRatio(card, frame, img.naturalWidth, img.naturalHeight);
-      });
     }
 
     frame.appendChild(img);
@@ -364,30 +347,68 @@
 
   function renderGallery() {
     if (!gallery) return;
-    gallery.innerHTML = "";
 
-    var cards = [];
-    var shown = 0;
-
-    works.forEach(function (work) {
-      if (activeFilter !== "all" && work.category !== activeFilter) return;
-
-      var card = createCard(work);
-
-      /* 두 칸 그리드에서 홀수 번째 카드를 살짝 내려 에디토리얼 리듬을 준다 */
-      if (shown % 2 === 1) card.classList.add("is-offset");
-
-      gallery.appendChild(card);
-      cards.push(card);
-      shown += 1;
+    var shown = works.filter(function (work) {
+      return activeFilter === "all" || work.category === activeFilter;
     });
 
-    if (!shown) {
+    gallery.innerHTML = "";
+    galleryCols = galleryColumns();
+
+    if (!shown.length) {
       setStatus("이 분류에는 아직 작품이 없습니다.");
-    } else {
-      setStatus("");
+      return;
     }
+
+    setStatus("");
+
+    var columns = [];
+    for (var i = 0; i < galleryCols; i += 1) {
+      var col = document.createElement("div");
+      col.className = "gallery__col";
+      gallery.appendChild(col);
+      columns.push(col);
+    }
+
+    var cards = shown.map(createCard);
+
+    /* 열 폭에서의 실제 카드 높이를 재고, 가장 낮은 열부터 차례로 쌓는다 */
+    cards.forEach(function (card) {
+      columns[0].appendChild(card);
+    });
+
+    var heights = cards.map(function (card) {
+      return card.getBoundingClientRect().height;
+    });
+
+    var gap = parseFloat(window.getComputedStyle(gallery).rowGap) || 16;
+    var loads = columns.map(function () { return 0; });
+
+    cards.forEach(function (card, k) {
+      var target = 0;
+      for (var c = 1; c < columns.length; c += 1) {
+        if (loads[c] < loads[target] - 0.5) target = c;
+      }
+      columns[target].appendChild(card);
+      loads[target] += heights[k] + gap;
+    });
   }
+
+  function galleryColumns() {
+    if (window.matchMedia("(min-width: 1200px)").matches) return 4;
+    if (window.matchMedia("(min-width: 720px)").matches) return 3;
+    return 2;
+  }
+
+  var galleryResizeTimer = null;
+
+  window.addEventListener("resize", function () {
+    if (!gallery) return;
+    window.clearTimeout(galleryResizeTimer);
+    galleryResizeTimer = window.setTimeout(function () {
+      if (galleryColumns() !== galleryCols) renderGallery();
+    }, 160);
+  });
 
   /* ---------- Viewer (작품 상세) ---------- */
   var viewer = document.getElementById("viewer");

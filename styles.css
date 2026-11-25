@@ -17,7 +17,7 @@
     BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  --pad: clamp(20px, 4.4vw, 64px);
+  --pad: clamp(16px, 3.4vw, 48px);
   --maxw: 1440px;
   --header-h: 76px;
 
@@ -346,7 +346,7 @@ button {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: clamp(32px, 4.5vw, 56px);
+  margin-bottom: clamp(18px, 2.4vw, 28px);
 }
 
 .filter {
@@ -383,21 +383,30 @@ button {
   color: rgba(245, 243, 238, 0.6);
 }
 
-/* ---------- Works gallery ---------- */
+/* ---------- Works gallery (밀집 메이슨리: 2/3/4열) ---------- */
+.works {
+  --gal-gap: clamp(14px, 1.2vw, 18px);
+  padding-top: clamp(60px, 9vh, 112px);
+}
+
 .gallery {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: clamp(20px, 3vw, 48px);
-  row-gap: clamp(40px, 6vw, 92px);
-  align-items: start;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gal-gap, 16px);
+}
+
+.gallery__col {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gal-gap, 16px);
 }
 
 .work {
+  display: block;
+  width: 100%;
   min-width: 0;
-}
-
-.work.is-offset {
-  margin-top: clamp(24px, 6vw, 104px);
 }
 
 .work__open {
@@ -411,15 +420,6 @@ button {
   display: block;
   overflow: hidden;
   background: var(--paper-soft);
-  aspect-ratio: 4 / 5;
-}
-
-.work--land .work__frame {
-  aspect-ratio: 3 / 2;
-}
-
-.work--port .work__frame {
-  aspect-ratio: 3 / 4;
 }
 
 .work__frame::after {
@@ -442,8 +442,7 @@ button {
 
 .work__frame img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
   transform: scale(1.001);
   transition: transform 1.1s var(--ease);
 }
@@ -459,17 +458,17 @@ button {
 }
 
 .work__cap {
-  margin-top: 16px;
-  padding-top: 12px;
-  border-top: 1px solid var(--line-soft);
+  margin-top: 8px;
+  padding: 0 2px;
 }
 
 .work__kicker {
   display: flex;
   align-items: baseline;
-  gap: 8px;
+  flex-wrap: wrap;
+  gap: 6px;
   font-family: var(--font-mono);
-  font-size: 9.5px;
+  font-size: 9px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
@@ -485,11 +484,11 @@ button {
 }
 
 .work__title {
-  margin-top: 7px;
-  font-size: clamp(16px, 1.35vw, 19px);
+  margin-top: 3px;
+  font-size: clamp(13.5px, 1vw, 15px);
   font-weight: 500;
-  letter-spacing: -0.015em;
-  line-height: 1.32;
+  letter-spacing: -0.01em;
+  line-height: 1.34;
   word-break: keep-all;
 }
 
@@ -497,10 +496,11 @@ button {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 12px;
-  margin-top: 7px;
-  font-size: 12.5px;
-  color: #4a463e;
+  flex-wrap: wrap;
+  gap: 2px 8px;
+  margin-top: 3px;
+  font-size: 11.5px;
+  color: #635e54;
 }
 
 .work__contrib {
@@ -510,8 +510,8 @@ button {
 .work__count {
   flex: 0 0 auto;
   font-family: var(--font-mono);
-  font-size: 9.5px;
-  letter-spacing: 0.16em;
+  font-size: 8.5px;
+  letter-spacing: 0.14em;
   color: var(--muted);
 }
 
@@ -1058,17 +1058,8 @@ body.is-locked {
     font-size: 12px;
   }
 
-  .gallery {
-    grid-template-columns: minmax(0, 1fr);
-    row-gap: 42px;
-  }
-
-  .work.is-offset {
-    margin-top: 0;
-  }
-
   .work__title {
-    font-size: 17px;
+    font-size: 13.5px;
   }
 
   .tabs {
