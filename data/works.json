@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-25T03:32:53.373Z",
+  "updated": "2026-11-25T03:45:00.203Z",
   "works": [
     {
       "id": "work-vhwk5z2l",
@@ -79,6 +79,12 @@
           "caption": "",
           "w": 1067,
           "h": 1600
+        },
+        {
+          "src": "assets/uploads/work-zhbqpt15-1795578253666-1.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
         }
       ]
     },
@@ -1847,8 +1853,33 @@
       "title": "슈퍼콘서트 빌리아일리시",
       "contribution": "스틸 참여",
       "category": "performance",
-      "cover": "",
-      "photos": []
+      "cover": "assets/uploads/film-stage-13-1795578253666-2.jpg",
+      "photos": [
+        {
+          "src": "assets/uploads/film-stage-13-1795578253666-2.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1084
+        },
+        {
+          "src": "assets/uploads/film-stage-13-1795578253666-3.jpg",
+          "caption": "",
+          "w": 1308,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/film-stage-13-1795578253666-4.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1094
+        },
+        {
+          "src": "assets/uploads/film-stage-13-1795578253666-5.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1060
+        }
+      ]
     },
     {
       "id": "film-mv-02",
@@ -1857,8 +1888,27 @@
       "title": "Lilboi(Rian & Jayb) JUICE MV",
       "contribution": "스틸",
       "category": "behind",
-      "cover": "",
-      "photos": []
+      "cover": "assets/uploads/film-mv-02-1795578253666-6.jpg",
+      "photos": [
+        {
+          "src": "assets/uploads/film-mv-02-1795578253666-6.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/film-mv-02-1795578253666-7.jpg",
+          "caption": "",
+          "w": 1067,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/film-mv-02-1795578253666-8.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        }
+      ]
     },
     {
       "id": "film-event-07",
@@ -1867,8 +1917,45 @@
       "title": "현대에너지솔루션 정기 주주총회",
       "contribution": "촬영",
       "category": "event",
-      "cover": "",
-      "photos": []
+      "cover": "assets/uploads/film-event-07-1795578253666-9.jpg",
+      "photos": [
+        {
+          "src": "assets/uploads/film-event-07-1795578253666-9.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/film-event-07-1795578253666-10.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/film-event-07-1795578253666-11.jpg",
+          "caption": "",
+          "w": 1067,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/film-event-07-1795578253666-12.jpg",
+          "caption": "",
+          "w": 1067,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/film-event-07-1795578253666-13.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/film-event-07-1795578253666-14.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        }
+      ]
     },
     {
       "id": "film-drama-20",
@@ -2116,8 +2203,51 @@
       "title": "스케치",
       "contribution": "",
       "category": "still",
-      "cover": "",
-      "photos": []
+      "cover": "assets/uploads/film-drama-26-1795578253666-15.jpg",
+      "photos": [
+        {
+          "src": "assets/uploads/film-drama-26-1795578253666-15.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/film-drama-26-1795578253666-16.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/film-drama-26-1795578253666-17.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/film-drama-26-1795578253666-18.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/film-drama-26-1795578253666-19.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/film-drama-26-1795578253666-20.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/film-drama-26-1795578253666-21.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        }
+      ]
     },
     {
       "id": "film-mv-03",
@@ -2156,8 +2286,39 @@
       "title": "성훈 ASIA TOUR",
       "contribution": "포토그래퍼",
       "category": "performance",
-      "cover": "",
-      "photos": []
+      "cover": "assets/uploads/film-stage-16-1795578253666-22.jpg",
+      "photos": [
+        {
+          "src": "assets/uploads/film-stage-16-1795578253666-22.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/film-stage-16-1795578253666-23.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/film-stage-16-1795578253666-24.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 577
+        },
+        {
+          "src": "assets/uploads/film-stage-16-1795578253666-25.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/film-stage-16-1795578253666-26.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        }
+      ]
     },
     {
       "id": "film-stage-17",
