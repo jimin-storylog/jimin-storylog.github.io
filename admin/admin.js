@@ -24,27 +24,16 @@
 
   /* Personal 중분류 — data/travel.json 이 비었을 때 이 기본 항목으로 자리를 지킨다 */
   var TRAVEL_JOURNEYS = [
-    { id: "tokyo-japan", title: "도쿄", region: "일본" },
-    { id: "new-york-usa", title: "뉴욕", region: "미국" },
-    { id: "buenos-aires-argentina", title: "부에노스아이레스", region: "아르헨티나" },
-    { id: "fjallraven-classic-sweden-turkiye", title: "피엘라벤 클래식", region: "스웨덴•튀르키예" },
+    { id: "buenos-aires-argentina", title: "부에노스아이레스", desc: "두 사람의 거리와 몸짓이 만들어 내는 흑백의 리듬." },
     {
       id: "camino-de-santiago-spain-portugal-netherlands-greece",
-      title: "유럽•산티아고 순례길 2010",
-      region: "스페인•포르투갈•네덜란드•그리스",
-      year: "2010"
+      title: "산티아고, 2010·2026",
+      desc: "16년의 간격을 두고 다시 걸은 순례길 위의 시선."
     },
-    {
-      id: "annapurna-trek-nepal-india-sri-lanka-indonesia",
-      title: "안나푸르나 트레킹",
-      region: "네팔•인도•스리랑카•인도네시아"
-    },
-    {
-      id: "travel-6cvp0qk8",
-      title: "산티아고 순례길 2026",
-      region: "스페인",
-      year: "2026"
-    }
+    { id: "tokyo-japan", title: "일본" },
+    { id: "new-york-usa", title: "뉴욕", region: "미국" },
+    { id: "fjallraven-classic-sweden-turkiye", title: "피엘라벤 클래식", region: "스웨덴•튀르키예" },
+    { id: "annapurna-trek-nepal-india-sri-lanka-indonesia", title: "아시아" }
   ];
 
   /* 방송사·플랫폼 — 자주 쓰는 것만 목록에 두고, 나머지는 직접 입력 */

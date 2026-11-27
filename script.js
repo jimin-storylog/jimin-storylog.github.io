@@ -370,12 +370,12 @@
 
   /* 4열/3열/2열 메이슨리: 카드 높이를 열 폭에서 재고 가장 낮은 열부터 쌓는다.
      Selected Works 와 Personal 이 같은 방식을 함께 쓴다. */
-  function layoutMasonry(container, cards) {
+  function layoutMasonry(container, cards, forcedCols) {
     if (!container) return;
 
     container.innerHTML = "";
 
-    var cols = galleryColumns();
+    var cols = forcedCols || galleryColumns();
     var columns = [];
 
     for (var i = 0; i < cols; i += 1) {
@@ -725,36 +725,32 @@
   /* Personal 중분류 — 사진이 아직 없어도 칩은 항상 보인다.
      data/travel.json 을 못 불러오면 이 목록으로 자리를 지킨다. */
   var TRAVEL_JOURNEYS = [
-    { id: "tokyo-japan", title: "도쿄", region: "일본" },
-    { id: "new-york-usa", title: "뉴욕", region: "미국" },
-    { id: "buenos-aires-argentina", title: "부에노스아이레스", region: "아르헨티나" },
-    { id: "fjallraven-classic-sweden-turkiye", title: "피엘라벤 클래식", region: "스웨덴•튀르키예" },
+    { id: "buenos-aires-argentina", title: "부에노스아이레스", desc: "두 사람의 거리와 몸짓이 만들어 내는 흑백의 리듬." },
     {
       id: "camino-de-santiago-spain-portugal-netherlands-greece",
-      title: "유럽•산티아고 순례길 2010",
-      region: "스페인•포르투갈•네덜란드•그리스",
-      year: "2010"
+      title: "산티아고, 2010·2026",
+      desc: "16년의 간격을 두고 다시 걸은 순례길 위의 시선."
     },
-    {
-      id: "annapurna-trek-nepal-india-sri-lanka-indonesia",
-      title: "안나푸르나 트레킹",
-      region: "네팔•인도•스리랑카•인도네시아"
-    },
-    {
-      id: "travel-6cvp0qk8",
-      title: "산티아고 순례길 2026",
-      region: "스페인",
-      year: "2026"
-    }
+    { id: "tokyo-japan", title: "일본" },
+    { id: "new-york-usa", title: "뉴욕", region: "미국" },
+    { id: "fjallraven-classic-sweden-turkiye", title: "피엘라벤 클래식", region: "스웨덴•튀르키예" },
+    { id: "annapurna-trek-nepal-india-sri-lanka-indonesia", title: "아시아" }
   ];
 
   var travelGallery = document.getElementById("travelGallery");
   var travelFilterBar = document.getElementById("travelFilters");
   var travelStatusEl = document.getElementById("travelStatus");
+  var travelMore = document.getElementById("travelMore");
+  var travelMoreLabel = document.getElementById("travelMoreLabel");
+  var travelMoreN = document.getElementById("travelMoreN");
 
   var journeys = [];
   var activeJourney = "all";
   var travelCols = 0;
+
+  /* '전체' 화면에서 처음에 크게 보여 줄 연작 수 — 나머지는 버튼으로 펼친다 */
+  var TRAVEL_LEAD_COUNT = 2;
+  var travelExpanded = false;
 
   function setTravelStatus(message) {
     if (!travelStatusEl) return;
@@ -958,6 +954,44 @@
   }
 
   /* ---------- Personal: gallery ---------- */
+  /* 접힌 '전체' 화면: 첫 두 연작만 큰 2열(좁은 화면은 1열)로 깔고
+     나머지는 '개인 작업 전체 보기 (n)' 버튼으로 펼친다. */
+  function featuredCols() {
+    return galleryColumns() >= 3 ? 2 : 1;
+  }
+
+  function updateTravelMore() {
+    if (!travelMore) return;
+
+    var withPhotos = journeys.filter(function (journey) {
+      return journey.photos.length > 0;
+    }).length;
+    var rest = Math.max(0, withPhotos - TRAVEL_LEAD_COUNT);
+
+    if (activeJourney !== "all" || rest === 0) {
+      travelMore.hidden = true;
+      return;
+    }
+
+    travelMore.hidden = false;
+    travelMore.setAttribute("aria-expanded", travelExpanded ? "true" : "false");
+    travelMore.setAttribute(
+      "aria-label",
+      travelExpanded
+        ? "개인 작업 첫 줄만 보기"
+        : "개인 작업 전체 보기, 나머지 " + rest + "개 연작 펼치기"
+    );
+
+    if (travelMoreLabel) {
+      travelMoreLabel.textContent = travelExpanded ? "첫 줄만 보기" : "개인 작업 전체 보기";
+    }
+
+    if (travelMoreN) {
+      travelMoreN.textContent = travelExpanded ? "" : "(" + rest + ")";
+      travelMoreN.hidden = travelExpanded;
+    }
+  }
+
   function renderTravelGallery() {
     if (!travelGallery) return;
 
@@ -968,8 +1002,12 @@
 
     travelCols = galleryColumns();
 
+    var featured = activeJourney === "all" && !travelExpanded;
+    travelGallery.classList.toggle("is-featured", featured);
+
     if (!shown.length) {
       travelGallery.innerHTML = "";
+      updateTravelMore();
       setTravelStatus(
         activeJourney === "all"
           ? "아직 등록된 Personal 사진이 없습니다."
@@ -979,7 +1017,16 @@
     }
 
     setTravelStatus("");
+
+    if (featured) {
+      var lead = shown.slice(0, TRAVEL_LEAD_COUNT);
+      layoutMasonry(travelGallery, lead.map(createJourneyCard), featuredCols());
+      updateTravelMore();
+      return;
+    }
+
     layoutMasonry(travelGallery, shown.map(createJourneyCard));
+    updateTravelMore();
   }
 
   function applyTravel(list) {
@@ -1168,6 +1215,14 @@
         event.preventDefault();
         activateTab(next, true);
       }
+    });
+  }
+
+  /* ---------- Personal: 전체 보기 펼치기 ---------- */
+  if (travelMore) {
+    travelMore.addEventListener("click", function () {
+      travelExpanded = !travelExpanded;
+      renderTravelGallery();
     });
   }
 

@@ -1,6 +1,640 @@
 {
-  "updated": "2026-11-27T05:46:45.383Z",
+  "updated": "2026-11-27T06:24:32.000Z",
   "journeys": [
+    {
+      "id": "buenos-aires-argentina",
+      "label": "부에노스아이레스",
+      "title": "부에노스아이레스",
+      "region": "",
+      "year": "",
+      "desc": "두 사람의 거리와 몸짓이 만들어 내는 흑백의 리듬.",
+      "cover": "assets/uploads/travel-buenos-aires-argentina-1795591059727-135.jpg",
+      "photos": [
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-135.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1110
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-136.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 745
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-137.jpg",
+          "caption": "",
+          "w": 879,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-138.jpg",
+          "caption": "",
+          "w": 1060,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-139.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1012
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-140.jpg",
+          "caption": "",
+          "w": 1082,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-141.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1080
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-142.jpg",
+          "caption": "",
+          "w": 745,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-143.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1126
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-144.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1064
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-145.jpg",
+          "caption": "",
+          "w": 1060,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-146.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1060
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-147.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-148.jpg",
+          "caption": "",
+          "w": 1067,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-149.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1060
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-150.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1060
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-151.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1108
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-152.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1224
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-153.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1060
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-154.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1018
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-155.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1064
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-161.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1060
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-162.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1060
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-163.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1032
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-165.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-166.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-168.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1169
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-169.jpg",
+          "caption": "",
+          "w": 912,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-170.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1064
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-171.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 974
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-172.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 825
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-173.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 980
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-174.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1038
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-176.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1043
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-177.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1060
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-178.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1060
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-180.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1064
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-181.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1064
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-182.jpg",
+          "caption": "",
+          "w": 1010,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-184.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 996
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-190.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1064
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-191.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1011
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-192.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 935
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-193.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1060
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-194.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1037
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-195.jpg",
+          "caption": "",
+          "w": 1064,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-196.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1012
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-197.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 997
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-198.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 986
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-199.jpg",
+          "caption": "",
+          "w": 1023,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-200.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1064
+        },
+        {
+          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-202.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1064
+        }
+      ]
+    },
+    {
+      "id": "camino-de-santiago-spain-portugal-netherlands-greece",
+      "label": "산티아고, 2010·2026",
+      "title": "산티아고, 2010·2026",
+      "region": "",
+      "year": "",
+      "desc": "16년의 간격을 두고 다시 걸은 순례길 위의 시선.",
+      "cover": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-252.jpg",
+      "photos": [
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-252.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1069
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-253.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1069
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-254.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1069
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-255.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1069
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-256.jpg",
+          "caption": "",
+          "w": 1280,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-257.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1069
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-258.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1069
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-259.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1069
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-260.jpg",
+          "caption": "",
+          "w": 1069,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-261.jpg",
+          "caption": "",
+          "w": 1069,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-262.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1069
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-263.jpg",
+          "caption": "",
+          "w": 1069,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-264.jpg",
+          "caption": "",
+          "w": 1069,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-265.jpg",
+          "caption": "",
+          "w": 1068,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-266.jpg",
+          "caption": "",
+          "w": 1069,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-267.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1069
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-268.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1069
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-269.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1069
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-270.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1069
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-271.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1069
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-272.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1069
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-273.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1069
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-274.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1069
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-275.jpg",
+          "caption": "",
+          "w": 1069,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-276.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1069
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-277.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1068
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-278.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1069
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-279.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1069
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-280.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-281.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 901
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-282.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-283.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 901
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-284.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1034
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-285.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 901
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-286.jpg",
+          "caption": "",
+          "w": 901,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-287.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-288.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-289.jpg",
+          "caption": "",
+          "w": 1067,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-290.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 901
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-291.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-292.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-293.jpg",
+          "caption": "",
+          "w": 901,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-294.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 900
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-295.jpg",
+          "caption": "",
+          "w": 1068,
+          "h": 1600
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-296.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1066
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-297.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 901
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-298.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 901
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-299.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 900
+        },
+        {
+          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-300.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 901
+        },
+        {
+          "src": "assets/uploads/travel-travel-6cvp0qk8-1795591059727-409.jpg",
+          "caption": "",
+          "w": 868,
+          "h": 1600
+        }
+      ]
+    },
     {
       "id": "tokyo-japan",
       "label": "일본",
@@ -720,329 +1354,6 @@
       ]
     },
     {
-      "id": "buenos-aires-argentina",
-      "label": "부에노스아이레스",
-      "title": "부에노스아이레스",
-      "region": "",
-      "year": "",
-      "desc": "",
-      "cover": "assets/uploads/travel-buenos-aires-argentina-1795591059727-135.jpg",
-      "photos": [
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-135.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1110
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-136.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 745
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-137.jpg",
-          "caption": "",
-          "w": 879,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-138.jpg",
-          "caption": "",
-          "w": 1060,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-139.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1012
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-140.jpg",
-          "caption": "",
-          "w": 1082,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-141.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1080
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-142.jpg",
-          "caption": "",
-          "w": 745,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-143.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1126
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-144.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1064
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-145.jpg",
-          "caption": "",
-          "w": 1060,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-146.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1060
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-147.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1067
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-148.jpg",
-          "caption": "",
-          "w": 1067,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-149.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1060
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-150.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1060
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-151.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1108
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-152.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1224
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-153.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1060
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-154.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1018
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-155.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1064
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-161.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1060
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-162.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1060
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-163.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1032
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-165.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1067
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-166.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1067
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-168.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1169
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-169.jpg",
-          "caption": "",
-          "w": 912,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-170.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1064
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-171.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 974
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-172.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 825
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-173.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 980
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-174.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1038
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-176.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1043
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-177.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1060
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-178.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1060
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-180.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1064
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-181.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1064
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-182.jpg",
-          "caption": "",
-          "w": 1010,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-184.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 996
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-190.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1064
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-191.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1011
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-192.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 935
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-193.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1060
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-194.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1037
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-195.jpg",
-          "caption": "",
-          "w": 1064,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-196.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1012
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-197.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 997
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-198.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 986
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-199.jpg",
-          "caption": "",
-          "w": 1023,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-200.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1064
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-202.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1064
-        }
-      ]
-    },
-    {
       "id": "fjallraven-classic-sweden-turkiye",
       "label": "피엘라벤 클래식-스웨덴•튀르키예",
       "title": "피엘라벤 클래식",
@@ -1332,311 +1643,6 @@
           "caption": "",
           "w": 1067,
           "h": 1600
-        }
-      ]
-    },
-    {
-      "id": "camino-de-santiago-spain-portugal-netherlands-greece",
-      "label": "유럽•산티아고 순례길 2010",
-      "title": "유럽•산티아고 순례길 2010",
-      "region": "",
-      "year": "2010",
-      "desc": "",
-      "cover": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-252.jpg",
-      "photos": [
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-252.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1069
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-253.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1069
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-254.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1069
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-255.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1069
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-256.jpg",
-          "caption": "",
-          "w": 1280,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-257.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1069
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-258.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1069
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-259.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1069
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-260.jpg",
-          "caption": "",
-          "w": 1069,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-261.jpg",
-          "caption": "",
-          "w": 1069,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-262.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1069
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-263.jpg",
-          "caption": "",
-          "w": 1069,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-264.jpg",
-          "caption": "",
-          "w": 1069,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-265.jpg",
-          "caption": "",
-          "w": 1068,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-266.jpg",
-          "caption": "",
-          "w": 1069,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-267.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1069
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-268.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1069
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-269.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1069
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-270.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1069
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-271.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1069
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-272.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1069
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-273.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1069
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-274.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1069
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-275.jpg",
-          "caption": "",
-          "w": 1069,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-276.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1069
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-277.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1068
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-278.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1069
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-279.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1069
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-280.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1067
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-281.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 901
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-282.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1067
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-283.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 901
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-284.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1034
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-285.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 901
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-286.jpg",
-          "caption": "",
-          "w": 901,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-287.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1067
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-288.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1067
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-289.jpg",
-          "caption": "",
-          "w": 1067,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-290.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 901
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-291.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1067
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-292.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1067
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-293.jpg",
-          "caption": "",
-          "w": 901,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-294.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 900
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-295.jpg",
-          "caption": "",
-          "w": 1068,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-296.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1066
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-297.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 901
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-298.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 901
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-299.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 900
-        },
-        {
-          "src": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-300.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 901
         }
       ]
     },
@@ -2295,23 +2301,6 @@
           "src": "assets/uploads/travel-annapurna-trek-nepal-india-sri-lanka-ind-1795591059727-408.jpg",
           "caption": "",
           "w": 1067,
-          "h": 1600
-        }
-      ]
-    },
-    {
-      "id": "travel-6cvp0qk8",
-      "label": "산티아고 순례길 2026",
-      "title": "산티아고 순례길 2026",
-      "region": "",
-      "year": "2026",
-      "desc": "",
-      "cover": "assets/uploads/travel-travel-6cvp0qk8-1795591059727-409.jpg",
-      "photos": [
-        {
-          "src": "assets/uploads/travel-travel-6cvp0qk8-1795591059727-409.jpg",
-          "caption": "",
-          "w": 868,
           "h": 1600
         }
       ]

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-25T06:10:09.746Z",
+  "updated": "2026-11-27T06:24:32.000Z",
   "works": [
     {
       "id": "work-vhwk5z2l",
@@ -1172,8 +1172,14 @@
       "title": "어제의 시는 내일의 노래가 될 수 있을까",
       "contribution": "포스터 및 공연 촬영",
       "category": "performance",
-      "cover": "assets/uploads/film-stage-04-1795576533683-81.jpg",
+      "cover": "assets/uploads/film-stage-04-1795576533683-90.jpg",
       "photos": [
+        {
+          "src": "assets/uploads/film-stage-04-1795576533683-90.jpg",
+          "caption": "",
+          "w": 1067,
+          "h": 1600
+        },
         {
           "src": "assets/uploads/film-stage-04-1795576533683-81.jpg",
           "caption": "",
@@ -1224,12 +1230,6 @@
         },
         {
           "src": "assets/uploads/film-stage-04-1795576533683-89.jpg",
-          "caption": "",
-          "w": 1067,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/film-stage-04-1795576533683-90.jpg",
           "caption": "",
           "w": 1067,
           "h": 1600

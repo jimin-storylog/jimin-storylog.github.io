@@ -299,8 +299,8 @@ button {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 62%;
-  filter: grayscale(100%);
+  /* 큰 나무 아래 두 인물이 화면 가운데 아래쪽에 오도록 세로 위치를 잡는다 */
+  object-position: 50% 68%;
 }
 
 /* ---------- Section frame ---------- */
@@ -531,6 +531,62 @@ button {
 /* ---------- Personal ---------- */
 .personal {
   --gal-gap: clamp(14px, 1.2vw, 18px);
+}
+
+/* Personal 입구 사진 — 예전 히어로(창가의 카페 흑백)를 섹션 설명 아래에 둔다 */
+.personal-intro-figure {
+  margin: 0 0 clamp(26px, 3.6vw, 48px);
+  overflow: hidden;
+  background: var(--paper-soft);
+}
+
+.personal-intro-figure img {
+  width: 100%;
+  height: clamp(190px, 30vw, 460px);
+  object-fit: cover;
+  object-position: 50% 45%;
+}
+
+/* 접힌 '전체' 화면의 두 연작은 크게 보여 준다 */
+.gallery.is-featured {
+  --gal-gap: clamp(18px, 1.8vw, 28px);
+}
+
+.gallery.is-featured .work__title {
+  margin-top: 5px;
+  font-size: clamp(15px, 1.35vw, 20px);
+}
+
+.gallery.is-featured .work__foot {
+  margin-top: 5px;
+  font-size: 12.5px;
+}
+
+/* '개인 작업 전체 보기 (4)' 버튼 */
+.gallery-more {
+  display: flex;
+  width: fit-content;
+  margin: clamp(26px, 3.2vw, 44px) auto 0;
+  align-items: baseline;
+  gap: 8px;
+  padding: 13px 24px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  transition: border-color 0.35s var(--ease), background 0.35s var(--ease);
+}
+
+.gallery-more:hover,
+.gallery-more:focus-visible {
+  border-color: var(--ink);
+  background: rgba(20, 19, 16, 0.04);
+}
+
+.gallery-more__n {
+  color: var(--muted);
 }
 
 /* 긴 여정 이름(예: 산티아고 순례길-스페인•포르투갈•네덜란드•그리스)이
@@ -1182,6 +1238,23 @@ body.is-locked {
 
   .work__title {
     font-size: 13.5px;
+  }
+
+  .personal-intro-figure img {
+    height: 200px;
+  }
+
+  /* 모바일에서는 두 연작을 한 줄에 하나씩 크게 */
+  .gallery.is-featured .work__title {
+    font-size: 16px;
+  }
+
+  .gallery.is-featured .work__foot {
+    font-size: 12px;
+  }
+
+  .gallery-more {
+    padding: 12px 20px;
   }
 
   .tabs {
