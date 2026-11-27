@@ -1,11 +1,11 @@
 {
-  "updated": "2026-11-25T07:38:12.030Z",
+  "updated": "2026-11-27T05:46:45.383Z",
   "journeys": [
     {
       "id": "tokyo-japan",
-      "label": "도쿄-일본",
-      "title": "도쿄",
-      "region": "일본",
+      "label": "일본",
+      "title": "일본",
+      "region": "",
       "year": "",
       "desc": "",
       "cover": "assets/uploads/travel-tokyo-japan-1795591059727-1.jpg",
@@ -23,27 +23,9 @@
           "h": 1600
         },
         {
-          "src": "assets/uploads/travel-tokyo-japan-1795591059727-3.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 871
-        },
-        {
           "src": "assets/uploads/travel-tokyo-japan-1795591059727-4.jpg",
           "caption": "",
           "w": 1019,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-tokyo-japan-1795591059727-5.jpg",
-          "caption": "",
-          "w": 730,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-tokyo-japan-1795591059727-6.jpg",
-          "caption": "",
-          "w": 1046,
           "h": 1600
         },
         {
@@ -53,34 +35,10 @@
           "h": 1600
         },
         {
-          "src": "assets/uploads/travel-tokyo-japan-1795591059727-8.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1060
-        },
-        {
-          "src": "assets/uploads/travel-tokyo-japan-1795591059727-9.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1067
-        },
-        {
-          "src": "assets/uploads/travel-tokyo-japan-1795591059727-10.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 901
-        },
-        {
           "src": "assets/uploads/travel-tokyo-japan-1795591059727-11.jpg",
           "caption": "",
           "w": 1600,
           "h": 1046
-        },
-        {
-          "src": "assets/uploads/travel-tokyo-japan-1795591059727-12.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 783
         },
         {
           "src": "assets/uploads/travel-tokyo-japan-1795591059727-13.jpg",
@@ -209,12 +167,6 @@
           "h": 1600
         },
         {
-          "src": "assets/uploads/travel-tokyo-japan-1795591059727-34.jpg",
-          "caption": "",
-          "w": 1126,
-          "h": 1600
-        },
-        {
           "src": "assets/uploads/travel-tokyo-japan-1795591059727-35.jpg",
           "caption": "",
           "w": 1600,
@@ -225,12 +177,6 @@
           "caption": "",
           "w": 1600,
           "h": 1200
-        },
-        {
-          "src": "assets/uploads/travel-tokyo-japan-1795591059727-37.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 982
         },
         {
           "src": "assets/uploads/travel-tokyo-japan-1795591059727-38.jpg",
@@ -257,34 +203,10 @@
           "h": 1060
         },
         {
-          "src": "assets/uploads/travel-tokyo-japan-1795591059727-42.jpg",
-          "caption": "",
-          "w": 884,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-tokyo-japan-1795591059727-43.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1029
-        },
-        {
-          "src": "assets/uploads/travel-tokyo-japan-1795591059727-44.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1060
-        },
-        {
           "src": "assets/uploads/travel-tokyo-japan-1795591059727-45.jpg",
           "caption": "",
           "w": 1600,
           "h": 902
-        },
-        {
-          "src": "assets/uploads/travel-tokyo-japan-1795591059727-46.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1005
         },
         {
           "src": "assets/uploads/travel-tokyo-japan-1795591059727-47.jpg",
@@ -297,12 +219,6 @@
           "caption": "",
           "w": 1600,
           "h": 1200
-        },
-        {
-          "src": "assets/uploads/travel-tokyo-japan-1795591059727-49.jpg",
-          "caption": "",
-          "w": 1159,
-          "h": 1600
         },
         {
           "src": "assets/uploads/travel-tokyo-japan-1795591059727-50.jpg",
@@ -321,12 +237,6 @@
           "caption": "",
           "w": 1600,
           "h": 947
-        },
-        {
-          "src": "assets/uploads/travel-tokyo-japan-1795591059727-53.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1060
         },
         {
           "src": "assets/uploads/travel-tokyo-japan-1795591059727-54.jpg",
@@ -371,28 +281,10 @@
           "h": 1135
         },
         {
-          "src": "assets/uploads/travel-tokyo-japan-1795591059727-61.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1060
-        },
-        {
           "src": "assets/uploads/travel-tokyo-japan-1795591059727-62.jpg",
           "caption": "",
           "w": 1600,
           "h": 1060
-        },
-        {
-          "src": "assets/uploads/travel-tokyo-japan-1795591059727-63.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1060
-        },
-        {
-          "src": "assets/uploads/travel-tokyo-japan-1795591059727-64.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 808
         }
       ]
     },
@@ -829,9 +721,9 @@
     },
     {
       "id": "buenos-aires-argentina",
-      "label": "부에노스아이레스-아르헨티나",
+      "label": "부에노스아이레스",
       "title": "부에노스아이레스",
-      "region": "아르헨티나",
+      "region": "",
       "year": "",
       "desc": "",
       "cover": "assets/uploads/travel-buenos-aires-argentina-1795591059727-135.jpg",
@@ -963,36 +855,6 @@
           "h": 1064
         },
         {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-156.jpg",
-          "caption": "",
-          "w": 1064,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-157.jpg",
-          "caption": "",
-          "w": 1060,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-158.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 996
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-159.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1067
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-160.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1107
-        },
-        {
           "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-161.jpg",
           "caption": "",
           "w": 1600,
@@ -1011,12 +873,6 @@
           "h": 1032
         },
         {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-164.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 988
-        },
-        {
           "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-165.jpg",
           "caption": "",
           "w": 1600,
@@ -1024,12 +880,6 @@
         },
         {
           "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-166.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1067
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-167.jpg",
           "caption": "",
           "w": 1600,
           "h": 1067
@@ -1077,12 +927,6 @@
           "h": 1038
         },
         {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-175.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1060
-        },
-        {
           "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-176.jpg",
           "caption": "",
           "w": 1600,
@@ -1099,12 +943,6 @@
           "caption": "",
           "w": 1600,
           "h": 1060
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-179.jpg",
-          "caption": "",
-          "w": 1064,
-          "h": 1600
         },
         {
           "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-180.jpg",
@@ -1125,46 +963,10 @@
           "h": 1600
         },
         {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-183.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 944
-        },
-        {
           "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-184.jpg",
           "caption": "",
           "w": 1600,
           "h": 996
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-185.jpg",
-          "caption": "",
-          "w": 1098,
-          "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-186.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1060
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-187.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1060
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-188.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1035
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-189.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1060
         },
         {
           "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-190.jpg",
@@ -1233,25 +1035,7 @@
           "h": 1064
         },
         {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-201.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1067
-        },
-        {
           "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-202.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1064
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-203.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1067
-        },
-        {
-          "src": "assets/uploads/travel-buenos-aires-argentina-1795591059727-204.jpg",
           "caption": "",
           "w": 1600,
           "h": 1064
@@ -1265,8 +1049,14 @@
       "region": "스웨덴•튀르키예",
       "year": "",
       "desc": "",
-      "cover": "assets/uploads/travel-fjallraven-classic-sweden-turkiye-1795591059727-205.jpg",
+      "cover": "assets/uploads/travel-fjallraven-classic-sweden-turkiye-1795591059727-224.jpg",
       "photos": [
+        {
+          "src": "assets/uploads/travel-fjallraven-classic-sweden-turkiye-1795591059727-224.jpg",
+          "caption": "",
+          "w": 1600,
+          "h": 1067
+        },
         {
           "src": "assets/uploads/travel-fjallraven-classic-sweden-turkiye-1795591059727-205.jpg",
           "caption": "",
@@ -1380,12 +1170,6 @@
           "caption": "",
           "w": 1067,
           "h": 1600
-        },
-        {
-          "src": "assets/uploads/travel-fjallraven-classic-sweden-turkiye-1795591059727-224.jpg",
-          "caption": "",
-          "w": 1600,
-          "h": 1067
         },
         {
           "src": "assets/uploads/travel-fjallraven-classic-sweden-turkiye-1795591059727-225.jpg",
@@ -1553,9 +1337,9 @@
     },
     {
       "id": "camino-de-santiago-spain-portugal-netherlands-greece",
-      "label": "유럽•산티아고 순례길 2010-스페인•포르투갈•네덜란드•그리스",
+      "label": "유럽•산티아고 순례길 2010",
       "title": "유럽•산티아고 순례길 2010",
-      "region": "스페인•포르투갈•네덜란드•그리스",
+      "region": "",
       "year": "2010",
       "desc": "",
       "cover": "assets/uploads/travel-camino-de-santiago-spain-portugal-nether-1795591059727-252.jpg",
@@ -1858,9 +1642,9 @@
     },
     {
       "id": "annapurna-trek-nepal-india-sri-lanka-indonesia",
-      "label": "안나푸르나 트레킹-네팔•인도•스리랑카•인도네시아",
-      "title": "안나푸르나 트레킹",
-      "region": "네팔•인도•스리랑카•인도네시아",
+      "label": "아시아",
+      "title": "아시아",
+      "region": "",
       "year": "",
       "desc": "",
       "cover": "assets/uploads/travel-annapurna-trek-nepal-india-sri-lanka-ind-1795591059727-301.jpg",
@@ -2517,9 +2301,9 @@
     },
     {
       "id": "travel-6cvp0qk8",
-      "label": "산티아고 순례길 2026-스페인",
+      "label": "산티아고 순례길 2026",
       "title": "산티아고 순례길 2026",
-      "region": "스페인",
+      "region": "",
       "year": "2026",
       "desc": "",
       "cover": "assets/uploads/travel-travel-6cvp0qk8-1795591059727-409.jpg",
