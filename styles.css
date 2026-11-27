@@ -574,8 +574,9 @@ button {
   border-radius: 999px;
   color: var(--ink);
   font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.14em;
+  font-size: 11px;
+  /* 한글 낱자가 흔어지지 않을 만큼만 벌린다 */
+  letter-spacing: 0.02em;
   transition: border-color 0.35s var(--ease), background 0.35s var(--ease);
 }
 
